@@ -146,70 +146,10 @@ export default function GalaDinner() {
         </div>
       </section>
 
-      {/* About Event Section */}
-      <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 bg-background">
-        <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-10 sm:mb-16">
-            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl text-foreground mb-4">
-              An Evening of Excellence
-            </h2>
-            <div className="flex items-center justify-center gap-2 mb-6">
-              <div className="h-px w-8 bg-primary"></div>
-              <div className="w-2 h-2 rounded-full bg-primary"></div>
-              <div className="h-px w-8 bg-primary"></div>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 mb-12 sm:mb-16">
-            <div 
-              id="story-1"
-              data-scroll-animate
-              className="flex flex-col gap-4 transition-all duration-1000"
-              style={{
-                opacity: visibleElements.has('story-1') ? 1 : 0,
-                transform: visibleElements.has('story-1') ? 'translateX(0) translateY(0)' : 'translateX(-40px) translateY(20px)',
-              }}
-            >
-              <div className="w-full h-64 sm:h-80 bg-gradient-to-br from-primary/30 to-primary/10 rounded-lg flex items-center justify-center border border-primary/20">
-                <span className="text-primary/50 text-center px-4">
-                  <p className="text-2xl font-serif mb-2">✦</p>
-                  <p className="text-sm">Premier Business Celebration</p>
-                </span>
-              </div>
-              <h3 className="font-serif text-xl sm:text-2xl text-foreground">Celebrating Success</h3>
-              <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-                Join the leaders and innovators of the gold industry for an exclusive evening of fine dining and distinguished company. A celebration of excellence in business and partnership.
-              </p>
-            </div>
-
-            <div 
-              id="story-2"
-              data-scroll-animate
-              className="flex flex-col gap-4 transition-all duration-1000"
-              style={{
-                opacity: visibleElements.has('story-2') ? 1 : 0,
-                transform: visibleElements.has('story-2') ? 'translateX(0) translateY(0)' : 'translateX(40px) translateY(20px)',
-              }}
-            >
-              <div className="w-full h-64 sm:h-80 bg-gradient-to-br from-primary/30 to-primary/10 rounded-lg flex items-center justify-center border border-primary/20">
-                <span className="text-primary/50 text-center px-4">
-                  <p className="text-2xl font-serif mb-2">✦</p>
-                  <p className="text-sm">Networking & Dining</p>
-                </span>
-              </div>
-              <h3 className="font-serif text-xl sm:text-2xl text-foreground">The Evening</h3>
-              <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-                Enjoy a curated culinary experience alongside industry peers. Network, celebrate, and discover new business opportunities in an atmosphere of refined elegance.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Timeline Section */}
-      <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 bg-secondary">
-        <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-10 sm:mb-16">
+      <section className="py-20 sm:py-32 lg:py-40 px-4 sm:px-6 bg-secondary">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-16 sm:mb-24">
             <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl text-foreground mb-4">
               Evening Schedule
             </h2>
@@ -220,31 +160,43 @@ export default function GalaDinner() {
             </div>
           </div>
 
-          <div className="space-y-6 sm:space-y-8">
+          <div className="flex flex-col items-center gap-12 sm:gap-16 lg:gap-20">
             {[
-              { time: '6:30 PM', event: 'Arrival & Cocktails', description: 'Grand Entrance Hall' },
-              { time: '7:15 PM', event: 'Formal Dinner Service', description: 'Main Ballroom' },
-              { time: '8:30 PM', event: 'Toasts & Remarks', description: 'Business Excellence Celebration' },
-              { time: '9:00 PM', event: 'Evening Entertainment', description: 'Live Music & Networking' },
+              { time: '6:30 PM', event: 'Arrival & Cocktails', description: 'Grand Entrance Hall', icon: '🥂' },
+              { time: '7:15 PM', event: 'Formal Dinner Service', description: 'Main Ballroom', icon: '🍽️' },
+              { time: '8:30 PM', event: 'Toasts & Remarks', description: 'Business Excellence Celebration', icon: '🎤' },
+              { time: '9:00 PM', event: 'Evening Entertainment', description: 'Live Music & Networking', icon: '🎵' },
             ].map((item, index) => (
               <div 
                 key={index}
                 id={`timeline-${index}`}
                 data-scroll-animate
-                className="flex gap-6 sm:gap-8 transition-all duration-1000"
+                className="flex items-center justify-center w-full gap-4 sm:gap-8 transition-all duration-1000"
                 style={{
                   opacity: visibleElements.has(`timeline-${index}`) ? 1 : 0,
-                  transform: visibleElements.has(`timeline-${index}`) ? 'translateX(0) translateY(0)' : 'translateX(-40px) translateY(20px)',
+                  transform: visibleElements.has(`timeline-${index}`) ? 'scale(1)' : 'scale(0.9)',
                 }}
               >
-                <div className="flex flex-col items-center">
-                  <div className="w-4 h-4 rounded-full bg-primary mb-4 flex-shrink-0"></div>
-                  {index < 3 && <div className="w-0.5 h-16 sm:h-20 bg-border"></div>}
+                <div className="hidden sm:flex items-center justify-center w-16 h-16 rounded-full border-2 border-primary/30 flex-shrink-0">
+                  <span className="text-2xl">{item.icon}</span>
                 </div>
-                <div className="pb-4 sm:pb-6">
+
+                <div className="flex-1 bg-secondary/50 border border-primary/20 rounded-lg p-6 sm:p-8 text-center">
                   <p className="font-serif text-lg sm:text-xl text-primary font-semibold">{item.time}</p>
-                  <h3 className="text-base sm:text-lg font-semibold text-foreground mt-2">{item.event}</h3>
-                  <p className="text-sm text-muted-foreground mt-1">{item.description}</p>
+                  <h3 className="text-base sm:text-lg font-semibold text-foreground mt-3 mb-2">{item.event}</h3>
+                  <p className="text-sm text-muted-foreground">{item.description}</p>
+                </div>
+
+                <div className="hidden sm:flex items-center justify-center w-16 h-16 rounded-full border-2 border-primary/30 flex-shrink-0">
+                  <span className="text-2xl">{item.icon}</span>
+                </div>
+
+                {/* Mobile icon */}
+                <div className="sm:hidden absolute -left-8">
+                  <span className="text-3xl">{item.icon}</span>
+                </div>
+                <div className="sm:hidden absolute -right-8">
+                  <span className="text-3xl">{item.icon}</span>
                 </div>
               </div>
             ))}
@@ -345,7 +297,7 @@ export default function GalaDinner() {
       </section>
 
       {/* RSVP Section */}
-      <section className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 bg-gradient-to-b from-background via-secondary to-background">
+      <section className="py-20 sm:py-32 lg:py-40 px-4 sm:px-6 bg-gradient-to-b from-background via-secondary to-background">
         <div className="max-w-2xl mx-auto text-center">
           <div
             id="rsvp-section"
@@ -356,21 +308,21 @@ export default function GalaDinner() {
               transform: visibleElements.has('rsvp-section') ? 'translateY(0)' : 'translateY(40px)',
             }}
           >
-            <h2 className="font-serif text-4xl sm:text-5xl lg:text-6xl text-foreground mb-6">
+            <h2 className="font-serif text-4xl sm:text-5xl lg:text-6xl text-foreground mb-8">
               Join Us
             </h2>
-            <p className="text-sm sm:text-base text-muted-foreground mb-12 max-w-xl mx-auto leading-relaxed">
-              We cordially invite you to an unforgettable evening. Please confirm your attendance by June 20th to ensure your place at this distinguished gathering.
+            <p className="text-sm sm:text-base text-muted-foreground mb-16 max-w-xl mx-auto leading-relaxed">
+              We cordially invite you to an unforgettable evening. Please confirm your attendance by April 1st to ensure your place at this distinguished gathering.
             </p>
 
             <Button
               onClick={handleRsvp}
-              className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 sm:px-12 py-3 sm:py-4 rounded-full text-base sm:text-lg font-semibold tracking-wide transition-all duration-300 hover:scale-105"
+              className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-primary-foreground px-8 sm:px-16 py-6 sm:py-5 rounded-full text-lg sm:text-xl font-semibold tracking-wide transition-all duration-300 hover:scale-105"
             >
               RSVP NOW
             </Button>
 
-            <p className="text-xs sm:text-sm text-muted-foreground mt-8">
+            <p className="text-xs sm:text-sm text-muted-foreground mt-12">
               Or visit: <span className="text-primary font-semibold">forms.gle/placeholder</span>
             </p>
           </div>
