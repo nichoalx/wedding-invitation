@@ -112,7 +112,7 @@ export default function GalaDinner() {
       {/* ─── HERO SECTION ─── */}
       <section
         ref={heroRef}
-        className="relative h-screen flex items-center justify-center bg-gradient-to-b from-secondary via-background to-background overflow-hidden"
+        className="relative min-h-screen flex items-center justify-center bg-gradient-to-b from-secondary via-background to-background overflow-hidden"
         style={{ backgroundPosition: `0px ${scrollY * 0.5}px` }}
       >
         <video
@@ -135,7 +135,7 @@ export default function GalaDinner() {
           style={{ background: 'radial-gradient(ellipse 70% 60% at 50% 50%, rgba(0,0,0,0.45) 0%, transparent 100%)' }}
         />
 
-        <div className="relative z-20 text-center px-4 sm:px-6 max-w-4xl mx-auto">
+        <div className="relative z-20 text-center py-12 px-4 sm:px-6 max-w-4xl mx-auto">
 
           {/* Intro text */}
           <div className="mb-4 opacity-0 animate-fade-in" style={{ animationDelay: '0s' }}>
@@ -317,7 +317,7 @@ export default function GalaDinner() {
 
       {/* ─── PERSEMBAHAN ISTIMEWA ─── */}
       <section className="py-12 sm:py-16 px-4 sm:px-6 relative z-10">
-        <div className="max-w-xl mx-auto bg-secondary/90 backdrop-blur-md rounded-xl shadow-2xl p-8 sm:p-12 gold-glow-card relative overflow-hidden">
+        <div className="max-w-lg mx-auto bg-secondary/90 backdrop-blur-md rounded-xl shadow-2xl p-8 sm:p-12 gold-glow-card relative overflow-hidden">
           <div className="text-center mb-6">
             <h2 className="font-serif text-4xl sm:text-5xl text-foreground mb-3">
               Persembahan Istimewa
@@ -329,7 +329,7 @@ export default function GalaDinner() {
               <img
                 src="/bg-gold-logo-refined.png"
                 alt="BG Gold Logo"
-                className="h-12 sm:h-14 object-contain"
+                className="h-22 sm:h-22 object-contain"
               />
             </div>
             <div className="flex items-center justify-center gap-4">
@@ -362,7 +362,7 @@ export default function GalaDinner() {
                 </div>
                 <div className="pb-2 text-center">
                   <p className="font-serif text-lg sm:text-2xl gold-shine-text font-semibold">{item.title}</p>
-                  <p className="text-sm sm:text-base text-muted-foreground mt-1">{item.description}</p>
+                  <p className="text-sm sm:text-base text-muted-foreground mt-1 max-w-[250px] mx-auto text-center">{item.description}</p>
                 </div>
               </div>
             ))}
