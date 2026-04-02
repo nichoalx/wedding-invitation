@@ -10,24 +10,24 @@
   --card-foreground: oklch(0.95 0 0);
   --popover: oklch(0.08 0 0);
   --popover-foreground: oklch(0.95 0 0);
-  --primary: #926c15;
+  --primary:  #d4a017;
   --primary-foreground: oklch(0.08 0 0);
   --secondary: oklch(0.15 0 0);
   --secondary-foreground: oklch(0.95 0 0);
   --muted: oklch(0.25 0 0);
   --muted-foreground: oklch(0.72 0 0);
-  --accent: #a07c28;
+  --accent: #f5c842; 
   --accent-foreground: oklch(0.08 0 0);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.95 0 0);
   --border: oklch(0.2 0 0);
   --input: oklch(0.12 0 0);
-  --ring: #926c15;
-  --chart-1: #926c15;
-  --chart-2: #a07c28;
-  --chart-3: #8b6411;
-  --chart-4: #926c15;
-  --chart-5: #9a7520;
+  --ring: #d4a017;
+  --chart-1: #d4a017;
+  --chart-2: #f5c842;
+  --chart-3: #b8860b;
+  --chart-4: #d4a017;
+  --chart-5: #e8b820;
   --radius: 0.625rem;
   --sidebar: oklch(0.08 0 0);
   --sidebar-foreground: oklch(0.95 0 0);
@@ -129,6 +129,10 @@
     background-position: center;
   }
 
+  .text-primary {
+    text-shadow: 0 0 12px rgba(212, 160, 23, 0.6), 0 0 24px rgba(212, 160, 23, 0.3);
+  }
+
   h1, h2, h3 {
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
   }
@@ -136,4 +140,61 @@
   p {
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
   }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.sparkle-text {
+  background: linear-gradient(
+    90deg,
+    #b8860b 0%,
+    #f5c842 20%,
+    #ffffff 40%,      /* pure white flash for extra sparkle */
+    #f5c842 60%,
+    #ffffff 80%,
+    #b8860b 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 100s linear infinite;  /* faster = more sparkly */
+}
+
+@keyframes drawLine {
+  from { width: 0; }
+  to { width: 2rem; }
+}
+
+.draw-line {
+  animation: drawLine 1s ease-out forwards;
+  width: 0;
+}
+
+.hero-text {
+  text-shadow: 0 2px 4px rgba(0,0,0,0.9), 0 4px 16px rgba(0,0,0,0.7);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes goldShine {
+  0%   { box-shadow: 0 0 10px rgba(212,160,23,0.2), 0 0 20px rgba(212,160,23,0.1), inset 0 0 10px rgba(212,160,23,0.05); }
+  50%  { box-shadow: 0 0 20px rgba(212,160,23,0.5), 0 0 40px rgba(212,160,23,0.3), inset 0 0 20px rgba(212,160,23,0.1); }
+  100% { box-shadow: 0 0 10px rgba(212,160,23,0.2), 0 0 20px rgba(212,160,23,0.1), inset 0 0 10px rgba(212,160,23,0.05); }
+}
+
+.gold-glow-card {
+  border: 0.5px solid rgba(212,160,23,0.25);
 }
