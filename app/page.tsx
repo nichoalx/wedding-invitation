@@ -322,7 +322,7 @@ export default function GalaDinner() {
             <h2 className="font-serif text-4xl sm:text-5xl text-foreground mb-3">
               Persembahan Istimewa
             </h2>
-            <div className="flex flex-col items-center mb-4">
+            <div className="flex flex-col items-center mb-8">
               <p className="text-xs tracking-widest text-primary uppercase ">
                 by
               </p>
@@ -331,11 +331,6 @@ export default function GalaDinner() {
                 alt="BG Gold Logo"
                 className="h-22 sm:h-22 object-contain"
               />
-            </div>
-            <div className="flex items-center justify-center gap-4">
-              <div className="h-px w-8 bg-primary"></div>
-              <div className="w-2 h-2 rounded-full bg-primary"></div>
-              <div className="h-px w-8 bg-primary"></div>
             </div>
           </div>
 
@@ -361,15 +356,15 @@ export default function GalaDinner() {
                   {index < 3 && <div className="w-0.5 h-8 bg-primary/30"></div>}
                 </div>
                 <div className="pb-2 text-center">
-                  <p className="font-serif text-lg sm:text-2xl gold-shine-text font-semibold">{item.title}</p>
+                  <p className="font-serif text-lg sm:text-2xl gold-shine-text max-w-[300px] font-semibold">{item.title}</p>
                   <p className="text-sm sm:text-base text-muted-foreground mt-1 max-w-[250px] mx-auto text-center">{item.description}</p>
                 </div>
               </div>
             ))}
 
             {/* Decorative side lines */}
-            <div className="absolute right-0 top-1/4 w-px h-32 bg-gradient-to-b from-primary/0 via-primary/30 to-primary/0"></div>
-            <div className="absolute left-0 top-1/4 w-px h-32 bg-gradient-to-b from-primary/0 via-primary/30 to-primary/0"></div>
+            <div className="absolute right-0 top-1/4 w-px h-64 bg-gradient-to-b from-primary/0 via-primary/30 to-primary/0"></div>
+            <div className="absolute left-0 top-1/4 w-px h-64 bg-gradient-to-b from-primary/0 via-primary/30 to-primary/0"></div>
           </div>
         </div>
       </section>
