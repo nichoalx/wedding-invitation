@@ -67,19 +67,23 @@ export default function GalaDinner() {
         />
 
         <div className="relative z-10 text-center px-4 sm:px-6 max-w-4xl mx-auto">
-          <div className="mb-6 opacity-0 animate-fade-in">
-            <p className="text-sm sm:text-base tracking-widest text-primary mb-2">
+          <div className="mb-8 opacity-0 animate-fade-in flex flex-col items-center">
+            <p className="text-sm sm:text-base tracking-widest text-primary mb-4">
               PRESENTED BY
             </p>
-            <p className="text-xl sm:text-2xl font-bold text-primary">
-              BG GOLD
-            </p>
+            <img 
+              src="/bg-gold-logo.png" 
+              alt="BG Gold Logo" 
+              className="h-24 sm:h-32 mb-4"
+            />
           </div>
 
           <h1
-            className="font-serif text-5xl sm:text-7xl lg:text-8xl font-light text-foreground mb-4 animate-fade-in-delayed leading-tight italic"
+            className="text-7xl sm:text-8xl lg:text-9xl font-light text-foreground mb-2 animate-fade-in-delayed leading-tight"
             style={{
               animationDelay: '0.2s',
+              fontFamily: 'var(--font-display)',
+              fontWeight: '400',
             }}
           >
             Gala Dinner
@@ -101,8 +105,8 @@ export default function GalaDinner() {
           >
             <div className="text-center">
               <p className="text-sm sm:text-base tracking-widest text-muted-foreground uppercase">Saturday</p>
-              <p className="text-4xl sm:text-5xl font-bold text-primary">28</p>
-              <p className="text-xs sm:text-sm text-muted-foreground uppercase">June</p>
+              <p className="text-4xl sm:text-5xl font-bold text-primary">11</p>
+              <p className="text-xs sm:text-sm text-muted-foreground uppercase">April</p>
             </div>
             <div className="hidden sm:block w-px h-16 bg-primary/30"></div>
             <div className="text-center">
@@ -376,9 +380,8 @@ export default function GalaDinner() {
       {/* Footer */}
       <footer className="py-8 sm:py-12 px-4 sm:px-6 bg-secondary border-t border-primary/30">
         <div className="max-w-3xl mx-auto text-center">
-          <p className="font-serif text-lg sm:text-xl text-foreground mb-2">BG Gold</p>
           <p className="text-xs sm:text-sm text-muted-foreground opacity-75">
-            June 28, 2025 — An Evening of Excellence
+            © PT Bagong Sejahtera Abadi. All Rights Reserved.
           </p>
         </div>
       </footer>
