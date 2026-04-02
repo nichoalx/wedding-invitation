@@ -72,9 +72,9 @@ export default function GalaDinner() {
               PRESENTED BY
             </p>
             <img 
-              src="/bg-gold-logo.png" 
+              src="/bg-gold-logo-refined.png" 
               alt="BG Gold Logo" 
-              className="h-24 sm:h-32 mb-4"
+              className="h-20 sm:h-28 mb-4"
             />
           </div>
 
@@ -147,8 +147,8 @@ export default function GalaDinner() {
       </section>
 
       {/* Timeline Section */}
-      <section className="py-20 sm:py-32 lg:py-40 px-4 sm:px-6 bg-secondary">
-        <div className="max-w-4xl mx-auto">
+      <section className="py-20 sm:py-32 lg:py-40 px-4 sm:px-6 bg-secondary relative">
+        <div className="max-w-2xl mx-auto">
           <div className="text-center mb-16 sm:mb-24">
             <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl text-foreground mb-4">
               Evening Schedule
@@ -160,48 +160,48 @@ export default function GalaDinner() {
             </div>
           </div>
 
-          <div className="flex flex-col items-center gap-12 sm:gap-16 lg:gap-20">
+          <div className="space-y-8 sm:space-y-12 lg:space-y-16">
             {[
-              { time: '6:30 PM', event: 'Arrival & Cocktails', description: 'Grand Entrance Hall', icon: '🥂' },
-              { time: '7:15 PM', event: 'Formal Dinner Service', description: 'Main Ballroom', icon: '🍽️' },
-              { time: '8:30 PM', event: 'Toasts & Remarks', description: 'Business Excellence Celebration', icon: '🎤' },
-              { time: '9:00 PM', event: 'Evening Entertainment', description: 'Live Music & Networking', icon: '🎵' },
+              { time: '6:30 PM', event: 'Arrival & Cocktails', description: 'Grand Entrance Hall' },
+              { time: '7:15 PM', event: 'Formal Dinner Service', description: 'Main Ballroom' },
+              { time: '8:30 PM', event: 'Toasts & Remarks', description: 'Business Excellence Celebration' },
+              { time: '9:00 PM', event: 'Evening Entertainment', description: 'Live Music & Networking' },
             ].map((item, index) => (
               <div 
                 key={index}
                 id={`timeline-${index}`}
                 data-scroll-animate
-                className="flex items-center justify-center w-full gap-4 sm:gap-8 transition-all duration-1000"
+                className="flex gap-6 sm:gap-8 transition-all duration-1000"
                 style={{
                   opacity: visibleElements.has(`timeline-${index}`) ? 1 : 0,
-                  transform: visibleElements.has(`timeline-${index}`) ? 'scale(1)' : 'scale(0.9)',
+                  transform: visibleElements.has(`timeline-${index}`) ? 'translateX(0) translateY(0)' : 'translateX(-40px) translateY(20px)',
                 }}
               >
-                <div className="hidden sm:flex items-center justify-center w-16 h-16 rounded-full border-2 border-primary/30 flex-shrink-0">
-                  <span className="text-2xl">{item.icon}</span>
+                <div className="flex flex-col items-center flex-shrink-0">
+                  <div className="w-4 h-4 rounded-full bg-primary mb-4"></div>
+                  {index < 3 && <div className="w-0.5 h-20 sm:h-24 bg-border"></div>}
                 </div>
-
-                <div className="flex-1 bg-secondary/50 border border-primary/20 rounded-lg p-6 sm:p-8 text-center">
+                <div className="pb-4 sm:pb-6">
                   <p className="font-serif text-lg sm:text-xl text-primary font-semibold">{item.time}</p>
                   <h3 className="text-base sm:text-lg font-semibold text-foreground mt-3 mb-2">{item.event}</h3>
                   <p className="text-sm text-muted-foreground">{item.description}</p>
-                </div>
-
-                <div className="hidden sm:flex items-center justify-center w-16 h-16 rounded-full border-2 border-primary/30 flex-shrink-0">
-                  <span className="text-2xl">{item.icon}</span>
-                </div>
-
-                {/* Mobile icon */}
-                <div className="sm:hidden absolute -left-8">
-                  <span className="text-3xl">{item.icon}</span>
-                </div>
-                <div className="sm:hidden absolute -right-8">
-                  <span className="text-3xl">{item.icon}</span>
                 </div>
               </div>
             ))}
           </div>
         </div>
+
+        {/* Decorative butterflies */}
+        <img 
+          src="/butterfly-gold.png" 
+          alt="Butterfly decoration" 
+          className="absolute top-20 left-0 w-16 sm:w-24 opacity-30"
+        />
+        <img 
+          src="/butterfly-gold.png" 
+          alt="Butterfly decoration" 
+          className="absolute bottom-32 right-0 w-20 sm:w-32 opacity-30"
+        />
       </section>
 
       {/* Details Section */}
@@ -297,7 +297,7 @@ export default function GalaDinner() {
       </section>
 
       {/* RSVP Section */}
-      <section className="py-20 sm:py-32 lg:py-40 px-4 sm:px-6 bg-gradient-to-b from-background via-secondary to-background">
+      <section className="py-20 sm:py-32 lg:py-40 px-4 sm:px-6 bg-gradient-to-b from-background via-secondary to-background relative">
         <div className="max-w-2xl mx-auto text-center">
           <div
             id="rsvp-section"
@@ -317,7 +317,7 @@ export default function GalaDinner() {
 
             <Button
               onClick={handleRsvp}
-              className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-primary-foreground px-8 sm:px-16 py-6 sm:py-5 rounded-full text-lg sm:text-xl font-semibold tracking-wide transition-all duration-300 hover:scale-105"
+              className="bg-primary hover:bg-primary/90 text-primary-foreground px-12 sm:px-16 py-8 sm:py-6 rounded-full text-lg sm:text-xl font-semibold tracking-wide transition-all duration-300 hover:scale-105"
             >
               RSVP NOW
             </Button>
@@ -327,6 +327,18 @@ export default function GalaDinner() {
             </p>
           </div>
         </div>
+
+        {/* Decorative butterflies */}
+        <img 
+          src="/butterfly-gold.png" 
+          alt="Butterfly decoration" 
+          className="absolute top-0 right-4 w-16 sm:w-24 opacity-30"
+        />
+        <img 
+          src="/butterfly-gold.png" 
+          alt="Butterfly decoration" 
+          className="absolute bottom-0 left-4 w-20 sm:w-32 opacity-30"
+        />
       </section>
 
       {/* Footer */}
