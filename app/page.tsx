@@ -160,7 +160,7 @@ export default function GalaDinner() {
             </div>
           </div>
 
-          <div className="space-y-8 sm:space-y-12 lg:space-y-16">
+          <div className="space-y-8 sm:space-y-12 lg:space-y-16 flex flex-col items-center">
             {[
               { time: '6:30 PM', event: 'Arrival & Cocktails', description: 'Grand Entrance Hall' },
               { time: '7:15 PM', event: 'Formal Dinner Service', description: 'Main Ballroom' },
@@ -171,17 +171,17 @@ export default function GalaDinner() {
                 key={index}
                 id={`timeline-${index}`}
                 data-scroll-animate
-                className="flex gap-6 sm:gap-8 transition-all duration-1000"
+                className="flex flex-col items-center gap-6 sm:gap-8 transition-all duration-1000 w-full max-w-sm"
                 style={{
                   opacity: visibleElements.has(`timeline-${index}`) ? 1 : 0,
                   transform: visibleElements.has(`timeline-${index}`) ? 'translateX(0) translateY(0)' : 'translateX(-40px) translateY(20px)',
                 }}
               >
-                <div className="flex flex-col items-center flex-shrink-0">
+                <div className="flex flex-col items-center">
                   <div className="w-4 h-4 rounded-full bg-primary mb-4"></div>
                   {index < 3 && <div className="w-0.5 h-20 sm:h-24 bg-border"></div>}
                 </div>
-                <div className="pb-4 sm:pb-6">
+                <div className="pb-4 sm:pb-6 text-center">
                   <p className="font-serif text-lg sm:text-xl text-primary font-semibold">{item.time}</p>
                   <h3 className="text-base sm:text-lg font-semibold text-foreground mt-3 mb-2">{item.event}</h3>
                   <p className="text-sm text-muted-foreground">{item.description}</p>
@@ -195,12 +195,12 @@ export default function GalaDinner() {
         <img 
           src="/butterfly-gold.png" 
           alt="Butterfly decoration" 
-          className="absolute top-20 left-0 w-16 sm:w-24 opacity-30"
+          className="absolute top-20 left-1/2 -translate-x-1/4 w-16 sm:w-24 opacity-30"
         />
         <img 
           src="/butterfly-gold.png" 
           alt="Butterfly decoration" 
-          className="absolute bottom-32 right-0 w-20 sm:w-32 opacity-30"
+          className="absolute bottom-32 left-1/2 translate-x-1/4 w-20 sm:w-32 opacity-30"
         />
       </section>
 
@@ -328,17 +328,7 @@ export default function GalaDinner() {
           </div>
         </div>
 
-        {/* Decorative butterflies */}
-        <img 
-          src="/butterfly-gold.png" 
-          alt="Butterfly decoration" 
-          className="absolute top-0 right-4 w-16 sm:w-24 opacity-30"
-        />
-        <img 
-          src="/butterfly-gold.png" 
-          alt="Butterfly decoration" 
-          className="absolute bottom-0 left-4 w-20 sm:w-32 opacity-30"
-        />
+
       </section>
 
       {/* Footer */}
