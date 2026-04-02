@@ -12,7 +12,7 @@ function GoldParticles() {
   useEffect(() => {
     const colors = ['#ffd700', '#fffacd', '#b8860b', '#f5c842']
     setParticles(
-      Array.from({ length: 30 }, () => ({
+      Array.from({ length: 1000 }, () => ({
         width: Math.random() * 4 + 1,
         height: Math.random() * 4 + 1,
         color: colors[Math.floor(Math.random() * colors.length)],
@@ -62,10 +62,7 @@ export default function GalaDinner() {
   const [visibleElements, setVisibleElements] = useState<Set<string>>(new Set())
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY)
-    }
-
+    const handleScroll = () => setScrollY(window.scrollY)
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
@@ -87,216 +84,173 @@ export default function GalaDinner() {
       },
       { threshold: 0.2 }
     )
-
     const elements = document.querySelectorAll('[data-scroll-animate]')
     elements.forEach((element) => observer.observe(element))
-
-    return () => {
-      elements.forEach((element) => observer.unobserve(element))
-    }
+    return () => elements.forEach((element) => observer.unobserve(element))
   }, [])
 
   const handleRsvp = () => {
-    window.open('https://forms.gle/placeholder', '_blank')
+    window.open('https://docs.google.com/forms/d/e/1FAIpQLSfc_ZVXIt5orp3hUdJiMqadgRAy8vDufigUBa_b7XM5M9zP7g/viewform?usp=publish-editor', '_blank')
   }
 
   return (
     <main className="min-h-screen bg-background overflow-x-hidden relative">
-       <GoldParticles />
+      <GoldParticles />
+
       {/* Corner decorations */}
-      <img 
-        src="/corner-decoration.png" 
-        alt="Corner decoration" 
+      <img
+        src="/corner-decoration.png"
+        alt="Corner decoration"
         className="fixed bottom-0 left-0 w-48 sm:w-64 lg:w-80 opacity-40 pointer-events-none z-0"
       />
-      <img 
-        src="/corner-decoration.png" 
-        alt="Corner decoration" 
+      <img
+        src="/corner-decoration.png"
+        alt="Corner decoration"
         className="fixed top-0 right-0 w-48 sm:w-64 lg:w-80 opacity-40 pointer-events-none z-0 transform -scale-x-100 -scale-y-100"
       />
+
+      {/* ─── HERO SECTION ─── */}
       <section
         ref={heroRef}
         className="relative h-screen flex items-center justify-center bg-gradient-to-b from-secondary via-background to-background overflow-hidden"
-        style={{
-          backgroundPosition: `0px ${scrollY * 0.5}px`,
-        }}
+        style={{ backgroundPosition: `0px ${scrollY * 0.5}px` }}
       >
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover opacity-80 pointer-events-none"
-        style={{
-          transform: `translateY(${scrollY * 0.5}px)`,
-        }}
-      >
-        <source src="/goldanimation2.webm" type="video/webm" />
-        <source src="/goldanimation2.mp4" type="video/mp4" />
-      </video>
+        <video
+          autoPlay loop muted playsInline
+          className="absolute inset-0 w-full h-full object-cover opacity-80 pointer-events-none"
+          style={{ transform: `translateY(${scrollY * 0.5}px)` }}
+        >
+          <source src="/goldanimation2.webm" type="video/webm" />
+          <source src="/goldanimation2.mp4" type="video/mp4" />
+        </video>
 
+        {/* Bottom fade */}
         <div
           className="absolute inset-x-0 bottom-0 h-64 pointer-events-none z-10"
-          style={{
-            background: 'linear-gradient(to bottom, transparent, var(--background))',
-          }}
+          style={{ background: 'linear-gradient(to bottom, transparent, var(--background))' }}
         />
+        {/* Vignette */}
         <div
           className="absolute inset-0 pointer-events-none z-10"
-          style={{
-            background: 'radial-gradient(ellipse 70% 60% at 50% 50%, rgba(0,0,0,0.45) 0%, transparent 100%)',
-          }}
+          style={{ background: 'radial-gradient(ellipse 70% 60% at 50% 50%, rgba(0,0,0,0.45) 0%, transparent 100%)' }}
         />
+
         <div className="relative z-20 text-center px-4 sm:px-6 max-w-4xl mx-auto">
-  
-        {/* Indonesian intro text */}
-        <div
-          className="mb-6 opacity-0 animate-fade-in"
-          style={{ animationDelay: '0s' }}
-        >
-          <p className="text-sm sm:text-base text-white/80 hero-text leading-relaxed italic tracking-wide">
-            Dengan penuh kehormatan,
-          </p>
-          <p className="text-sm sm:text-base text-white/80 hero-text leading-relaxed italic tracking-wide">
-            kami mengundang Anda untuk hadir dalam
-          </p>
-          <p className="text-sm sm:text-base text-white font-semibold hero-text leading-relaxed tracking-widest uppercase mt-1">
-            "Golden Legacy: Carried Through Generations"
-          </p>
-        </div>
 
-        {/* Divider */}
-        <div
-          className="flex items-center justify-center gap-2 mb-6 opacity-0 animate-fade-in"
-          style={{ animationDelay: '0.4s' }}
-        >
-          <div className="h-px w-12 bg-white/40"></div>
-          <div className="w-1.5 h-1.5 rounded-full bg-white/60"></div>
-          <div className="h-px w-12 bg-white/40"></div>
-        </div>
-
-        {/* PRESENTED BY */}
-        <div
-          className="mb-2 opacity-0 animate-fade-in flex flex-col items-center"
-          style={{ animationDelay: '0.8s' }}
-        >
-          <p className="text-sm sm:text-base hero-text tracking-widest text-white font-bold mb-2">
-            PRESENTED BY
-          </p>
-          <img
-            src="/bg-gold-logo-refined.png"
-            alt="BG Gold Logo"
-            className="h-20 sm:h-28 mb-1"
-          />
-        </div>
-
-        {/* Gala Dinner */}
-        <div
-          className="opacity-0 animate-fade-in"
-          style={{ animationDelay: '1.2s' }}
-        >
-          <h1
-            className="text-8xl font-light sparkle-text mb-4 leading-tight"
-            style={{
-              fontFamily: 'var(--font-display)',
-              filter: 'drop-shadow(0 2px 8px rgba(0,0,0,0.8))',
-            }}
-          >
-            Gala Dinner
-          </h1>
-        </div>
-
-        {/* SAVE THE DATE */}
-        <div
-          className="opacity-0 animate-fade-in"
-          style={{ animationDelay: '1.6s' }}
-        >
-          <p className="text-lg sm:text-xl text-white font-bold hero-text mb-8 tracking-wider leading-relaxed max-w-2xl mx-auto">
-            SAVE THE DATE
-          </p>
-        </div>
-
-        {/* Date + Time */}
-        <div
-          className="opacity-0 animate-fade-in flex flex-row items-center justify-center gap-4 sm:gap-6"
-          style={{ animationDelay: '2.0s' }}
-        >
-          <div className="text-center">
-            <p className="text-xs sm:text-base tracking-widest text-white/80 uppercase">Senin</p>
-            <p className="text-3xl sm:text-5xl font-bold text-primary" style={{ textShadow: '0 0 20px rgba(0,0,0,0.9)' }}>13</p>
-            <p className="text-xs sm:text-sm text-white/80 uppercase">April</p>
+          {/* Intro text */}
+          <div className="mb-4 opacity-0 animate-fade-in" style={{ animationDelay: '0s' }}>
+            <p className="text-sm sm:text-base text-white/80 hero-text leading-relaxed italic tracking-wide">
+              Dengan penuh kehormatan,
+            </p>
+            <p className="text-lg text-white/80 hero-text leading-relaxed italic tracking-wide">
+              kami mengundang Anda untuk hadir dalam
+            </p>
           </div>
-          <div className="w-px h-12 sm:h-16 bg-white/30"></div>
-          <div className="text-center">
-            <p className="text-sm sm:text-base text-white/80 mb-1">At</p>
-            <p className="text-lg sm:text-2xl font-semibold text-primary" style={{ textShadow: '0 0 20px rgba(0,0,0,0.9)' }}>18:00 WITA</p>
+
+          {/* Divider */}
+          <div className="flex items-center justify-center gap-2 mb-4 opacity-0 animate-fade-in" style={{ animationDelay: '0.4s' }}>
+            <div className="h-px w-12 bg-white/40"></div>
+            <div className="w-1.5 h-1.5 rounded-full bg-white/60"></div>
+            <div className="h-px w-12 bg-white/40"></div>
           </div>
-        </div>
 
-        {/* Fine Dining */}
-        <div
-          className="opacity-0 animate-fade-in"
-          style={{ animationDelay: '2.4s' }}
-        >
-          <p className="text-sm sm:text-lg hero-text text-white/90 mt-8 tracking-widest uppercase">
-            Fine Dining • Celebration • Elegance
-          </p>
-        </div>
-
-      </div>
-
-        {/* Scroll Indicator */}
-        <div
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 opacity-0 animate-bounce"
-          style={{
-            animationDelay: '1s',
-          }}
-        >
-          <div className="flex flex-col items-center gap-2">
-            <p className="text-xs sm:text-sm text-muted-foreground tracking-widest">SCROLL</p>
-            <svg
-              className="w-5 h-5 sm:w-6 sm:h-6 text-primary"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M19 14l-7 7m0 0l-7-7m7 7V3"
-              />
-            </svg>
-          </div>
-        </div>
-      </section>
-
-
-      {/* Details Section */}
-      <section className="py-20 sm:py-30 lg:py-34 px-4 sm:px-6 bg-background relative z-10">
-        <div className="max-w-2xl mx-auto">
-            {/* Intro quote */}
-            <div
-              id="details-intro"
-              data-scroll-animate
-              className="text-center mb-10 sm:mb-14 transition-all duration-1000"
+          {/* ── GOLDEN LEGACY + GALA DINNER as one block ── */}
+          <div className="opacity-0 animate-fade-in mb-2" style={{ animationDelay: '0.8s' }}>
+            
+            <h1
+              className="font-light sparkle-text leading-tight text-white"
               style={{
-                opacity: visibleElements.has('details-intro') ? 1 : 0,
-                transform: visibleElements.has('details-intro') ? 'translateY(0)' : 'translateY(24px)',
+                fontFamily: 'var(--font-display)',
+                fontSize: 'clamp(6rem, 8vw, 6rem)',
+                filter: 'drop-shadow(0 2px 8px rgba(0,0,0,0.8))',
               }}
             >
-              <p className="font-serif text-lg sm:text-2xl text-foreground italic leading-relaxed max-w-xl mx-auto">
-                "Sebuah perayaan elegan yang mempertemukan rasa syukur, keindahan, dan momen berharga dalam satu malam istimewa."
-              </p>
-              <div className="flex items-center justify-center gap-2 mt-12 mb-20">
-                <div className="h-px w-8 bg-primary"></div>
-                <div className="w-2 h-2 rounded-full bg-primary"></div>
-                <div className="h-px w-8 bg-primary"></div>
-              </div>
+              Golden Legacy: Carried Through Generations
+            </h1>
+
+            {/* SUBTITLE */}
+            <p className="text-6xl sm:text-6xl hero-text font-display text-white/80 sparkle-text tracking-widest italic mb-10">
+              Gala Dinner
+            </p>
+
+          </div>
+
+          {/* ── LOGO under Gala Dinner ── */}
+          <div className="opacity-0 animate-fade-in flex flex-col items-center mb-7" style={{ animationDelay: '1.1s' }}>
+            <p className="text-xs sm:text-sm hero-text tracking-widest text-white/70 mt-1 uppercase">
+              Presented by 
+            </p>
+            <img
+              src="/bg-gold-logo-refined.png"
+              alt="BG Gold Logo"
+              className="h-16 sm:h-20"
+            />
+          </div>
+
+          {/* SAVE THE DATE */}
+          <div className="opacity-0 animate-fade-in" style={{ animationDelay: '1.4s' }}>
+            <p className="text-lg sm:text-lg text-white hero-text mb-4 tracking-wider">
+              SAVE THE DATE
+            </p>
+          </div>
+
+          {/* Date + Time */}
+          <div
+            className="opacity-0 animate-fade-in flex flex-row items-center justify-center gap-4 sm:gap-4"
+            style={{ animationDelay: '1.8s' }}
+          >
+            <div className="text-center">
+              <p className="text-xs sm:text-base tracking-widest text-white/80 uppercase">Senin</p>
+              <p className="text-3xl sm:text-5xl font-bold gold-shine-text" style={{ textShadow: '0 0 20px rgba(0,0,0,0.9)' }}>13</p>
+              <p className="text-xs sm:text-sm text-white/80 uppercase">April</p>
             </div>
+            <div className="w-px h-12 sm:h-16 bg-white/30"></div>
+            <div className="text-center">
+              <p className="text-xl sm:text-3xl font-semibold gold-shine-text" style={{ textShadow: '0 0 20px rgba(0,0,0,0.9)' }}>18:00 WITA</p>
+            </div>
+          </div>
+        </div>
+
+      <div
+        className="relative z-10 h-32 pointer-events-none -mt-32"
+        style={{ background: 'linear-gradient(to bottom, transparent, var(--background))' }}
+      />
+      </section>
+
+      {/* ─── DETAILS SECTION ─── */}
+      <section className="py-20 sm:py-28 px-4 sm:px-6 bg-background relative z-10">
+        
+        {/* Gold wave pattern — top left */}
+        <img
+          src="/golden-wave.png"
+          alt=""
+          className="absolute inset-0 w-full h-full opacity-20 pointer-events-none z-0"
+        />
+
+        <div className="max-w-2xl mx-auto">
+          {/* Intro quote */}
+          <div
+            id="details-intro"
+            data-scroll-animate
+            className="text-center mb-10 sm:mb-14 transition-all duration-1000"
+            style={{
+              opacity: visibleElements.has('details-intro') ? 1 : 0,
+              transform: visibleElements.has('details-intro') ? 'translateY(0)' : 'translateY(24px)',
+            }}
+          >
+            <p className="font-serif text-3xl gold-shine-text sm:text-4xl text-foreground italic leading-relaxed max-w-xl mx-auto">
+              Sebuah perayaan elegan yang mempertemukan rasa syukur, keindahan, dan momen berharga dalam satu malam istimewa.
+            </p>
+            <div className="flex items-center justify-center gap-2 mt-8 mb-12">
+              <div className="h-px w-8 bg-primary"></div>
+              <div className="w-2 h-2 rounded-full bg-primary"></div>
+              <div className="h-px w-8 bg-primary"></div>
+            </div>
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 justify-items-center md:justify-items-start">
             {/* Venue */}
-            <div 
+            <div
               id="details-0"
               data-scroll-animate
               className="transition-all duration-1000 text-center md:text-left"
@@ -305,21 +259,21 @@ export default function GalaDinner() {
                 transform: visibleElements.has('details-0') ? 'translateX(0) translateY(0)' : 'translateX(-40px) translateY(20px)',
               }}
             >
-              <div className="mb-6">
+              <div className="mb-4">
                 <h3 className="font-serif text-2xl sm:text-3xl text-foreground mb-2">Venue</h3>
                 <div className="h-0.5 w-12 bg-primary mb-4 mx-auto md:mx-0"></div>
               </div>
-              <p className="text-sm sm:text-base text-muted-foreground mb-3 leading-relaxed">
+              <p className="text-sm sm:text-base text-muted-foreground mb-2 leading-relaxed">
                 <span className="font-semibold text-foreground">Crystal Ballroom, Mercure Hotel Samarinda Lt.3</span>
               </p>
               <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                Jl. Mulawarman No.171, Pelabuhan, Kec. Samarinda Kota, <br />
-                Kota Samarinda, Kalimantan Timur 75112 
+                Jl. Mulawarman No.171, Pelabuhan, Kec. Samarinda Kota,<br />
+                Kota Samarinda, Kalimantan Timur 75112
               </p>
             </div>
 
             {/* Dress Code */}
-            <div 
+            <div
               id="details-1"
               data-scroll-animate
               className="transition-all duration-1000 text-center md:text-left"
@@ -328,108 +282,123 @@ export default function GalaDinner() {
                 transform: visibleElements.has('details-1') ? 'translateX(0) translateY(0)' : 'translateX(40px) translateY(20px)',
               }}
             >
-              <div className="mb-6">
+              <div className="mb-4">
                 <h3 className="font-serif text-2xl sm:text-3xl text-foreground mb-2">Dress Code</h3>
                 <div className="h-0.5 w-12 bg-primary mb-4 mx-auto md:mx-0"></div>
               </div>
               <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-                <span className="font-semibold text-foreground">Formal & Elegant</span>
+                <span className="font-semibold text-foreground">Formal & Elegan</span>
               </p>
               <p className="text-xs sm:text-sm break-words max-w-md text-muted-foreground mt-3 leading-relaxed">
-                  Kenakan busana formal terbaik Anda. <br/>
-                  Tampil memukau dan cerminkan keanggunan dalam malam penuh kenangan ini.
+                Kenakan busana formal terbaik Anda <br />
+                Tampil memukau dan cerminkan keanggunan dalam malam penuh kenangan ini.
               </p>
             </div>
           </div>
         </div>
 
-        {/* Decorative butterflies */}
-        <img 
-          src="/butterfly-gold.png" 
-          alt="Butterfly decoration" 
+        {/* Butterflies + gold wave decoration */}
+        <img
+          src="/butterfly-gold.png"
+          alt="Butterfly decoration"
           className="absolute top-6 left-8 w-12 sm:w-20 opacity-45 drop-shadow-xl"
         />
-        <img 
-          src="/butterfly-gold.png" 
-          alt="Butterfly decoration" 
+        <img
+          src="/butterfly-gold.png"
+          alt="Butterfly decoration"
           className="absolute bottom-3 right-8 w-16 sm:w-28 opacity-45 drop-shadow-xl"
         />
-
       </section>
 
-
-      {/* Fade transition into Details */}
+      {/* Fade into timeline */}
       <div
-        className="absolute inset-x-0 bottom-0 h-64 pointer-events-none z-10"
-        style={{
-          background: 'linear-gradient(to bottom, transparent, var(--background))',
-        }}
+        className="relative z-10 h-32 pointer-events-none -mt-32"
+        style={{ background: 'linear-gradient(to bottom, transparent, var(--background))' }}
       />
 
-      {/* Timeline Section */}
-      <section className="py-12 sm:py-16 px-4 sm:px-6 relative">
-        <div className="max-w-xl mx-auto bg-secondary/90 backdrop-blur-md rounded-xl shadow-2xl p-8 sm:p-12 gold-glow-card">
-          <div className="text-center mb-6 sm:mb-6">
-            <h2 className="font-serif text-4xl sm:text-5xl lg:text-5xl text-foreground mb-2">
+      {/* ─── PERSEMBAHAN ISTIMEWA ─── */}
+      <section className="py-12 sm:py-16 px-4 sm:px-6 relative z-10">
+        <div className="max-w-xl mx-auto bg-secondary/90 backdrop-blur-md rounded-xl shadow-2xl p-8 sm:p-12 gold-glow-card relative overflow-hidden">
+          <div className="text-center mb-6">
+            <h2 className="font-serif text-4xl sm:text-5xl text-foreground mb-3">
               Persembahan Istimewa
             </h2>
-            <h3 className="text-lg sm:text-xl font-light italic text-muted-foreground mb-4">
-              by BG Gold
-            </h3>
-            <div className="flex items-center justify-center gap-2">
+            <div className="flex flex-col items-center mb-4">
+              <p className="text-xs tracking-widest text-primary uppercase ">
+                by
+              </p>
+              <img
+                src="/bg-gold-logo-refined.png"
+                alt="BG Gold Logo"
+                className="h-12 sm:h-14 object-contain"
+              />
+            </div>
+            <div className="flex items-center justify-center gap-4">
               <div className="h-px w-8 bg-primary"></div>
               <div className="w-2 h-2 rounded-full bg-primary"></div>
               <div className="h-px w-8 bg-primary"></div>
             </div>
           </div>
 
-          <div className="space-y-4 sm:space-y-6 lg:space-y-16 flex flex-col items-center relative">
+          <div className="space-y-2 flex flex-col items-center relative">
             {[
-              { time: 'Gala Dinner Experience', event: '', description: 'Sajian makan malam istimewa dalam suasana elegan', symbol: '✦' },
-              { time: 'Special Performance by Hatim Rahmat', event: '', description: 'Penampilan spesial yang akan menyempurnakan malam Anda', symbol: '✦' },
-              { time: 'Pengundian Door Prize', event: '', description: 'Pengundian hadiah eksklusif bagi tamu undangan', symbol: '✦' },
-              { time: 'Appreciation Token Ceremony', event: '', description: 'Momen penghargaan sebagai bentuk apresiasi', symbol: '✦' },
+              { title: 'Gala Dinner Experience', description: 'Sajian makan malam istimewa dalam suasana elegan' },
+              { title: 'Special Performance by Hatim Rahmat', description: 'Penampilan spesial yang akan menyempurnakan malam Anda' },
+              { title: 'Pengundian Door Prize', description: 'Pengundian hadiah eksklusif bagi tamu undangan' },
+              { title: 'Appreciation Token Ceremony', description: 'Momen penghargaan sebagai bentuk apresiasi' },
             ].map((item, index) => (
-              <div 
+              <div
                 key={index}
                 id={`timeline-${index}`}
                 data-scroll-animate
-                className="flex flex-col items-center gap-6 sm:gap-8 transition-all duration-1000 w-full max-w-sm"
+                className="flex flex-col items-center transition-all duration-1000 w-full max-w-sm"
                 style={{
                   opacity: visibleElements.has(`timeline-${index}`) ? 1 : 0,
                   transform: visibleElements.has(`timeline-${index}`) ? 'translateX(0) translateY(0)' : 'translateX(-40px) translateY(20px)',
                 }}
               >
                 <div className="flex flex-col items-center relative">
-                  <div className="w-4 h-4 rounded-full bg-primary mb-4 relative z-10"></div>
-                  <span className="absolute -top-2 -left-6 text-primary/40 text-xs">✧</span>
-                  <span className="absolute -top-2 -right-6 text-primary/40 text-xs">✧</span>
-                  {index < 3 && <div className="w-0.5 h-12 sm:h-16 bg-border"></div>}
+                  <div className="w-4 h-4 rounded-full bg-primary mb-2 relative z-10 shadow-[0_0_8px_rgba(212,160,23,0.8)]"></div>
+                  {index < 3 && <div className="w-0.5 h-8 bg-primary/30"></div>}
                 </div>
-                <div className="pb-4 sm:pb-6 text-center">
-                  <p className="font-serif text-lg sm:text-3xl text-primary font-semibold">{item.time}</p>
-                  <h3 className="text-base sm:text-2xl font-semibold text-foreground mt-3 mb-2">{item.event}</h3>
-                  <p className="text-lg">{item.description}</p>
+                <div className="pb-2 text-center">
+                  <p className="font-serif text-lg sm:text-2xl gold-shine-text font-semibold">{item.title}</p>
+                  <p className="text-sm sm:text-base text-muted-foreground mt-1">{item.description}</p>
                 </div>
               </div>
             ))}
-            {/* Decorative border elements */}
-            <div className="absolute right-12 top-1/4 w-px h-32 bg-gradient-to-b from-primary/0 via-primary/20 to-primary/0"></div>
-            <div className="absolute left-12 top-1/4 w-px h-32 bg-gradient-to-b from-primary/0 via-primary/20 to-primary/0"></div>
+
+            {/* Decorative side lines */}
+            <div className="absolute right-0 top-1/4 w-px h-32 bg-gradient-to-b from-primary/0 via-primary/30 to-primary/0"></div>
+            <div className="absolute left-0 top-1/4 w-px h-32 bg-gradient-to-b from-primary/0 via-primary/30 to-primary/0"></div>
           </div>
         </div>
       </section>
 
-      {/* Fade transition into Details */}
+      {/* Fade into RSVP */}
       <div
-        className="absolute inset-x-0 bottom-0 h-64 pointer-events-none z-10"
+        className="relative z-10 h-64 sm:h-80 pointer-events-none -mb-64 sm:-mb-80"
         style={{
-          background: 'linear-gradient(to bottom, transparent, var(--background))',
+          background: 'linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 40%, rgba(0,0,0,0.9) 70%, black 100%)'
         }}
       />
 
-      {/* RSVP Section */}
-      <section className="py-12 sm:py-16 px-4 sm:px-6 bg-gradient-to-b from-background via-secondary to-background relative z-10">
+      {/* ─── RSVP SECTION ─── */}
+      <section className="py-12 sm:py-16 px-4 sm:px-6 relative z-10 overflow-hidden">
+        <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black to-transparent z-10 pointer-events-none" />
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+          >
+            <source src="/rsvpvid.mp4" type="video/mp4" />
+          </video>
+
+          {/* Overlay for readability */}
+          <div className="absolute inset-0 bg-black/60"></div>
+
         <div className="max-w-2xl mx-auto text-center">
           <div
             id="rsvp-section"
@@ -440,45 +409,43 @@ export default function GalaDinner() {
               transform: visibleElements.has('rsvp-section') ? 'translateY(0)' : 'translateY(40px)',
             }}
           >
-          <h2 className="font-serif text-4xl sm:text-5xl lg:text-6xl text-foreground mb-4">
-            RSVP
-          </h2>
+            <p className="text-xs tracking-widest font-bold text-primary uppercase mt-1 mb-2">✦ Konfirmasi Kehadiran Anda ✦</p>
+            <h2 className="font-serif text-4xl sm:text-5xl lg:text-6xl text-foreground mb-4">
+              RSVP
+            </h2>
 
-          {/* Decorative divider */}
-          <div className="flex items-center justify-center gap-2 mb-8">
-            <div className="h-px w-12 bg-primary"></div>
-            <div className="w-2 h-2 rounded-full bg-primary"></div>
-            <div className="h-px w-12 bg-primary"></div>
-          </div>
+            <div className="flex items-center justify-center gap-2 mb-8">
+              <div className="h-px w-12 bg-primary"></div>
+              <div className="w-2 h-2 rounded-full bg-primary"></div>
+              <div className="h-px w-12 bg-primary"></div>
+            </div>
 
-          {/* Deadline box */}
-          <div className="inline-block border border-primary/40 rounded-lg px-6 py-4 mb-8 bg-primary/5">
-            <p className="text-xs tracking-widest text-primary uppercase mb-1">Konfirmasi Sebelum</p>
-            <p className="font-serif text-2xl sm:text-3xl text-foreground">Selasa, 7 April 2025</p>
-            <p className="text-sm text-muted-foreground mt-1">pukul 20.00 WITA</p>
-          </div>
+            {/* Deadline box */}
+            <div className="inline-block border border-primary/50 rounded-lg px-6 py-4 mb-8 bg-primary/10 gold-glow-card">
+              <p className="text-xs tracking-widest text-primary uppercase mb-1">Konfirmasi Sebelum</p>
+              <p className="font-serif text-2xl sm:text-3xl text-foreground">Selasa, 7 April 2025</p>
+              <p className="text-sm text-muted-foreground mt-1">pukul 20.00 WITA</p>
+            </div>
 
-          <p className="font-serif text-lg sm:text-xl text-foreground italic mb-10 max-w-md mx-auto leading-relaxed">
-            "Sampai jumpa dalam malam yang hangat dan berkesan."
-          </p>
+            <p className="font-serif text-lg sm:text-xl text-foreground italic mb-10 max-w-md mx-auto leading-relaxed">
+              Sampai jumpa dalam malam yang hangat dan berkesan.
+            </p>
 
-          <Button
-            onClick={handleRsvp}
-            className="bg-primary hover:bg-primary/90 text-primary-foreground px-17 py-12 rounded-full text-lg sm:text-xl font-bold tracking-wide transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-primary/40 hover:shadow-xl"
-          >
-            RSVP SEKARANG
-          </Button>
+            <Button
+              onClick={handleRsvp}
+              className="bg-primary hover:bg-primary/90 text-primary-foreground px-16 py-10 rounded-full text-lg sm:text-xl font-bold tracking-wide transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-primary/50 hover:shadow-2xl"
+            >
+              RSVP SEKARANG
+            </Button>
 
-          <p className="text-xs text-muted-foreground mt-6 tracking-widest uppercase">
-            Tempat terbatas · Konfirmasi diperlukan
-          </p>
+            <p className="text-xs text-muted-foreground mt-6 tracking-widest uppercase">
+              ✦ Tempat terbatas · Konfirmasi diperlukan ✦
+            </p>
           </div>
         </div>
-
-
       </section>
 
-      {/* Footer */}
+      {/* ─── FOOTER ─── */}
       <footer className="py-8 sm:py-12 px-4 sm:px-6 bg-secondary border-t border-primary/30 relative z-10">
         <div className="max-w-3xl mx-auto text-center">
           <p className="text-xs sm:text-sm text-muted-foreground opacity-75">
@@ -488,54 +455,61 @@ export default function GalaDinner() {
       </footer>
 
       <style>{`
+        /* ── Shimmer gold text ── */
+        @keyframes shimmer {
+          0%   { background-position: -200% center; }
+          100% { background-position:  200% center; }
+        }
+
+        /* Slightly less intense shimmer for secondary gold text */
+        .gold-shine-text {
+          background: linear-gradient(45deg,
+            #a07820 0%,
+            #ffd700 30%,
+            #fffacd 50%,
+            #ffd700 70%,
+            #a07820 100%
+          );
+          background-size: 200% auto;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          animation: shimmer 10s linear infinite;
+        }
+
+        /* ── Glowing card ── */
+        @keyframes goldShine {
+          0%   { box-shadow: 0 0 10px rgba(212,160,23,0.2), 0 0 20px rgba(212,160,23,0.1); }
+          50%  { box-shadow: 0 0 25px rgba(212,160,23,0.6), 0 0 50px rgba(212,160,23,0.3); }
+          100% { box-shadow: 0 0 10px rgba(212,160,23,0.2), 0 0 20px rgba(212,160,23,0.1); }
+        }
+        .gold-glow-card {
+          animation: goldShine 3s ease-in-out infinite;
+          border: 1px solid rgba(212,160,23,0.3);
+        }
+
+        /* ── Hero text drop shadow ── */
+        .hero-text {
+          text-shadow: 0 2px 4px rgba(0,0,0,0.9), 0 4px 16px rgba(0,0,0,0.7);
+        }
+
+        /* ── Fade in ── */
         @keyframes fadeIn {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
+          from { opacity: 0; transform: translateY(16px); }
+          to   { opacity: 1; transform: translateY(0); }
         }
-
-        @keyframes fadeInDelayed {
-          from {
-            opacity: 0;
-          }
-          to {
-            opacity: 1;
-          }
-        }
-
         .animate-fade-in {
           animation: fadeIn 0.8s ease-out forwards;
           opacity: 0;
         }
 
-        .animate-fade-in-delayed {
-          animation: fadeInDelayed 0.8s ease-out forwards;
-          opacity: 0;
-        }
-
-        .animate-fade-in-up {
-          animation: fadeIn 0.8s ease-out forwards;
-          opacity: 0;
-        }
-
+        /* ── Bounce ── */
         .animate-bounce {
           animation: bounce 2s infinite;
         }
-
         @keyframes bounce {
-          0%, 100% {
-            transform: translateY(0);
-            opacity: 0.5;
-          }
-          50% {
-            transform: translateY(-12px);
-            opacity: 1;
-          }
+          0%, 100% { transform: translateY(0);    opacity: 0.5; }
+          50%       { transform: translateY(-12px); opacity: 1;   }
         }
       `}</style>
     </main>
