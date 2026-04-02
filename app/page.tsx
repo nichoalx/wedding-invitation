@@ -464,7 +464,7 @@ export default function GalaDinner() {
 
           <Button
             onClick={handleRsvp}
-            className="bg-primary hover:bg-primary/90 text-primary-foreground px-16 py-6 rounded-full text-lg sm:text-xl font-bold tracking-wide transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-primary/40 hover:shadow-xl"
+            className="bg-primary hover:bg-primary/90 text-primary-foreground px-17 py-12 rounded-full text-lg sm:text-xl font-bold tracking-wide transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-primary/40 hover:shadow-xl"
           >
             RSVP SEKARANG
           </Button>
