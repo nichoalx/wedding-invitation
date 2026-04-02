@@ -53,14 +53,14 @@ export default function GalaDinner() {
       <img 
         src="/corner-decoration.png" 
         alt="Corner decoration" 
-        className="fixed bottom-0 right-0 w-48 sm:w-64 lg:w-80 opacity-40 pointer-events-none z-0"
+        className="fixed bottom-0 left-0 w-48 sm:w-64 lg:w-80 opacity-40 pointer-events-none z-0"
       />
       <img 
         src="/corner-decoration.png" 
         alt="Corner decoration" 
-        className="fixed top-0 left-0 w-48 sm:w-64 lg:w-80 opacity-40 pointer-events-none z-0 transform -scale-x-100 -scale-y-100"
+        className="fixed top-0 right-0 w-48 sm:w-64 lg:w-80 opacity-40 pointer-events-none z-0 transform -scale-x-100 -scale-y-100"
       />
-      <section className="relative z-10"
+      <section
         ref={heroRef}
         className="relative h-screen flex items-center justify-center bg-gradient-to-b from-secondary via-background to-background overflow-hidden"
         style={{
@@ -70,27 +70,34 @@ export default function GalaDinner() {
         <div
           className="absolute inset-0 opacity-25"
           style={{
-            backgroundImage: 'url(https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Foundation-Gala-Dinner-e53somFent0GlSU7dHvnTEqM1wQQWu.png?height=1080&width=1920)',
+            backgroundImage: 'url("goldanimation.gif")',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             transform: `translateY(${scrollY * 0.5}px)`,
           }}
         />
 
+        <div
+          className="absolute inset-x-0 bottom-0 h-64 pointer-events-none z-10"
+          style={{
+            background: 'linear-gradient(to bottom, transparent, var(--background))',
+          }}
+        />
+
         <div className="relative z-10 text-center px-4 sm:px-6 max-w-4xl mx-auto">
           <div className="mb-2 opacity-0 animate-fade-in flex flex-col items-center">
-            <p className="text-sm sm:text-base tracking-widest text-primary mb-2">
+            <p className="text-sm sm:text-base tracking-widest text-primary ">
               PRESENTED BY
             </p>
             <img 
               src="/bg-gold-logo-refined.png" 
               alt="BG Gold Logo" 
-              className="h-16 sm:h-24 mb-1"
+              className="h-20 sm:h-28 mb-1"
             />
           </div>
 
           <h1
-            className="text-6xl sm:text-7xl lg:text-8xl font-light text-foreground mb-4 animate-fade-in-delayed leading-tight"
+            className="text-8xl sm:text-8xl lg:text-8xl font-light text-foreground mb-4 animate-fade-in-delayed leading-tight"
             style={{
               animationDelay: '0.2s',
               fontFamily: 'var(--font-display)',
@@ -100,7 +107,7 @@ export default function GalaDinner() {
             Gala Dinner
           </h1>
 
-          <p className="text-sm sm:text-base text-primary mb-8 tracking-wider animate-fade-in-delayed leading-relaxed max-w-2xl mx-auto font-semibold"
+          <p className="text-lg sm:text-xl text-primary mb-8 tracking-wider animate-fade-in-delayed leading-relaxed max-w-2xl mx-auto font-semibold"
             style={{
               animationDelay: '0.4s',
             }}
@@ -126,7 +133,7 @@ export default function GalaDinner() {
             </div>
           </div>
 
-          <p className="text-xs sm:text-sm text-muted-foreground mt-8 tracking-widest uppercase">
+          <p className="text-sm sm:text-lg text-muted-foreground mt-8 tracking-widest uppercase">
             Fine Dining • Celebration • Elegance
           </p>
         </div>
@@ -159,9 +166,9 @@ export default function GalaDinner() {
 
       {/* Timeline Section */}
       <section className="py-20 sm:py-32 lg:py-40 px-4 sm:px-6 relative">
-        <div className="max-w-2xl mx-auto bg-secondary/90 backdrop-blur-md rounded-xl shadow-2xl p-8 sm:p-12">
+        <div className="max-w-xl mx-auto bg-secondary/90 backdrop-blur-md rounded-xl shadow-2xl p-8 sm:p-12">
           <div className="text-center mb-16 sm:mb-24">
-            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl text-foreground mb-4">
+            <h2 className="font-serif text-5xl sm:text-7xl lg:text-7xl text-foreground mb-6">
               Evening Schedule
             </h2>
             <div className="flex items-center justify-center gap-2">
@@ -195,30 +202,26 @@ export default function GalaDinner() {
                   {index < 3 && <div className="w-0.5 h-20 sm:h-24 bg-border"></div>}
                 </div>
                 <div className="pb-4 sm:pb-6 text-center">
-                  <p className="font-serif text-lg sm:text-xl text-primary font-semibold">{item.time}</p>
-                  <h3 className="text-base sm:text-lg font-semibold text-foreground mt-3 mb-2">{item.event}</h3>
-                  <p className="text-sm text-muted-foreground">{item.description}</p>
+                  <p className="font-serif text-lg sm:text-3xl text-primary font-semibold">{item.time}</p>
+                  <h3 className="text-base sm:text-2xl font-semibold text-foreground mt-3 mb-2">{item.event}</h3>
+                  <p className="text-lg text-muted-foreground">{item.description}</p>
                 </div>
               </div>
             ))}
             {/* Decorative border elements */}
-            <div className="absolute -left-12 top-1/4 w-px h-32 bg-gradient-to-b from-primary/0 via-primary/20 to-primary/0"></div>
-            <div className="absolute -right-12 top-1/4 w-px h-32 bg-gradient-to-b from-primary/0 via-primary/20 to-primary/0"></div>
+            <div className="absolute right-12 top-1/4 w-px h-32 bg-gradient-to-b from-primary/0 via-primary/20 to-primary/0"></div>
+            <div className="absolute left-12 top-1/4 w-px h-32 bg-gradient-to-b from-primary/0 via-primary/20 to-primary/0"></div>
           </div>
         </div>
-
-        {/* Decorative butterflies */}
-        <img 
-          src="/butterfly-gold.png" 
-          alt="Butterfly decoration" 
-          className="absolute top-32 left-8 w-12 sm:w-20 opacity-25 drop-shadow-xl"
-        />
-        <img 
-          src="/butterfly-gold.png" 
-          alt="Butterfly decoration" 
-          className="absolute bottom-24 right-8 w-16 sm:w-28 opacity-25 drop-shadow-xl"
-        />
       </section>
+
+      {/* Fade transition into Details */}
+      <div
+        className="absolute inset-x-0 bottom-0 h-64 pointer-events-none z-10"
+        style={{
+          background: 'linear-gradient(to bottom, transparent, var(--background))',
+        }}
+      />
 
       {/* Details Section */}
       <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 bg-background relative z-10">
@@ -265,7 +268,7 @@ export default function GalaDinner() {
               <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
                 <span className="font-semibold text-foreground">Black Tie Optional</span>
               </p>
-              <p className="text-xs sm:text-sm text-muted-foreground mt-3 leading-relaxed">
+              <p className="text-xs sm:text-sm break-words max-w-md text-muted-foreground mt-3 leading-relaxed">
                 Formal or business black-tie attire. Embrace the evening's elegance and sophistication with refined style.
               </p>
             </div>
@@ -284,7 +287,7 @@ export default function GalaDinner() {
                 <h3 className="font-serif text-2xl sm:text-3xl text-foreground mb-2">Culinary Experience</h3>
                 <div className="h-0.5 w-12 bg-primary mb-4 mx-auto md:mx-0"></div>
               </div>
-              <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+              <p className="text-xs sm:text-sm break-words max-w-md text-muted-foreground mt-3 leading-relaxed">
                 A prestigious four-course dinner with premium selections, complemented by fine wines and champagne. Crafted to celebrate excellence.
               </p>
             </div>
@@ -310,7 +313,29 @@ export default function GalaDinner() {
             </div>
           </div>
         </div>
+
+        {/* Decorative butterflies */}
+        <img 
+          src="/butterfly-gold.png" 
+          alt="Butterfly decoration" 
+          className="absolute top-10 left-8 w-12 sm:w-20 opacity-25 drop-shadow-xl"
+        />
+        <img 
+          src="/butterfly-gold.png" 
+          alt="Butterfly decoration" 
+          className="absolute bottom-10 right-8 w-16 sm:w-28 opacity-25 drop-shadow-xl"
+        />
+
       </section>
+
+
+      {/* Fade transition into Details */}
+      <div
+        className="absolute inset-x-0 bottom-0 h-64 pointer-events-none z-10"
+        style={{
+          background: 'linear-gradient(to bottom, transparent, var(--background))',
+        }}
+      />
 
       {/* RSVP Section */}
       <section className="py-20 sm:py-32 lg:py-40 px-4 sm:px-6 bg-gradient-to-b from-background via-secondary to-background relative z-10">
