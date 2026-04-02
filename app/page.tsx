@@ -353,7 +353,7 @@ export default function GalaDinner() {
               >
                 <div className="flex flex-col items-center relative">
                   <div className="w-4 h-4 rounded-full bg-primary mb-2 relative z-10 shadow-[0_0_8px_rgba(212,160,23,0.8)]"></div>
-                  {index < 3 && <div className="w-0.5 h-8 bg-primary/30"></div>}
+                  {index < 4 && <div className="w-0.5 h-8 bg-primary/30"></div>}
                 </div>
                 <div className="pb-2 text-center">
                   <p className="font-serif text-lg sm:text-2xl gold-shine-text max-w-[300px] font-semibold">{item.title}</p>
