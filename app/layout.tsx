@@ -1,15 +1,16 @@
 import type { Metadata } from 'next'
-import { Geist, Geist_Mono, Playfair_Display } from 'next/font/google'
+import { Geist, Geist_Mono, Playfair_Display, Pinyon_Script } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
 const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 const _playfairDisplay = Playfair_Display({ subsets: ["latin"], variable: "--font-serif" });
+const _pinyonScript = Pinyon_Script({ subsets: ["latin"], weight: "400", variable: "--font-display" });
 
 export const metadata: Metadata = {
-  title: 'Wedding Invitation',
-  description: 'You are invited to celebrate our special day',
+  title: 'BG Gold Gala Dinner',
+  description: 'You are invited to an exclusive gala dinner hosted by BG Gold',
   generator: 'v0.app',
   icons: {
     icon: [
@@ -36,7 +37,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={_playfairDisplay.variable}>
+    <html lang="en" className={`${_playfairDisplay.variable} ${_pinyonScript.variable}`}>
       <body className="font-sans antialiased">
         {children}
         <Analytics />
