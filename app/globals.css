@@ -123,5 +123,17 @@
   }
   body {
     @apply bg-background text-foreground;
+    background-image: url('/background-animation.gif');
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+  }
+
+  h1, h2, h3 {
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  }
+
+  p {
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
   }
 }

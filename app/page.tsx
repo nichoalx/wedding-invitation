@@ -48,8 +48,19 @@ export default function GalaDinner() {
   }
 
   return (
-    <main className="min-h-screen bg-background overflow-x-hidden">
-      <section
+    <main className="min-h-screen bg-background overflow-x-hidden relative">
+      {/* Corner decorations */}
+      <img 
+        src="/corner-decoration.png" 
+        alt="Corner decoration" 
+        className="fixed bottom-0 right-0 w-48 sm:w-64 lg:w-80 opacity-40 pointer-events-none z-0"
+      />
+      <img 
+        src="/corner-decoration.png" 
+        alt="Corner decoration" 
+        className="fixed top-0 left-0 w-48 sm:w-64 lg:w-80 opacity-40 pointer-events-none z-0 transform -scale-x-100 -scale-y-100"
+      />
+      <section className="relative z-10"
         ref={heroRef}
         className="relative h-screen flex items-center justify-center bg-gradient-to-b from-secondary via-background to-background overflow-hidden"
         style={{
@@ -147,8 +158,8 @@ export default function GalaDinner() {
       </section>
 
       {/* Timeline Section */}
-      <section className="py-20 sm:py-32 lg:py-40 px-4 sm:px-6 bg-secondary relative">
-        <div className="max-w-2xl mx-auto">
+      <section className="py-20 sm:py-32 lg:py-40 px-4 sm:px-6 relative">
+        <div className="max-w-2xl mx-auto bg-secondary/90 backdrop-blur-md rounded-xl shadow-2xl p-8 sm:p-12">
           <div className="text-center mb-16 sm:mb-24">
             <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl text-foreground mb-4">
               Evening Schedule
@@ -200,17 +211,17 @@ export default function GalaDinner() {
         <img 
           src="/butterfly-gold.png" 
           alt="Butterfly decoration" 
-          className="absolute top-32 left-8 w-12 sm:w-20 opacity-25"
+          className="absolute top-32 left-8 w-12 sm:w-20 opacity-25 drop-shadow-xl"
         />
         <img 
           src="/butterfly-gold.png" 
           alt="Butterfly decoration" 
-          className="absolute bottom-24 right-8 w-16 sm:w-28 opacity-25"
+          className="absolute bottom-24 right-8 w-16 sm:w-28 opacity-25 drop-shadow-xl"
         />
       </section>
 
       {/* Details Section */}
-      <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 bg-background">
+      <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 bg-background relative z-10">
         <div className="max-w-2xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 justify-items-center md:justify-items-start">
             {/* Venue */}
@@ -302,7 +313,7 @@ export default function GalaDinner() {
       </section>
 
       {/* RSVP Section */}
-      <section className="py-20 sm:py-32 lg:py-40 px-4 sm:px-6 bg-gradient-to-b from-background via-secondary to-background relative">
+      <section className="py-20 sm:py-32 lg:py-40 px-4 sm:px-6 bg-gradient-to-b from-background via-secondary to-background relative z-10">
         <div className="max-w-2xl mx-auto text-center">
           <div
             id="rsvp-section"
@@ -333,7 +344,7 @@ export default function GalaDinner() {
       </section>
 
       {/* Footer */}
-      <footer className="py-8 sm:py-12 px-4 sm:px-6 bg-secondary border-t border-primary/30">
+      <footer className="py-8 sm:py-12 px-4 sm:px-6 bg-secondary border-t border-primary/30 relative z-10">
         <div className="max-w-3xl mx-auto text-center">
           <p className="text-xs sm:text-sm text-muted-foreground opacity-75">
             © PT Bagong Sejahtera Abadi. All Rights Reserved.
