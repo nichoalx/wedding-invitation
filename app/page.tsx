@@ -158,18 +158,17 @@ export default function GalaDinner() {
           <div className="opacity-0 animate-fade-in mb-2" style={{ animationDelay: '0.8s' }}>
             
             <h1
-              className="font-light sparkle-text leading-tight text-white"
+              className="leading-tight italic text-white text-4xl sm:text-6xl lg:text-7xl"
               style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: 'clamp(6rem, 8vw, 6rem)',
-                filter: 'drop-shadow(0 2px 8px rgba(0,0,0,0.8))',
+                fontFamily: 'var(--font-serif)',
+                filter: 'drop-shadow(1px 2px 8px rgba(0,0,0,0.8))',
               }}
             >
               Golden Legacy: Carried Through Generations
             </h1>
 
             {/* SUBTITLE */}
-            <p className="text-6xl sm:text-6xl hero-text font-display text-white/80 sparkle-text tracking-widest italic mb-10">
+            <p className="text-7xl sm:text-7xl drop-shadow-lg font-display text-white font-light gold-shine-text tracking-widest italic mt-5 mb-10">
               Gala Dinner
             </p>
 
@@ -183,7 +182,7 @@ export default function GalaDinner() {
             <img
               src="/bg-gold-logo-refined.png"
               alt="BG Gold Logo"
-              className="h-16 sm:h-20"
+              className="h-35 drop-shadow-lg"
             />
           </div>
 
@@ -463,18 +462,20 @@ export default function GalaDinner() {
 
         /* Slightly less intense shimmer for secondary gold text */
         .gold-shine-text {
-          background: linear-gradient(45deg,
-            #a07820 0%,
-            #ffd700 30%,
-            #fffacd 50%,
-            #ffd700 70%,
-            #a07820 100%
+          background: linear-gradient(
+            90deg,
+            #5c4715 0%,
+            #d4af37 20%,
+            #fff4b0 40%,
+            #ffffff 50%,
+            #fff4b0 60%,
+            #d4af37 80%,
+            #5c4715 100%
           );
           background-size: 200% auto;
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
-          background-clip: text;
-          animation: shimmer 10s linear infinite;
+          animation: shine 10s linear infinite;
         }
 
         /* ── Glowing card ── */
@@ -484,7 +485,7 @@ export default function GalaDinner() {
           100% { box-shadow: 0 0 10px rgba(212,160,23,0.2), 0 0 20px rgba(212,160,23,0.1); }
         }
         .gold-glow-card {
-          animation: goldShine 3s ease-in-out infinite;
+          animation: goldShine 10s ease-in-out infinite;
           border: 1px solid rgba(212,160,23,0.3);
         }
 
