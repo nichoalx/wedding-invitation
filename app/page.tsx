@@ -67,19 +67,19 @@ export default function GalaDinner() {
         />
 
         <div className="relative z-10 text-center px-4 sm:px-6 max-w-4xl mx-auto">
-          <div className="mb-8 opacity-0 animate-fade-in flex flex-col items-center">
-            <p className="text-sm sm:text-base tracking-widest text-primary mb-4">
+          <div className="mb-2 opacity-0 animate-fade-in flex flex-col items-center">
+            <p className="text-sm sm:text-base tracking-widest text-primary mb-2">
               PRESENTED BY
             </p>
             <img 
               src="/bg-gold-logo-refined.png" 
               alt="BG Gold Logo" 
-              className="h-20 sm:h-28 mb-4"
+              className="h-16 sm:h-24 mb-1"
             />
           </div>
 
           <h1
-            className="text-7xl sm:text-8xl lg:text-9xl font-light text-foreground mb-2 animate-fade-in-delayed leading-tight"
+            className="text-6xl sm:text-7xl lg:text-8xl font-light text-foreground mb-4 animate-fade-in-delayed leading-tight"
             style={{
               animationDelay: '0.2s',
               fontFamily: 'var(--font-display)',
@@ -98,20 +98,20 @@ export default function GalaDinner() {
           </p>
 
           <div
-            className="animate-fade-in-delayed flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6"
+            className="animate-fade-in-delayed flex flex-row items-center justify-center gap-4 sm:gap-6"
             style={{
               animationDelay: '0.6s',
             }}
           >
             <div className="text-center">
-              <p className="text-sm sm:text-base tracking-widest text-muted-foreground uppercase">Saturday</p>
-              <p className="text-4xl sm:text-5xl font-bold text-primary">11</p>
+              <p className="text-xs sm:text-base tracking-widest text-muted-foreground uppercase">Saturday</p>
+              <p className="text-3xl sm:text-5xl font-bold text-primary">11</p>
               <p className="text-xs sm:text-sm text-muted-foreground uppercase">April</p>
             </div>
-            <div className="hidden sm:block w-px h-16 bg-primary/30"></div>
+            <div className="w-px h-12 sm:h-16 bg-primary/30"></div>
             <div className="text-center">
-              <p className="text-sm sm:text-base text-muted-foreground mb-2">At</p>
-              <p className="text-xl sm:text-2xl font-semibold text-primary">6:30 PM</p>
+              <p className="text-xs sm:text-base text-muted-foreground mb-1">At</p>
+              <p className="text-lg sm:text-2xl font-semibold text-primary">6:30 PM</p>
             </div>
           </div>
 
@@ -160,12 +160,12 @@ export default function GalaDinner() {
             </div>
           </div>
 
-          <div className="space-y-8 sm:space-y-12 lg:space-y-16 flex flex-col items-center">
+          <div className="space-y-8 sm:space-y-12 lg:space-y-16 flex flex-col items-center relative">
             {[
-              { time: '6:30 PM', event: 'Arrival & Cocktails', description: 'Grand Entrance Hall' },
-              { time: '7:15 PM', event: 'Formal Dinner Service', description: 'Main Ballroom' },
-              { time: '8:30 PM', event: 'Toasts & Remarks', description: 'Business Excellence Celebration' },
-              { time: '9:00 PM', event: 'Evening Entertainment', description: 'Live Music & Networking' },
+              { time: '6:30 PM', event: 'Arrival & Cocktails', description: 'Grand Entrance Hall', symbol: '✦' },
+              { time: '7:15 PM', event: 'Formal Dinner Service', description: 'Main Ballroom', symbol: '✦' },
+              { time: '8:30 PM', event: 'Toasts & Remarks', description: 'Business Excellence Celebration', symbol: '✦' },
+              { time: '9:00 PM', event: 'Evening Entertainment', description: 'Live Music & Networking', symbol: '✦' },
             ].map((item, index) => (
               <div 
                 key={index}
@@ -177,8 +177,10 @@ export default function GalaDinner() {
                   transform: visibleElements.has(`timeline-${index}`) ? 'translateX(0) translateY(0)' : 'translateX(-40px) translateY(20px)',
                 }}
               >
-                <div className="flex flex-col items-center">
-                  <div className="w-4 h-4 rounded-full bg-primary mb-4"></div>
+                <div className="flex flex-col items-center relative">
+                  <div className="w-4 h-4 rounded-full bg-primary mb-4 relative z-10"></div>
+                  <span className="absolute -top-2 -left-6 text-primary/40 text-xs">✧</span>
+                  <span className="absolute -top-2 -right-6 text-primary/40 text-xs">✧</span>
                   {index < 3 && <div className="w-0.5 h-20 sm:h-24 bg-border"></div>}
                 </div>
                 <div className="pb-4 sm:pb-6 text-center">
@@ -188,6 +190,9 @@ export default function GalaDinner() {
                 </div>
               </div>
             ))}
+            {/* Decorative border elements */}
+            <div className="absolute -left-12 top-1/4 w-px h-32 bg-gradient-to-b from-primary/0 via-primary/20 to-primary/0"></div>
+            <div className="absolute -right-12 top-1/4 w-px h-32 bg-gradient-to-b from-primary/0 via-primary/20 to-primary/0"></div>
           </div>
         </div>
 
@@ -195,24 +200,24 @@ export default function GalaDinner() {
         <img 
           src="/butterfly-gold.png" 
           alt="Butterfly decoration" 
-          className="absolute top-20 left-1/2 -translate-x-1/4 w-16 sm:w-24 opacity-30"
+          className="absolute top-32 left-8 w-12 sm:w-20 opacity-25"
         />
         <img 
           src="/butterfly-gold.png" 
           alt="Butterfly decoration" 
-          className="absolute bottom-32 left-1/2 translate-x-1/4 w-20 sm:w-32 opacity-30"
+          className="absolute bottom-24 right-8 w-16 sm:w-28 opacity-25"
         />
       </section>
 
       {/* Details Section */}
       <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 bg-background">
-        <div className="max-w-3xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12">
+        <div className="max-w-2xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 justify-items-center md:justify-items-start">
             {/* Venue */}
             <div 
               id="details-0"
               data-scroll-animate
-              className="transition-all duration-1000"
+              className="transition-all duration-1000 text-center md:text-left"
               style={{
                 opacity: visibleElements.has('details-0') ? 1 : 0,
                 transform: visibleElements.has('details-0') ? 'translateX(0) translateY(0)' : 'translateX(-40px) translateY(20px)',
@@ -220,7 +225,7 @@ export default function GalaDinner() {
             >
               <div className="mb-6">
                 <h3 className="font-serif text-2xl sm:text-3xl text-foreground mb-2">Venue</h3>
-                <div className="h-0.5 w-12 bg-primary mb-4"></div>
+                <div className="h-0.5 w-12 bg-primary mb-4 mx-auto md:mx-0"></div>
               </div>
               <p className="text-sm sm:text-base text-muted-foreground mb-3 leading-relaxed">
                 <span className="font-semibold text-foreground">The Platinum Ballroom</span>
@@ -236,7 +241,7 @@ export default function GalaDinner() {
             <div 
               id="details-1"
               data-scroll-animate
-              className="transition-all duration-1000"
+              className="transition-all duration-1000 text-center md:text-left"
               style={{
                 opacity: visibleElements.has('details-1') ? 1 : 0,
                 transform: visibleElements.has('details-1') ? 'translateX(0) translateY(0)' : 'translateX(40px) translateY(20px)',
@@ -244,7 +249,7 @@ export default function GalaDinner() {
             >
               <div className="mb-6">
                 <h3 className="font-serif text-2xl sm:text-3xl text-foreground mb-2">Dress Code</h3>
-                <div className="h-0.5 w-12 bg-primary mb-4"></div>
+                <div className="h-0.5 w-12 bg-primary mb-4 mx-auto md:mx-0"></div>
               </div>
               <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
                 <span className="font-semibold text-foreground">Black Tie Optional</span>
@@ -258,7 +263,7 @@ export default function GalaDinner() {
             <div 
               id="details-2"
               data-scroll-animate
-              className="transition-all duration-1000"
+              className="transition-all duration-1000 text-center md:text-left"
               style={{
                 opacity: visibleElements.has('details-2') ? 1 : 0,
                 transform: visibleElements.has('details-2') ? 'translateX(0) translateY(0)' : 'translateX(-40px) translateY(20px)',
@@ -266,7 +271,7 @@ export default function GalaDinner() {
             >
               <div className="mb-6">
                 <h3 className="font-serif text-2xl sm:text-3xl text-foreground mb-2">Culinary Experience</h3>
-                <div className="h-0.5 w-12 bg-primary mb-4"></div>
+                <div className="h-0.5 w-12 bg-primary mb-4 mx-auto md:mx-0"></div>
               </div>
               <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
                 A prestigious four-course dinner with premium selections, complemented by fine wines and champagne. Crafted to celebrate excellence.
@@ -277,7 +282,7 @@ export default function GalaDinner() {
             <div 
               id="details-3"
               data-scroll-animate
-              className="transition-all duration-1000"
+              className="transition-all duration-1000 text-center md:text-left"
               style={{
                 opacity: visibleElements.has('details-3') ? 1 : 0,
                 transform: visibleElements.has('details-3') ? 'translateX(0) translateY(0)' : 'translateX(40px) translateY(20px)',
@@ -285,7 +290,7 @@ export default function GalaDinner() {
             >
               <div className="mb-6">
                 <h3 className="font-serif text-2xl sm:text-3xl text-foreground mb-2">Questions?</h3>
-                <div className="h-0.5 w-12 bg-primary mb-4"></div>
+                <div className="h-0.5 w-12 bg-primary mb-4 mx-auto md:mx-0"></div>
               </div>
               <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
                 Email: <a href="mailto:events@bggold.com" className="text-primary hover:underline">events@bggold.com</a><br />
@@ -321,10 +326,6 @@ export default function GalaDinner() {
             >
               RSVP NOW
             </Button>
-
-            <p className="text-xs sm:text-sm text-muted-foreground mt-12">
-              Or visit: <span className="text-primary font-semibold">forms.gle/placeholder</span>
-            </p>
           </div>
         </div>
 
