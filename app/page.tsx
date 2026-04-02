@@ -67,15 +67,19 @@ export default function GalaDinner() {
           backgroundPosition: `0px ${scrollY * 0.5}px`,
         }}
       >
-        <div
-          className="absolute inset-0 opacity-25"
-          style={{
-            backgroundImage: 'url("goldanimation.gif")',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            transform: `translateY(${scrollY * 0.5}px)`,
-          }}
-        />
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover opacity-25 pointer-events-none"
+        style={{
+          transform: `translateY(${scrollY * 0.5}px)`,
+        }}
+      >
+        <source src="/goldanimation.webm" type="video/webm" />
+        <source src="/goldanimation.mp4" type="video/mp4" />
+      </video>
 
         <div
           className="absolute inset-x-0 bottom-0 h-64 pointer-events-none z-10"
@@ -353,7 +357,7 @@ export default function GalaDinner() {
               Join Us
             </h2>
             <p className="text-sm sm:text-base text-muted-foreground mb-16 max-w-xl mx-auto leading-relaxed">
-              We cordially invite you to an unforgettable evening. Please confirm your attendance by April 1st to ensure your place at this distinguished gathering.
+              We cordially invite you to an unforgettable evening. Please confirm your attendance by April 6th to ensure your place at this distinguished gathering.
             </p>
 
             <Button
