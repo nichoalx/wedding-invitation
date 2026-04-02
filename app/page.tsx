@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Button } from '@/components/ui/button'
 
-export default function WeddingInvitation() {
+export default function GalaDinner() {
   const [scrollY, setScrollY] = useState(0)
   const heroRef = useRef<HTMLDivElement>(null)
   const [visibleElements, setVisibleElements] = useState<Set<string>>(new Set())
@@ -57,55 +57,63 @@ export default function WeddingInvitation() {
         }}
       >
         <div
-          className="absolute inset-0 opacity-30"
+          className="absolute inset-0 opacity-25"
           style={{
-            backgroundImage: 'url(/herogif.gif?height=1080&width=1920)',
+            backgroundImage: 'url(https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Foundation-Gala-Dinner-e53somFent0GlSU7dHvnTEqM1wQQWu.png?height=1080&width=1920)',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
-            transform: `translateY(${scrollY * 0.5}px)`, // might delete
+            transform: `translateY(${scrollY * 0.5}px)`,
           }}
         />
 
         <div className="relative z-10 text-center px-4 sm:px-6 max-w-4xl mx-auto">
           <div className="mb-6 opacity-0 animate-fade-in">
             <p className="text-sm sm:text-base tracking-widest text-primary mb-2">
-              TOGETHER WITH
+              PRESENTED BY
             </p>
-            <p className="text-xs sm:text-sm text-muted-foreground">
-              Their Parents
+            <p className="text-xl sm:text-2xl font-bold text-primary">
+              BG GOLD
             </p>
           </div>
 
           <h1
-            className="font-serif text-4xl sm:text-6xl lg:text-7xl font-bold text-foreground mb-4 animate-fade-in-delayed leading-tight"
+            className="font-serif text-5xl sm:text-7xl lg:text-8xl font-light text-foreground mb-4 animate-fade-in-delayed leading-tight italic"
             style={{
               animationDelay: '0.2s',
             }}
           >
-            Emma & James
+            Gala Dinner
           </h1>
 
-          <p className="text-sm sm:text-base text-muted-foreground mb-8 tracking-wide animate-fade-in-delayed leading-relaxed max-w-2xl mx-auto"
+          <p className="text-sm sm:text-base text-primary mb-8 tracking-wider animate-fade-in-delayed leading-relaxed max-w-2xl mx-auto font-semibold"
             style={{
               animationDelay: '0.4s',
             }}
           >
-            REQUEST THE HONOR OF YOUR PRESENCE AT THE CELEBRATION OF THEIR MARRIAGE
+            SAVE THE DATE
           </p>
 
           <div
-            className="animate-fade-in-delayed"
+            className="animate-fade-in-delayed flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6"
             style={{
               animationDelay: '0.6s',
             }}
           >
-            <p className="text-lg sm:text-xl font-serif text-primary font-semibold mb-2">
-              Saturday, June 14th
-            </p>
-            <p className="text-sm sm:text-base text-muted-foreground">
-              2025
-            </p>
+            <div className="text-center">
+              <p className="text-sm sm:text-base tracking-widest text-muted-foreground uppercase">Saturday</p>
+              <p className="text-4xl sm:text-5xl font-bold text-primary">28</p>
+              <p className="text-xs sm:text-sm text-muted-foreground uppercase">June</p>
+            </div>
+            <div className="hidden sm:block w-px h-16 bg-primary/30"></div>
+            <div className="text-center">
+              <p className="text-sm sm:text-base text-muted-foreground mb-2">At</p>
+              <p className="text-xl sm:text-2xl font-semibold text-primary">6:30 PM</p>
+            </div>
           </div>
+
+          <p className="text-xs sm:text-sm text-muted-foreground mt-8 tracking-widest uppercase">
+            Fine Dining • Celebration • Elegance
+          </p>
         </div>
 
         {/* Scroll Indicator */}
@@ -134,12 +142,12 @@ export default function WeddingInvitation() {
         </div>
       </section>
 
-      {/* Love Story Section */}
+      {/* About Event Section */}
       <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 bg-background">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-10 sm:mb-16">
             <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl text-foreground mb-4">
-              Our Love Story
+              An Evening of Excellence
             </h2>
             <div className="flex items-center justify-center gap-2 mb-6">
               <div className="h-px w-8 bg-primary"></div>
@@ -158,14 +166,15 @@ export default function WeddingInvitation() {
                 transform: visibleElements.has('story-1') ? 'translateX(0) translateY(0)' : 'translateX(-40px) translateY(20px)',
               }}
             >
-              <img
-                src="/placeholder1.jpg?height=400&width=300"
-                alt="Our story"
-                className="w-full h-64 sm:h-80 object-cover rounded-lg bg-muted"
-              />
-              <h3 className="font-serif text-xl sm:text-2xl text-foreground">Where It Began</h3>
+              <div className="w-full h-64 sm:h-80 bg-gradient-to-br from-primary/30 to-primary/10 rounded-lg flex items-center justify-center border border-primary/20">
+                <span className="text-primary/50 text-center px-4">
+                  <p className="text-2xl font-serif mb-2">✦</p>
+                  <p className="text-sm">Premier Business Celebration</p>
+                </span>
+              </div>
+              <h3 className="font-serif text-xl sm:text-2xl text-foreground">Celebrating Success</h3>
               <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                Join the leaders and innovators of the gold industry for an exclusive evening of fine dining and distinguished company. A celebration of excellence in business and partnership.
               </p>
             </div>
 
@@ -178,14 +187,15 @@ export default function WeddingInvitation() {
                 transform: visibleElements.has('story-2') ? 'translateX(0) translateY(0)' : 'translateX(40px) translateY(20px)',
               }}
             >
-              <img
-                src="/placeholder2.jpeg?height=400&width=300"
-                alt="Our journey"
-                className="w-full h-64 sm:h-80 object-cover rounded-lg bg-muted"
-              />
-              <h3 className="font-serif text-xl sm:text-2xl text-foreground">The Journey</h3>
+              <div className="w-full h-64 sm:h-80 bg-gradient-to-br from-primary/30 to-primary/10 rounded-lg flex items-center justify-center border border-primary/20">
+                <span className="text-primary/50 text-center px-4">
+                  <p className="text-2xl font-serif mb-2">✦</p>
+                  <p className="text-sm">Networking & Dining</p>
+                </span>
+              </div>
+              <h3 className="font-serif text-xl sm:text-2xl text-foreground">The Evening</h3>
               <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                Enjoy a curated culinary experience alongside industry peers. Network, celebrate, and discover new business opportunities in an atmosphere of refined elegance.
               </p>
             </div>
           </div>
@@ -193,11 +203,11 @@ export default function WeddingInvitation() {
       </section>
 
       {/* Timeline Section */}
-      <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 bg-secondary/50">
+      <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 bg-secondary">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-10 sm:mb-16">
             <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl text-foreground mb-4">
-              Wedding Timeline
+              Evening Schedule
             </h2>
             <div className="flex items-center justify-center gap-2">
               <div className="h-px w-8 bg-primary"></div>
@@ -208,10 +218,10 @@ export default function WeddingInvitation() {
 
           <div className="space-y-6 sm:space-y-8">
             {[
-              { time: '4:00 PM', event: 'Ceremony', description: 'Main Hall' },
-              { time: '5:30 PM', event: 'Cocktail Hour', description: 'Terrace' },
-              { time: '6:30 PM', event: 'Reception & Dinner', description: 'Ballroom' },
-              { time: '8:00 PM', event: 'Toasts & Dancing', description: "Let's Celebrate!" },
+              { time: '6:30 PM', event: 'Arrival & Cocktails', description: 'Grand Entrance Hall' },
+              { time: '7:15 PM', event: 'Formal Dinner Service', description: 'Main Ballroom' },
+              { time: '8:30 PM', event: 'Toasts & Remarks', description: 'Business Excellence Celebration' },
+              { time: '9:00 PM', event: 'Evening Entertainment', description: 'Live Music & Networking' },
             ].map((item, index) => (
               <div 
                 key={index}
@@ -257,12 +267,12 @@ export default function WeddingInvitation() {
                 <div className="h-0.5 w-12 bg-primary mb-4"></div>
               </div>
               <p className="text-sm sm:text-base text-muted-foreground mb-3 leading-relaxed">
-                <span className="font-semibold text-foreground">The Grand Garden Estate</span>
+                <span className="font-semibold text-foreground">The Platinum Ballroom</span>
               </p>
               <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                123 Roadname Here<br />
-                Cityname, State 12345<br />
-                <a href="tel:+6287832033520" className="text-primary hover:underline">+62 87832033520</a>
+                1200 Prestige Avenue<br />
+                Metropolitan District, State 45678<br />
+                <a href="tel:+1-555-0199" className="text-primary hover:underline">+1 (555) 0199</a>
               </p>
             </div>
 
@@ -281,14 +291,14 @@ export default function WeddingInvitation() {
                 <div className="h-0.5 w-12 bg-primary mb-4"></div>
               </div>
               <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-                <span className="font-semibold text-foreground">Black Tie</span>
+                <span className="font-semibold text-foreground">Black Tie Optional</span>
               </p>
               <p className="text-xs sm:text-sm text-muted-foreground mt-3 leading-relaxed">
-                We request guests to dress in semi-formal or cocktail attire. Feel free to express your personal style while maintaining an elegant look.
+                Formal or business black-tie attire. Embrace the evening's elegance and sophistication with refined style.
               </p>
             </div>
 
-            {/* Lodging */}
+            {/* Cuisine */}
             <div 
               id="details-2"
               data-scroll-animate
@@ -299,11 +309,11 @@ export default function WeddingInvitation() {
               }}
             >
               <div className="mb-6">
-                <h3 className="font-serif text-2xl sm:text-3xl text-foreground mb-2">Lodging</h3>
+                <h3 className="font-serif text-2xl sm:text-3xl text-foreground mb-2">Culinary Experience</h3>
                 <div className="h-0.5 w-12 bg-primary mb-4"></div>
               </div>
               <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                A block of rooms has been reserved under the name "Emma & James Wedding" at the Hotel. 
+                A prestigious four-course dinner with premium selections, complemented by fine wines and champagne. Crafted to celebrate excellence.
               </p>
             </div>
 
@@ -322,8 +332,8 @@ export default function WeddingInvitation() {
                 <div className="h-0.5 w-12 bg-primary mb-4"></div>
               </div>
               <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                Email: <a href="mailto:nicholasalexanderjosia@gmail.com" className="text-primary hover:underline">dontemailme@gmail.com</a><br />
-                Phone: <a href="tel:+6287832033520" className="text-primary hover:underline">+62 87832033520</a>
+                Email: <a href="mailto:events@bggold.com" className="text-primary hover:underline">events@bggold.com</a><br />
+                Phone: <a href="tel:+1-555-0199" className="text-primary hover:underline">+1 (555) 0199</a>
               </p>
             </div>
           </div>
@@ -331,7 +341,7 @@ export default function WeddingInvitation() {
       </section>
 
       {/* RSVP Section */}
-      <section className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 bg-gradient-to-b from-background to-secondary/30">
+      <section className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 bg-gradient-to-b from-background via-secondary to-background">
         <div className="max-w-2xl mx-auto text-center">
           <div
             id="rsvp-section"
@@ -343,10 +353,10 @@ export default function WeddingInvitation() {
             }}
           >
             <h2 className="font-serif text-4xl sm:text-5xl lg:text-6xl text-foreground mb-6">
-              Celebrate With Us
+              Join Us
             </h2>
             <p className="text-sm sm:text-base text-muted-foreground mb-12 max-w-xl mx-auto leading-relaxed">
-              We would be delighted to share this special day with you. Please RSVP by May 30th to confirm your attendance.
+              We cordially invite you to an unforgettable evening. Please confirm your attendance by June 20th to ensure your place at this distinguished gathering.
             </p>
 
             <Button
@@ -364,11 +374,11 @@ export default function WeddingInvitation() {
       </section>
 
       {/* Footer */}
-      <footer className="py-8 sm:py-12 px-4 sm:px-6 bg-foreground text-background border-t border-primary/20">
+      <footer className="py-8 sm:py-12 px-4 sm:px-6 bg-secondary border-t border-primary/30">
         <div className="max-w-3xl mx-auto text-center">
-          <p className="font-serif text-lg sm:text-xl mb-2">Sponsors (?)</p>
-          <p className="text-xs sm:text-sm opacity-75">
-            June 14, 2025
+          <p className="font-serif text-lg sm:text-xl text-foreground mb-2">BG Gold</p>
+          <p className="text-xs sm:text-sm text-muted-foreground opacity-75">
+            June 28, 2025 — An Evening of Excellence
           </p>
         </div>
       </footer>

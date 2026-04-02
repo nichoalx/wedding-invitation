@@ -8,8 +8,8 @@ const _geistMono = Geist_Mono({ subsets: ["latin"] });
 const _playfairDisplay = Playfair_Display({ subsets: ["latin"], variable: "--font-serif" });
 
 export const metadata: Metadata = {
-  title: 'Wedding Invitation',
-  description: 'You are invited to celebrate our special day',
+  title: 'BG Gold Gala Dinner',
+  description: 'You are invited to an exclusive gala dinner hosted by BG Gold',
   generator: 'v0.app',
   icons: {
     icon: [
