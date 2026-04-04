@@ -139,10 +139,10 @@ export default function GalaDinner() {
 
           {/* Intro text */}
           <div className="mb-4 opacity-0 animate-fade-in" style={{ animationDelay: '0s' }}>
-            <p className="text-sm sm:text-base text-white/80 hero-text leading-relaxed italic tracking-wide">
+            <p className="text-sm sm:text-base text-white white-glow-text hero-text leading-relaxed italic tracking-wide">
               Dengan penuh kehormatan,
             </p>
-            <p className="text-lg text-white/80 hero-text leading-relaxed italic tracking-wide">
+            <p className="text-lg text-white white-glow-text hero-text leading-relaxed italic tracking-wide">
               kami mengundang Anda untuk hadir dalam
             </p>
           </div>
@@ -176,7 +176,7 @@ export default function GalaDinner() {
 
           {/* ── LOGO under Gala Dinner ── */}
           <div className="opacity-0 animate-fade-in flex flex-col items-center mb-7" style={{ animationDelay: '1.1s' }}>
-            <p className="text-xs sm:text-sm hero-text tracking-widest text-white/70 mt-1 uppercase">
+            <p className="text-xs sm:text-sm hero-text tracking-widest text-white white-glow-text mt-1 uppercase">
               Presented by 
             </p>
             <img
@@ -188,7 +188,7 @@ export default function GalaDinner() {
 
           {/* SAVE THE DATE */}
           <div className="opacity-0 animate-fade-in" style={{ animationDelay: '1.4s' }}>
-            <p className="text-lg sm:text-lg text-white hero-text mb-4 tracking-wider">
+            <p className="text-lg sm:text-lg text-white white-glow-text hero-text mb-4 tracking-wider">
               SAVE THE DATE
             </p>
           </div>
@@ -199,9 +199,9 @@ export default function GalaDinner() {
             style={{ animationDelay: '1.8s' }}
           >
             <div className="text-center">
-              <p className="text-xs sm:text-base tracking-widest text-white/80 uppercase">Senin</p>
+              <p className="text-xs sm:text-base tracking-widest text-white white-glow-text uppercase">Senin</p>
               <p className="text-3xl sm:text-5xl font-bold gold-shine-text" style={{ textShadow: '0 0 20px rgba(0,0,0,0.9)' }}>13</p>
-              <p className="text-xs sm:text-sm text-white/80 uppercase">April</p>
+              <p className="text-xs sm:text-sm text-white white-glow-text uppercase">April</p>
             </div>
             <div className="w-px h-12 sm:h-16 bg-white/30"></div>
             <div className="text-center">
@@ -262,10 +262,10 @@ export default function GalaDinner() {
                 <h3 className="font-serif text-2xl sm:text-3xl text-foreground mb-2">Venue</h3>
                 <div className="h-0.5 w-12 bg-primary mb-4 mx-auto md:mx-0"></div>
               </div>
-              <p className="text-sm sm:text-base text-muted-foreground mb-2 leading-relaxed">
+              <p className="text-sm sm:text-base  mb-2 leading-relaxed">
                 <span className="font-semibold text-foreground">Crystal Ballroom, Mercure Hotel Samarinda Lt.3</span>
               </p>
-              <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+              <p className="text-xs sm:text-sm  leading-relaxed">
                 Jl. Mulawarman No.171, Pelabuhan, Kec. Samarinda Kota,<br />
                 Kota Samarinda, Kalimantan Timur 75112
               </p>
@@ -285,10 +285,10 @@ export default function GalaDinner() {
                 <h3 className="font-serif text-2xl sm:text-3xl text-foreground mb-2">Dress Code</h3>
                 <div className="h-0.5 w-12 bg-primary mb-4 mx-auto md:mx-0"></div>
               </div>
-              <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+              <p className="text-sm sm:text-base  leading-relaxed">
                 <span className="font-semibold text-foreground">Formal & Elegan</span>
               </p>
-              <p className="text-xs sm:text-sm break-words max-w-md text-muted-foreground mt-3 leading-relaxed">
+              <p className="text-xs sm:text-sm break-words max-w-md  mt-3 leading-relaxed">
                 Kenakan busana formal terbaik Anda <br />
                 Tampil memukau dan cerminkan keanggunan dalam malam penuh kenangan ini.
               </p>
@@ -357,7 +357,7 @@ export default function GalaDinner() {
                 </div>
                 <div className="pb-2 text-center">
                   <p className="font-serif text-lg sm:text-2xl white-glow-text max-w-[300px] font-semibold">{item.title}</p>
-                  <p className="text-sm sm:text-base text-muted-foreground mt-1 max-w-[250px] mx-auto text-center">{item.description}</p>
+                  <p className="text-sm sm:text-base white-glow-text mt-1 max-w-[250px] mx-auto text-center">{item.description}</p>
                 </div>
               </div>
             ))}
@@ -418,7 +418,7 @@ export default function GalaDinner() {
             <div className="inline-block border border-primary/50 rounded-lg px-6 py-4 mb-8 bg-primary/10 gold-glow-card">
               <p className="text-xs tracking-widest text-primary uppercase mb-1">Konfirmasi Sebelum</p>
               <p className="font-serif text-2xl sm:text-3xl text-foreground">Selasa, 7 April 2025</p>
-              <p className="text-sm text-muted-foreground mt-1">pukul 20.00 WITA</p>
+              <p className="text-sm  mt-1">pukul 20.00 WITA</p>
             </div>
 
             <p className="font-serif text-lg sm:text-xl text-foreground italic mb-10 max-w-md mx-auto leading-relaxed">
@@ -432,7 +432,7 @@ export default function GalaDinner() {
               RSVP SEKARANG
             </Button>
 
-            <p className="text-xs text-muted-foreground mt-6 tracking-widest uppercase">
+            <p className="text-xs  mt-6 tracking-widest uppercase">
               ✦ Tempat terbatas · Konfirmasi diperlukan ✦
             </p>
           </div>
@@ -442,7 +442,7 @@ export default function GalaDinner() {
       {/* ─── FOOTER ─── */}
       <footer className="py-4 px-4 sm:px-6 bg-secondary border-t border-primary/30 relative z-10">
         <div className="max-w-3xl mx-auto text-center">
-          <p className="text-xs sm:text-sm text-muted-foreground opacity-75">
+          <p className="text-xs sm:text-sm  opacity-75">
             © PT Bagong Sejahtera Abadi. All Rights Reserved.
           </p>
         </div>
