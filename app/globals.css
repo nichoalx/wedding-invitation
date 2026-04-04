@@ -161,6 +161,10 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+    /* Force GPU rendering on Android */
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  will-change: background-position;
   animation: shimmer 100s linear infinite;  /* faster = more sparkly */
 }
 
@@ -230,6 +234,11 @@
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+  color: transparent; /* fallback */
+    /* Force GPU rendering on Android */
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  will-change: background-position;
   animation: shine 10s linear infinite;
 }
 
@@ -290,4 +299,11 @@
   50%       { transform: translateY(-12px); opacity: 1;   }
 }
 
-
+@supports not (-webkit-background-clip: text) {
+  .sparkle-text, .gold-shine-text {
+    -webkit-text-fill-color: unset;
+    color: #d4a017;
+    background: none;
+    animation: none;
+  }
+}

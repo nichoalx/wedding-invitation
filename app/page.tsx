@@ -117,6 +117,7 @@ export default function GalaDinner() {
       >
         <video
           autoPlay loop muted playsInline
+          preload="auto"
           className="absolute inset-0 w-full h-full object-cover opacity-80 pointer-events-none"
           style={{ transform: `translateY(${scrollY * 0.5}px)` }}
         >
