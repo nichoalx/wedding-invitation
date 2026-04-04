@@ -356,7 +356,7 @@ export default function GalaDinner() {
                   {index < 4 && <div className="w-0.5 h-8 bg-primary/30"></div>}
                 </div>
                 <div className="pb-2 text-center">
-                  <p className="font-serif text-lg sm:text-2xl gold-shine-text max-w-[300px] font-semibold">{item.title}</p>
+                  <p className="font-serif text-lg sm:text-2xl white-glow-text max-w-[300px] font-semibold">{item.title}</p>
                   <p className="text-sm sm:text-base text-muted-foreground mt-1 max-w-[250px] mx-auto text-center">{item.description}</p>
                 </div>
               </div>
@@ -379,7 +379,7 @@ export default function GalaDinner() {
 
       {/* ─── RSVP SECTION ─── */}
       <section className="py-12 sm:py-16 px-4 sm:px-6 relative z-10 overflow-hidden">
-        <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black to-transparent z-10 pointer-events-none" />
+        <div className="absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-black via-black/60 to-transparent z-10 pointer-events-none" />
           <video
             autoPlay
             loop
@@ -393,7 +393,7 @@ export default function GalaDinner() {
           {/* Overlay for readability */}
           <div className="absolute inset-0 bg-black/60"></div>
 
-        <div className="max-w-2xl mx-auto text-center">
+        <div className="max-w-2xl mx-auto text-center pt-20 sm:pt-20">
           <div
             id="rsvp-section"
             data-scroll-animate
@@ -403,7 +403,7 @@ export default function GalaDinner() {
               transform: visibleElements.has('rsvp-section') ? 'translateY(0)' : 'translateY(40px)',
             }}
           >
-            <p className="text-xs tracking-widest font-bold text-primary uppercase mt-1 mb-2">✦ Konfirmasi Kehadiran Anda ✦</p>
+            <p className="text-xs tracking-widest font-bold gold-label-glow uppercase mt-1 mb-2">✦ Konfirmasi Kehadiran Anda ✦</p>
             <h2 className="font-serif text-4xl sm:text-5xl lg:text-6xl text-foreground mb-4">
               RSVP
             </h2>
@@ -440,74 +440,13 @@ export default function GalaDinner() {
       </section>
 
       {/* ─── FOOTER ─── */}
-      <footer className="py-8 sm:py-12 px-4 sm:px-6 bg-secondary border-t border-primary/30 relative z-10">
+      <footer className="py-4 px-4 sm:px-6 bg-secondary border-t border-primary/30 relative z-10">
         <div className="max-w-3xl mx-auto text-center">
           <p className="text-xs sm:text-sm text-muted-foreground opacity-75">
             © PT Bagong Sejahtera Abadi. All Rights Reserved.
           </p>
         </div>
       </footer>
-
-      <style>{`
-        /* ── Shimmer gold text ── */
-        @keyframes shimmer {
-          0%   { background-position: -200% center; }
-          100% { background-position:  200% center; }
-        }
-
-        /* Slightly less intense shimmer for secondary gold text */
-        .gold-shine-text {
-          background: linear-gradient(
-            90deg,
-            #5c4715 0%,
-            #d4af37 20%,
-            #fff4b0 40%,
-            #ffffff 50%,
-            #fff4b0 60%,
-            #d4af37 80%,
-            #5c4715 100%
-          );
-          background-size: 200% auto;
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          animation: shine 10s linear infinite;
-        }
-
-        /* ── Glowing card ── */
-        @keyframes goldShine {
-          0%   { box-shadow: 0 0 10px rgba(212,160,23,0.2), 0 0 20px rgba(212,160,23,0.1); }
-          50%  { box-shadow: 0 0 25px rgba(212,160,23,0.6), 0 0 50px rgba(212,160,23,0.3); }
-          100% { box-shadow: 0 0 10px rgba(212,160,23,0.2), 0 0 20px rgba(212,160,23,0.1); }
-        }
-        .gold-glow-card {
-          animation: goldShine 10s ease-in-out infinite;
-          border: 1px solid rgba(212,160,23,0.3);
-        }
-
-        /* ── Hero text drop shadow ── */
-        .hero-text {
-          text-shadow: 0 2px 4px rgba(0,0,0,0.9), 0 4px 16px rgba(0,0,0,0.7);
-        }
-
-        /* ── Fade in ── */
-        @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(16px); }
-          to   { opacity: 1; transform: translateY(0); }
-        }
-        .animate-fade-in {
-          animation: fadeIn 0.8s ease-out forwards;
-          opacity: 0;
-        }
-
-        /* ── Bounce ── */
-        .animate-bounce {
-          animation: bounce 2s infinite;
-        }
-        @keyframes bounce {
-          0%, 100% { transform: translateY(0);    opacity: 0.5; }
-          50%       { transform: translateY(-12px); opacity: 1;   }
-        }
-      `}</style>
     </main>
   )
 }
