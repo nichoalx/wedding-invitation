@@ -169,7 +169,7 @@ export default function GalaDinner() {
             </h1>
 
             {/* SUBTITLE */}
-            <p className="text-7xl sm:text-7xl drop-shadow-lg font-display text-white font-light gold-shine-text tracking-widest italic mt-5 mb-10">
+            <p className="text-7xl sm:text-7xl drop-shadow-lg static-gold font-display text-white font-light tracking-widest italic mt-5 mb-10">
               Gala Dinner
             </p>
 
@@ -201,12 +201,12 @@ export default function GalaDinner() {
           >
             <div className="text-center">
               <p className="text-xs sm:text-base tracking-widest text-white white-glow-text uppercase">Senin</p>
-              <p className="text-3xl sm:text-5xl font-bold gold-shine-text" style={{ textShadow: '0 0 20px rgba(0,0,0,0.9)' }}>13</p>
+              <p className="text-3xl sm:text-5xl font-bold static-gold" style={{ textShadow: '0 0 20px rgba(0,0,0,0.9)' }}>13</p>
               <p className="text-xs sm:text-sm text-white white-glow-text uppercase">April</p>
             </div>
             <div className="w-px h-12 sm:h-16 bg-white/30"></div>
             <div className="text-center">
-              <p className="text-xl sm:text-3xl font-semibold gold-shine-text" style={{ textShadow: '0 0 20px rgba(0,0,0,0.9)' }}>18:00 WITA</p>
+              <p className="text-xl sm:text-3xl font-semibold static-gold" style={{ textShadow: '0 0 20px rgba(0,0,0,0.9)' }}>18:00 WITA</p>
             </div>
           </div>
         </div>
@@ -238,7 +238,7 @@ export default function GalaDinner() {
               transform: visibleElements.has('details-intro') ? 'translateY(0)' : 'translateY(24px)',
             }}
           >
-            <p className="font-serif text-3xl gold-shine-text sm:text-4xl text-foreground italic leading-relaxed max-w-xl mx-auto">
+            <p className="font-serif text-3xl static-gold sm:text-4xl text-foreground italic leading-relaxed max-w-xl mx-auto">
               Sebuah perayaan elegan yang mempertemukan rasa syukur, keindahan, dan momen berharga dalam satu malam istimewa.
             </p>
             <div className="flex items-center justify-center gap-2 mt-8 mb-12">
