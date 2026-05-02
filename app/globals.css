@@ -76,7 +76,7 @@
 
 @theme inline {
   --font-sans: 'Geist', 'Geist Fallback';
-  --font-serif: 'Playfair Display', 'Georgia', serif;
+  --font-serif: 'Cormorant Garamond', 'Georgia', serif;
   --font-display: 'Pinyon Script', cursive;
   --font-mono: 'Geist Mono', 'Geist Mono Fallback';
   --color-background: var(--background);

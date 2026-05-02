@@ -1,11 +1,11 @@
 import type { Metadata } from 'next'
-import { Geist, Geist_Mono, Playfair_Display, Pinyon_Script } from 'next/font/google'
+import { Geist, Geist_Mono, Cormorant_Garamond, Pinyon_Script } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
 const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
-const _playfairDisplay = Playfair_Display({ subsets: ["latin"], variable: "--font-serif" });
+const _cormorantGaramond = Cormorant_Garamond({ subsets: ["latin"], variable: "--font-serif", weight: ["400", "600", "700"] });
 const _pinyonScript = Pinyon_Script({ subsets: ["latin"], weight: "400", variable: "--font-display" });
 
 export const metadata: Metadata = {
@@ -37,7 +37,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${_playfairDisplay.variable} ${_pinyonScript.variable}`}>
+    <html lang="en" className={`${_cormorantGaramond.variable} ${_pinyonScript.variable}`}>
       <body className="font-sans antialiased">
         {children}
         <Analytics />

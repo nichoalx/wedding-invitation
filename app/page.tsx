@@ -319,56 +319,66 @@ export default function GalaDinner() {
         style={{ background: 'linear-gradient(to bottom, transparent, var(--background))' }}
       />
 
-      {/* ─── PERSEMBAHAN ISTIMEWA ─── */}
-      <section className="py-12 sm:py-16 px-4 sm:px-6 relative z-10">
-        <div className="max-w-lg mx-auto bg-secondary/90 backdrop-blur-md rounded-xl shadow-2xl p-8 sm:p-12 gold-glow-card relative overflow-hidden">
-          <div className="text-center mb-6">
-            <h2 className="font-serif text-4xl sm:text-5xl text-foreground mb-3">
+      {/* ─── PERSEMBAHAN ISTIMEWA / TIMELINE ─── */}
+      <section className="py-20 sm:py-32 px-4 sm:px-6 relative z-10">
+        <div className="max-w-4xl mx-auto">
+          {/* Section Title */}
+          <div className="text-center mb-16 sm:mb-20">
+            <h2 className="font-serif text-5xl sm:text-6xl lg:text-7xl text-foreground mb-4 tracking-wide">
               Persembahan Istimewa
             </h2>
-            <div className="flex flex-col items-center mb-8">
-              <p className="text-xs tracking-widest text-primary uppercase ">
-                by
-              </p>
-              <img
-                src="/bg-gold-logo-refined.png"
-                alt="BG Gold Logo"
-                className="h-22 sm:h-22 object-contain"
-              />
+            <div className="flex items-center justify-center gap-2 mb-8">
+              <div className="h-px w-8 bg-primary"></div>
+              <div className="w-2 h-2 rounded-full bg-primary"></div>
+              <div className="h-px w-8 bg-primary"></div>
             </div>
           </div>
 
-          <div className="space-y-2 flex flex-col items-center relative">
-            {[
-              { title: 'Gala Dinner Experience', description: 'Sajian makan malam istimewa dalam suasana elegan' },
-              { title: 'Special Performance by Hatim Rahmat', description: 'Penampilan spesial yang akan menyempurnakan malam Anda' },
-              { title: 'Pengundian Door Prize', description: 'Pengundian hadiah eksklusif bagi tamu undangan' },
-              { title: 'Appreciation Token Ceremony', description: 'Momen penghargaan sebagai bentuk apresiasi' },
-            ].map((item, index) => (
-              <div
-                key={index}
-                id={`timeline-${index}`}
-                data-scroll-animate
-                className="flex flex-col items-center transition-all duration-1000 w-full max-w-sm"
-                style={{
-                  opacity: visibleElements.has(`timeline-${index}`) ? 1 : 0,
-                  transform: visibleElements.has(`timeline-${index}`) ? 'translateX(0) translateY(0)' : 'translateX(-40px) translateY(20px)',
-                }}
-              >
-                <div className="flex flex-col items-center relative">
-                  <div className="w-4 h-4 rounded-full bg-primary mb-2 relative z-10 shadow-[0_0_8px_rgba(212,160,23,0.8)]"></div>
-                  {index < 4 && <div className="w-0.5 h-8 bg-primary/30"></div>}
-                </div>
-                <div className="pb-2 text-center">
-                  <p className="font-serif text-lg sm:text-2xl white-glow-text max-w-[300px] font-semibold">{item.title}</p>
-                  <p className="text-sm sm:text-base white-glow-text mt-1 max-w-[250px] mx-auto text-center">{item.description}</p>
-                </div>
-              </div>
-            ))}
+          {/* Timeline Container */}
+          <div className="relative py-8">
+            {/* Central vertical line */}
+            <div className="absolute left-1/2 top-0 bottom-0 w-px bg-primary/40 transform -translate-x-1/2"></div>
 
-            {/* Decorative side lines */}
-            <div className="absolute right-0 top-1/4 w-px h-64 bg-gradient-to-b from-primary/0 via-primary/30 to-primary/0"></div>
-            <div className="absolute left-0 top-1/4 w-px h-64 bg-gradient-to-b from-primary/0 via-primary/30 to-primary/0"></div>
+            {/* Timeline items */}
+            <div className="space-y-12 sm:space-y-16">
+              {[
+                { title: 'Gala Dinner Experience', description: 'Sajian makan malam istimewa dalam suasana elegan', side: 'right' },
+                { title: 'Special Performance by Hatim Rahmat', description: 'Penampilan spesial yang akan menyempurnakan malam Anda', side: 'left' },
+                { title: 'Pengundian Door Prize', description: 'Pengundian hadiah eksklusif bagi tamu undangan', side: 'right' },
+                { title: 'Appreciation Token Ceremony', description: 'Momen penghargaan sebagai bentuk apresiasi', side: 'left' },
+              ].map((item, index) => (
+                <div
+                  key={index}
+                  id={`timeline-${index}`}
+                  data-scroll-animate
+                  className={`flex items-center transition-all duration-1000 ${
+                    item.side === 'left' ? 'flex-row' : 'flex-row-reverse'
+                  }`}
+                  style={{
+                    opacity: visibleElements.has(`timeline-${index}`) ? 1 : 0,
+                    transform: visibleElements.has(`timeline-${index}`) ? 'translateX(0) translateY(0)' : item.side === 'left' ? 'translateX(-40px) translateY(20px)' : 'translateX(40px) translateY(20px)',
+                  }}
+                >
+                  {/* Content */}
+                  <div className={`w-5/12 ${item.side === 'left' ? 'text-right pr-8' : 'text-left pl-8'}`}>
+                    <p className="font-serif text-xl sm:text-2xl text-foreground font-semibold mb-2 uppercase tracking-wide">
+                      {item.title}
+                    </p>
+                    <p className="text-sm sm:text-base text-foreground/80 leading-relaxed">
+                      {item.description}
+                    </p>
+                  </div>
+
+                  {/* Center dot */}
+                  <div className="w-2/12 flex justify-center">
+                    <div className="w-5 h-5 rounded-full bg-primary relative z-10 shadow-[0_0_16px_rgba(212,160,23,0.8)]"></div>
+                  </div>
+
+                  {/* Empty space for symmetry */}
+                  <div className="w-5/12"></div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
