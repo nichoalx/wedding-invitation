@@ -72,11 +72,16 @@ export default function GalaDinner() {
   const videoY = useTransform(scrollY, [0, 700], [0, 180])
   const [introDismissed, setIntroDismissed] = useState(false)
   const [featherLanded, setFeatherLanded] = useState(false)
-
   // Force-play all muted videos as soon as they're mounted (bypasses mobile autoplay gate)
   React.useEffect(() => {
     heroVideoRef.current?.play().catch(() => {})
     bgVideoRef.current?.play().catch(() => {})
+  }, [])
+
+  // Fallback: if feather image is slow/broken, force-show UI after 4 s
+  React.useEffect(() => {
+    const t = setTimeout(() => setFeatherLanded(true), 4000)
+    return () => clearTimeout(t)
   }, [])
 
   const handleDismissIntro = () => {
@@ -189,7 +194,7 @@ export default function GalaDinner() {
           className="absolute inset-0 w-full h-full object-cover opacity-80 pointer-events-none"
           style={{ y: videoY }}
         >
-          <source src="/gold-feather.webm" type="video/webm" />
+          <source src="/gold-feather-hero.mp4" type="video/mp4" />
         </motion.video>
 
         {/* Vignette */}
@@ -345,7 +350,7 @@ export default function GalaDinner() {
           autoPlay loop muted playsInline preload="auto"
           className="absolute inset-0 w-full h-full object-cover pointer-events-none opacity-30 z-0"
         >
-          <source src="/gold-feather2.mp4" type="video/mp4" />
+          <source src="/gold-feather3.mp4" type="video/mp4" />
         </video>
 
       {/* ─── DETAILS ─── */}
@@ -575,7 +580,7 @@ export default function GalaDinner() {
 
         {/* 4-panel B&W photo mosaic background */}
         <div className="absolute inset-0 grid grid-cols-2 pointer-events-none">
-          {(['/rsvppic1.png', '/rsvppic2.png', '/rsvppic3.png', '/rsvppic4.jpg'] as const).map((src, i) => (
+          {(['/rsvppic1.webp', '/rsvppic2.webp', '/rsvppic3.webp', '/rsvppic4.webp'] as const).map((src, i) => (
             <div key={i} className="overflow-hidden">
               <img
                 src={src} alt="" aria-hidden="true"
