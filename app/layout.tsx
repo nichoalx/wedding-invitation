@@ -9,8 +9,8 @@ const _playfairDisplay = Playfair_Display({ subsets: ["latin"], variable: "--fon
 const _pinyonScript = Pinyon_Script({ subsets: ["latin"], weight: "400", variable: "--font-display" });
 
 export const metadata: Metadata = {
-  title: 'BG Gold Gala Dinner',
-  description: 'You are invited to an exclusive gala dinner hosted by BG Gold',
+  title: 'Golden Legacy Gala Dinner - Banjarmasin',
+  description: 'You are invited to the Golden Legacy Gala Dinner - A journey that brings us closer on May 19, 2026 at Galaxy Hotel, Banjarmasin',
   generator: 'v0.app',
   icons: {
     icon: [

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 400" width="200" height="400">
+  <!-- Feather shaft -->
+  <path d="M 100 20 Q 98 80, 95 160 Q 93 240, 100 380" stroke="#d4a017" stroke-width="3" fill="none" stroke-linecap="round"/>
+  
+  <!-- Left feather vanes -->
+  <path d="M 95 40 Q 60 35, 45 50 Q 55 45, 95 48" fill="#d4a017" opacity="0.8"/>
+  <path d="M 93 80 Q 50 70, 30 95 Q 50 80, 93 85" fill="#d4a017" opacity="0.75"/>
+  <path d="M 91 130 Q 45 115, 20 150 Q 45 130, 91 135" fill="#d4a017" opacity="0.7"/>
+  <path d="M 90 180 Q 40 160, 15 210 Q 40 180, 90 185" fill="#d4a017" opacity="0.7"/>
+  <path d="M 90 240 Q 45 220, 25 270 Q 45 240, 90 245" fill="#d4a017" opacity="0.75"/>
+  
+  <!-- Right feather vanes -->
+  <path d="M 105 40 Q 140 35, 155 50 Q 145 45, 105 48" fill="#f5c842" opacity="0.7"/>
+  <path d="M 107 80 Q 150 70, 170 95 Q 150 80, 107 85" fill="#f5c842" opacity="0.65"/>
+  <path d="M 109 130 Q 155 115, 180 150 Q 155 130, 109 135" fill="#f5c842" opacity="0.6"/>
+  <path d="M 110 180 Q 160 160, 185 210 Q 160 180, 110 185" fill="#f5c842" opacity="0.6"/>
+  <path d="M 110 240 Q 155 220, 175 270 Q 155 240, 110 245" fill="#f5c842" opacity="0.65"/>
+  
+  <!-- Highlight on feather -->
+  <ellipse cx="100" cy="120" rx="8" ry="40" fill="#fffacd" opacity="0.4"/>
+</svg>

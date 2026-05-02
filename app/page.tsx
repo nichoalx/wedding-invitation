@@ -165,12 +165,12 @@ export default function GalaDinner() {
                 filter: 'drop-shadow(1px 2px 8px rgba(0,0,0,0.8))',
               }}
             >
-              Golden Legacy: Carried Through Generations
+              Golden Legacy Gala Dinner
             </h1>
 
             {/* SUBTITLE */}
-            <p className="text-7xl sm:text-7xl drop-shadow-lg static-gold font-display text-white font-light tracking-widest italic mt-5 mb-10">
-              Gala Dinner
+            <p className="text-5xl sm:text-6xl drop-shadow-lg static-gold font-display text-white font-light tracking-widest italic mt-5 mb-10">
+              A Journey that Brings Us Closer
             </p>
 
           </div>
@@ -200,13 +200,13 @@ export default function GalaDinner() {
             style={{ animationDelay: '1.8s' }}
           >
             <div className="text-center">
-              <p className="text-xs sm:text-base tracking-widest text-white white-glow-text uppercase">Senin</p>
-              <p className="text-3xl sm:text-5xl font-bold static-gold" style={{ textShadow: '0 0 20px rgba(0,0,0,0.9)' }}>13</p>
-              <p className="text-xs sm:text-sm text-white white-glow-text uppercase">April</p>
+              <p className="text-xs sm:text-base tracking-widest text-white white-glow-text uppercase">Selasa</p>
+              <p className="text-3xl sm:text-5xl font-bold static-gold" style={{ textShadow: '0 0 20px rgba(0,0,0,0.9)' }}>19</p>
+              <p className="text-xs sm:text-sm text-white white-glow-text uppercase">Mei</p>
             </div>
             <div className="w-px h-12 sm:h-16 bg-white/30"></div>
             <div className="text-center">
-              <p className="text-xl sm:text-3xl font-semibold static-gold" style={{ textShadow: '0 0 20px rgba(0,0,0,0.9)' }}>18:00 WITA</p>
+              <p className="text-xl sm:text-3xl font-semibold static-gold" style={{ textShadow: '0 0 20px rgba(0,0,0,0.9)' }}>18:00</p>
             </div>
           </div>
         </div>
@@ -264,11 +264,14 @@ export default function GalaDinner() {
                 <div className="h-0.5 w-12 bg-primary mb-4 mx-auto md:mx-0"></div>
               </div>
               <p className="text-sm sm:text-base  mb-2 leading-relaxed">
-                <span className="font-semibold text-foreground">Crystal Ballroom, Mercure Hotel Samarinda Lt.3</span>
+                <span className="font-semibold text-foreground">Galaxy Hotel, Banjarmasin</span>
+              </p>
+              <p className="text-sm sm:text-base  mb-2 leading-relaxed">
+                <span className="text-foreground italic">Neptunus Ballroom</span>
               </p>
               <p className="text-xs sm:text-sm  leading-relaxed">
-                Jl. Mulawarman No.171, Pelabuhan, Kec. Samarinda Kota,<br />
-                Kota Samarinda, Kalimantan Timur 75112
+                Jalan A. Yani KM 2,5 No. 138, Sungai Baru,<br />
+                Banjarmasin
               </p>
             </div>
 
@@ -297,15 +300,15 @@ export default function GalaDinner() {
           </div>
         </div>
 
-        {/* Butterflies + gold wave decoration */}
+        {/* Feathers + gold wave decoration */}
         <img
-          src="/butterfly-gold.png"
-          alt="Butterfly decoration"
+          src="/feather-gold.svg"
+          alt="Feather decoration"
           className="absolute top-6 left-8 w-12 sm:w-20 opacity-45 drop-shadow-xl"
         />
         <img
-          src="/butterfly-gold.png"
-          alt="Butterfly decoration"
+          src="/feather-gold.svg"
+          alt="Feather decoration"
           className="absolute bottom-3 right-8 w-16 sm:w-28 opacity-45 drop-shadow-xl"
         />
       </section>
@@ -418,8 +421,8 @@ export default function GalaDinner() {
             {/* Deadline box */}
             <div className="inline-block border border-primary/50 rounded-lg px-6 py-4 mb-8 bg-primary/10 gold-glow-card">
               <p className="text-xs tracking-widest text-primary uppercase mb-1">Konfirmasi Sebelum</p>
-              <p className="font-serif text-2xl sm:text-3xl text-foreground">Selasa, 7 April 2025</p>
-              <p className="text-sm  mt-1">pukul 20.00 WITA</p>
+              <p className="font-serif text-2xl sm:text-3xl text-foreground">Senin, 5 Mei 2026</p>
+              <p className="text-sm  mt-1">pukul 20.00</p>
             </div>
 
             <p className="font-serif text-lg sm:text-xl text-foreground italic mb-10 max-w-md mx-auto leading-relaxed">
