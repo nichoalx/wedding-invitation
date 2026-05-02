@@ -66,9 +66,25 @@ const inView = {
 
 export default function GalaDinner() {
   const heroRef = useRef<HTMLDivElement>(null)
+  const heroVideoRef = useRef<HTMLVideoElement>(null)
+  const bgVideoRef = useRef<HTMLVideoElement>(null)
   const { scrollY } = useScroll()
   const videoY = useTransform(scrollY, [0, 700], [0, 180])
   const [introDismissed, setIntroDismissed] = useState(false)
+  const [featherLanded, setFeatherLanded] = useState(false)
+
+  // Force-play all muted videos as soon as they're mounted (bypasses mobile autoplay gate)
+  React.useEffect(() => {
+    heroVideoRef.current?.play().catch(() => {})
+    bgVideoRef.current?.play().catch(() => {})
+  }, [])
+
+  const handleDismissIntro = () => {
+    setIntroDismissed(true)
+    // Re-trigger play after user gesture — satisfies strict mobile autoplay policies
+    heroVideoRef.current?.play().catch(() => {})
+    bgVideoRef.current?.play().catch(() => {})
+  }
 
   const handleRsvp = () => {
     window.open(
@@ -85,34 +101,10 @@ export default function GalaDinner() {
         <motion.div
           key="intro"
           className="fixed inset-0 z-50 bg-black flex flex-col items-center justify-center cursor-pointer overflow-hidden"
-          onClick={() => setIntroDismissed(true)}
+          onClick={handleDismissIntro}
           exit={{ opacity: 0 }}
           transition={{ duration: 1, ease: 'easeInOut' }}
         >
-          {/* Falling feather */}
-          <motion.img
-            src="/gold-feather.webp"
-            alt="" aria-hidden="true"
-            className="absolute pointer-events-none left-1/2 -translate-x-1/2"
-            style={{
-              width: 'clamp(120px, 28vw, 220px)',
-              filter: 'drop-shadow(0 0 30px rgba(245,200,66,0.7)) drop-shadow(0 0 60px rgba(212,160,23,0.4))',
-              mixBlendMode: 'screen',
-            }}
-            initial={{ y: '-30vh', x: '0%', rotate: 100, opacity: 0 }}
-            animate={{
-              y: ['-30vh', '0vh',],
-              rotate: [180],
-              opacity: [0, 1, 0],
-            }}
-            transition={{
-              duration: 5.5,
-              ease: 'linear', 
-              repeat: Infinity,
-              times: [0, 0.15, 0.55, 0.85, 1],
-            }}
-          />
-
           {/* Subtle glitter */}
           <div className="absolute inset-0 pointer-events-none">
             {PARTICLES.slice(0, 15).map(p => (
@@ -129,31 +121,56 @@ export default function GalaDinner() {
             ))}
           </div>
 
-          {/* Center content */}
-          <motion.div
-            className="relative z-10 text-center px-6"
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2, delay: 0.4 }}
-          >
-            <img src="/bg-gold-logo-refined.png" alt="BG Gold" className="h-24 sm:h-32 mx-auto mb-6 opacity-90 drop-shadow-lg" />
-            <p className="text-white/70 italic text-base sm:text-lg tracking-wide"
-               style={{ fontFamily: 'var(--font-serif)' }}>
-              An invitation awaits
-            </p>
-          </motion.div>
+          {/* Feather falls from top-right, stops dead center */}
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <motion.img
+              src="/gold-feather.webp"
+              alt="" aria-hidden="true"
+              style={{
+                width: 'clamp(140px, 32vw, 240px)',
+                filter: 'drop-shadow(0 0 30px rgba(245,200,66,0.7)) drop-shadow(0 0 60px rgba(212,160,23,0.4))',
+                mixBlendMode: 'screen',
+              }}
+              initial={{ y: '-60vh', x: 100, rotate: -18, opacity: 0 }}
+              animate={{ y: 0, x: 0, rotate: 10, opacity: 0.9 }}
+              transition={{ duration: 2.6, ease: [0.15, 0.8, 0.2, 1] }}
+              onAnimationComplete={() => setFeatherLanded(true)}
+            />
+          </div>
 
-          {/* Tap to continue */}
-          <motion.div
-            className="absolute bottom-12 sm:bottom-16 left-1/2 -translate-x-1/2 text-center"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: [0.4, 1, 0.4] }}
-            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut', delay: 1.5 }}
-          >
-            <p className="static-gold tracking-[0.35em] uppercase text-xs sm:text-sm">
-              Tap to Continue
-            </p>
-          </motion.div>
+          {/* Logo + tagline — pinned above the feather, fades in after landing */}
+          <AnimatePresence>
+            {featherLanded && (
+              <motion.div
+                className="absolute top-[7%] sm:top-[10%] left-1/2 -translate-x-1/2 z-10 text-center px-6 w-full"
+                initial={{ opacity: 0, y: -14 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1.0, ease: 'easeOut' }}
+              >
+                <img src="/bg-gold-logo-refined.png" alt="BG Gold" className="h-32 sm:h-40 mx-auto opacity-90 drop-shadow-lg" />
+                <p className="text-white/60 italic text-lg sm:text-xl tracking-wide"
+                   style={{ fontFamily: 'var(--font-serif)' }}>
+                  An invitation awaits
+                </p>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* Tap to continue — shifted up for visibility */}
+          <AnimatePresence>
+            {featherLanded && (
+              <motion.div
+                className="absolute bottom-35 sm:bottom-55 left-1/2 -translate-x-1/2 text-center"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.9, delay: 0.5 }}
+              >
+                <p className="gold-label-glow tracking-[0.35em] uppercase text-xs sm:text-sm">
+                  Tap to Continue
+                </p>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </motion.div>
       )}
     </AnimatePresence>
@@ -167,6 +184,7 @@ export default function GalaDinner() {
       >
         {/* Parallax video */}
         <motion.video
+          ref={heroVideoRef}
           autoPlay loop muted playsInline preload="auto"
           className="absolute inset-0 w-full h-full object-cover opacity-80 pointer-events-none"
           style={{ y: videoY }}
@@ -318,21 +336,25 @@ export default function GalaDinner() {
         />
       </section>
 
-      {/* ─── DETAILS ─── */}
-      <section className="py-20 sm:py-28 px-4 sm:px-6 bg-background relative z-10 overflow-hidden">
+      {/* ─── DETAILS + PERSEMBAHAN — shared video background ─── */}
+      <div className="relative bg-background">
 
-        <img
-          src="/golden-wave.png" alt="" aria-hidden="true"
-          className="absolute inset-0 w-full h-full opacity-15 pointer-events-none z-0 object-cover"
-        />
-
-        {/* Feather animation video background */}
+        {/* Single feather video shared across both sections */}
         <video
+          ref={bgVideoRef}
           autoPlay loop muted playsInline preload="auto"
           className="absolute inset-0 w-full h-full object-cover pointer-events-none opacity-30 z-0"
         >
           <source src="/gold-feather2.mp4" type="video/mp4" />
         </video>
+
+      {/* ─── DETAILS ─── */}
+      <section className="py-20 sm:py-28 px-4 sm:px-6 relative z-10 overflow-hidden">
+
+        <img
+          src="/golden-wave.png" alt="" aria-hidden="true"
+          className="absolute inset-0 w-full h-full opacity-15 pointer-events-none z-0 object-cover"
+        />
 
         {/* Gold glitter particles */}
         <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
@@ -446,14 +468,6 @@ export default function GalaDinner() {
           style={{ mixBlendMode: 'screen', transform: 'scale(-1)' }}
         />
 
-        {/* Feather animation video background */}
-        <video
-          autoPlay loop muted playsInline preload="auto"
-          className="absolute inset-0 w-full h-full object-cover pointer-events-none opacity-30 z-0"
-        >
-          <source src="/gold-feather2.mp4" type="video/mp4" />
-        </video>
-
         {/* Gold glitter particles */}
         <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
           {PARTICLES.map(p => (
@@ -553,6 +567,8 @@ export default function GalaDinner() {
           </div>
         </div>
       </section>
+
+      </div>{/* end shared video wrapper */}
 
       {/* ─── RSVP ─── */}
       <section className="py-28 sm:py-36 px-4 sm:px-6 relative z-10 overflow-hidden">
