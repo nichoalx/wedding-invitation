@@ -1,12 +1,20 @@
 import type { Metadata } from 'next'
-import { Geist, Geist_Mono, Playfair_Display, Pinyon_Script } from 'next/font/google'
+import { Geist, Cormorant_Garamond, Great_Vibes } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
-const _geist = Geist({ subsets: ["latin"] });
-const _geistMono = Geist_Mono({ subsets: ["latin"] });
-const _playfairDisplay = Playfair_Display({ subsets: ["latin"], variable: "--font-serif" });
-const _pinyonScript = Pinyon_Script({ subsets: ["latin"], weight: "400", variable: "--font-display" });
+const _geist = Geist({ subsets: ['latin'] })
+const _cormorant = Cormorant_Garamond({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
+  style: ['normal', 'italic'],
+  variable: '--font-serif',
+})
+const _greatVibes = Great_Vibes({
+  subsets: ['latin'],
+  weight: '400',
+  variable: '--font-display',
+})
 
 export const metadata: Metadata = {
   title: 'BG Gold Gala Dinner',
@@ -14,18 +22,9 @@ export const metadata: Metadata = {
   generator: 'v0.app',
   icons: {
     icon: [
-      {
-        url: '/bg-gold-logo.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/bg-gold-logo.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/bg-gold-logo-refined.png',
-        type: 'image/svg+xml',
-      },
+      { url: '/bg-gold-logo.png', media: '(prefers-color-scheme: light)' },
+      { url: '/bg-gold-logo.png', media: '(prefers-color-scheme: dark)' },
+      { url: '/bg-gold-logo-refined.png', type: 'image/svg+xml' },
     ],
     apple: '/bg-gold-logo-refined.png',
   },
@@ -33,11 +32,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${_playfairDisplay.variable} ${_pinyonScript.variable}`}>
+    <html lang="en" className={`${_cormorant.variable} ${_greatVibes.variable}`}>
       <body className="font-sans antialiased">
         {children}
         <Analytics />

@@ -1,449 +1,558 @@
 'use client'
 
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef } from 'react'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 
-function GoldParticles() {
-  const [particles, setParticles] = useState<Array<{
-    width: number; height: number; color: string;
-    left: number; opacity: number; duration: number; delay: number; drift: number;
-  }>>([])
+// Pre-defined particles — avoids hydration mismatch from Math.random()
+const PARTICLES = [
+  { id: 1,  left: '8%',  top: '18%', size: 2.0, dur: 3.2, delay: 0.0 },
+  { id: 2,  left: '92%', top: '10%', size: 1.5, dur: 4.1, delay: 0.8 },
+  { id: 3,  left: '23%', top: '72%', size: 2.5, dur: 2.8, delay: 1.2 },
+  { id: 4,  left: '67%', top: '82%', size: 1.8, dur: 5.0, delay: 0.3 },
+  { id: 5,  left: '45%', top: '12%', size: 1.2, dur: 3.7, delay: 1.8 },
+  { id: 6,  left: '78%', top: '55%', size: 2.2, dur: 4.5, delay: 0.6 },
+  { id: 7,  left: '12%', top: '88%', size: 1.6, dur: 3.1, delay: 2.1 },
+  { id: 8,  left: '55%', top: '38%', size: 2.8, dur: 6.0, delay: 0.9 },
+  { id: 9,  left: '88%', top: '68%', size: 1.4, dur: 3.8, delay: 1.5 },
+  { id: 10, left: '33%', top: '93%', size: 2.0, dur: 4.2, delay: 0.2 },
+  { id: 11, left: '62%', top: '25%', size: 1.7, dur: 5.5, delay: 1.1 },
+  { id: 12, left: '18%', top: '50%', size: 2.3, dur: 3.9, delay: 2.5 },
+  { id: 13, left: '75%', top: '42%', size: 1.3, dur: 4.8, delay: 0.7 },
+  { id: 14, left: '42%', top: '65%', size: 2.6, dur: 2.9, delay: 1.9 },
+  { id: 15, left: '5%',  top: '35%', size: 1.9, dur: 5.2, delay: 0.4 },
+  { id: 16, left: '95%', top: '30%', size: 2.1, dur: 3.4, delay: 2.3 },
+  { id: 17, left: '50%', top: '78%', size: 1.5, dur: 4.6, delay: 1.3 },
+  { id: 18, left: '30%', top: '22%', size: 2.4, dur: 3.6, delay: 0.5 },
+  { id: 19, left: '85%', top: '88%', size: 1.8, dur: 4.9, delay: 1.7 },
+  { id: 20, left: '15%', top: '5%',  size: 1.3, dur: 3.3, delay: 2.8 },
+]
 
-  useEffect(() => {
-    const colors = ['#ffd700', '#fffacd', '#b8860b', '#f5c842']
-    setParticles(
-      Array.from({ length: 1000 }, () => ({
-        width: Math.random() * 4 + 1,
-        height: Math.random() * 4 + 1,
-        color: colors[Math.floor(Math.random() * colors.length)],
-        left: Math.random() * 100,
-        opacity: Math.random() * 0.6 + 0.2,
-        duration: Math.random() * 8 + 6,
-        delay: Math.random() * 8,
-        drift: Math.random() * 60 - 30,
-      }))
-    )
-  }, [])
+const TIMELINE_ITEMS = [
+  { title: 'Gala Dinner Experience',          description: 'Sajian makan malam istimewa dalam suasana elegan' },
+  { title: 'Special Performance by Hatim Rahmat', description: 'Penampilan spesial yang akan menyempurnakan malam Anda' },
+  { title: 'Pengundian Door Prize',            description: 'Pengundian hadiah eksklusif bagi tamu undangan' },
+  { title: 'Appreciation Token Ceremony',      description: 'Momen penghargaan sebagai bentuk apresiasi' },
+]
 
-  if (particles.length === 0) return null
+const EASE: [number, number, number, number] = [0.25, 0.46, 0.45, 0.94]
 
-  return (
-    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-      {particles.map((p, i) => (
-        <div
-          key={i}
-          className="absolute rounded-full"
-          style={{
-            width: `${p.width}px`,
-            height: `${p.height}px`,
-            backgroundColor: p.color,
-            left: `${p.left}%`,
-            bottom: '-10px',
-            opacity: p.opacity,
-            animation: `floatUp ${p.duration}s linear ${p.delay}s infinite`,
-          }}
-        />
-      ))}
-      <style>{`
-        @keyframes floatUp {
-          0%   { transform: translateY(0) translateX(0); opacity: 0; }
-          10%  { opacity: 1; }
-          90%  { opacity: 0.5; }
-          100% { transform: translateY(-100vh) translateX(20px); opacity: 0; }
-        }
-      `}</style>
-    </div>
-  )
+const inView = {
+  hidden: { opacity: 0, y: 28 },
+  show:   { opacity: 1, y: 0,  transition: { duration: 0.85, ease: EASE } },
 }
 
 export default function GalaDinner() {
-  const [scrollY, setScrollY] = useState(0)
   const heroRef = useRef<HTMLDivElement>(null)
-  const [visibleElements, setVisibleElements] = useState<Set<string>>(new Set())
-
-  useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY)
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setVisibleElements((prev) => new Set([...prev, entry.target.id]))
-          } else {
-            setVisibleElements((prev) => {
-              const newSet = new Set(prev)
-              newSet.delete(entry.target.id)
-              return newSet
-            })
-          }
-        })
-      },
-      { threshold: 0.2 }
-    )
-    const elements = document.querySelectorAll('[data-scroll-animate]')
-    elements.forEach((element) => observer.observe(element))
-    return () => elements.forEach((element) => observer.unobserve(element))
-  }, [])
+  const { scrollY } = useScroll()
+  const videoY = useTransform(scrollY, [0, 700], [0, 180])
 
   const handleRsvp = () => {
-    window.open('https://docs.google.com/forms/d/e/1FAIpQLSfc_ZVXIt5orp3hUdJiMqadgRAy8vDufigUBa_b7XM5M9zP7g/viewform?usp=publish-editor', '_blank')
+    window.open(
+      'https://docs.google.com/forms/d/e/1FAIpQLSfc_ZVXIt5orp3hUdJiMqadgRAy8vDufigUBa_b7XM5M9zP7g/viewform?usp=publish-editor',
+      '_blank',
+    )
   }
 
   return (
     <main className="min-h-screen bg-background overflow-x-hidden relative">
-      <GoldParticles />
 
-      {/* Corner decorations */}
-      <img
-        src="/corner-decoration.png"
-        alt="Corner decoration"
-        className="fixed bottom-0 left-0 w-48 sm:w-64 lg:w-80 opacity-40 pointer-events-none z-0"
-      />
-      <img
-        src="/corner-decoration.png"
-        alt="Corner decoration"
-        className="fixed top-0 right-0 w-48 sm:w-64 lg:w-80 opacity-40 pointer-events-none z-0 transform -scale-x-100 -scale-y-100"
-      />
-
-      {/* ─── HERO SECTION ─── */}
+      {/* ─── HERO ─── */}
       <section
         ref={heroRef}
-        className="relative min-h-screen flex items-center justify-center bg-gradient-to-b from-secondary via-background to-background overflow-hidden"
-        style={{ backgroundPosition: `0px ${scrollY * 0.5}px` }}
+        className="relative min-h-screen flex items-center justify-center overflow-hidden"
       >
-        <video
-          autoPlay loop muted playsInline
-          preload="auto"
+        {/* Parallax video */}
+        <motion.video
+          autoPlay loop muted playsInline preload="auto"
           className="absolute inset-0 w-full h-full object-cover opacity-80 pointer-events-none"
-          style={{ transform: `translateY(${scrollY * 0.5}px)` }}
+          style={{ y: videoY }}
         >
-          <source src="/goldanimation2.webm" type="video/webm" />
-          <source src="/goldanimation2.mp4" type="video/mp4" />
-        </video>
+          <source src="/gold-feather.webm" type="video/webm" />
+        </motion.video>
+
+        {/* Vignette */}
+        <div
+          className="absolute inset-0 pointer-events-none z-10"
+          style={{ background: 'radial-gradient(ellipse 70% 60% at 50% 50%, rgba(0,0,0,0.5) 0%, transparent 100%)' }}
+        />
+
+        {/* Feather — bottom-right */}
+        <img
+          src="/gold-feather.webp" alt="" aria-hidden="true"
+          className="absolute bottom-0 right-0 w-52 sm:w-80 pointer-events-none"
+          style={{ zIndex: 5, mixBlendMode: 'screen', opacity: 0.25, transform: 'rotate(-20deg) translate(15%, 15%)' }}
+        />
+
+        {/* Gold glitter particles */}
+        <div className="absolute inset-0 pointer-events-none z-10 overflow-hidden">
+          {PARTICLES.map(p => (
+            <motion.div
+              key={p.id}
+              className="absolute rounded-full"
+              style={{ left: p.left, top: p.top, width: p.size + 1, height: p.size + 1, background: '#f5c842' }}
+              animate={{ opacity: [0.1, 0.85, 0.1], scale: [1, 2, 1] }}
+              transition={{ duration: p.dur, repeat: Infinity, ease: 'easeInOut', delay: p.delay }}
+            />
+          ))}
+        </div>
 
         {/* Bottom fade */}
         <div
           className="absolute inset-x-0 bottom-0 h-64 pointer-events-none z-10"
           style={{ background: 'linear-gradient(to bottom, transparent, var(--background))' }}
         />
-        {/* Vignette */}
-        <div
-          className="absolute inset-0 pointer-events-none z-10"
-          style={{ background: 'radial-gradient(ellipse 70% 60% at 50% 50%, rgba(0,0,0,0.45) 0%, transparent 100%)' }}
-        />
 
         <div className="relative z-20 text-center py-12 px-4 sm:px-6 max-w-4xl mx-auto">
 
-          {/* Intro text */}
-          <div className="mb-4 opacity-0 animate-fade-in" style={{ animationDelay: '0s' }}>
-            <p className="text-sm sm:text-base text-white white-glow-text hero-text leading-relaxed italic tracking-wide">
+          {/* Invitation text */}
+          <motion.div
+            className="mb-4"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 0.1 }}
+          >
+            <p className="text-base sm:text-lg text-white hero-text leading-relaxed italic tracking-wide"
+               style={{ fontFamily: 'var(--font-serif)', fontWeight: 300 }}>
               Dengan penuh kehormatan,
             </p>
-            <p className="text-lg text-white white-glow-text hero-text leading-relaxed italic tracking-wide">
+            <p className="text-lg sm:text-xl text-white hero-text leading-relaxed italic tracking-wide"
+               style={{ fontFamily: 'var(--font-serif)', fontWeight: 300 }}>
               kami mengundang Anda untuk hadir dalam
             </p>
-          </div>
+          </motion.div>
 
-          {/* Divider */}
-          <div className="flex items-center justify-center gap-2 mb-4 opacity-0 animate-fade-in" style={{ animationDelay: '0.4s' }}>
-            <div className="h-px w-12 bg-white/40"></div>
-            <div className="w-1.5 h-1.5 rounded-full bg-white/60"></div>
-            <div className="h-px w-12 bg-white/40"></div>
-          </div>
+          {/* Ornamental divider */}
+          <motion.div
+            className="flex items-center justify-center gap-2 mb-5"
+            initial={{ opacity: 0, scaleX: 0 }}
+            animate={{ opacity: 1, scaleX: 1 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+          >
+            <div className="h-px w-14 bg-white/35" />
+            <div className="w-1.5 h-1.5 rounded-full bg-white/55" />
+            <div className="h-px w-14 bg-white/35" />
+          </motion.div>
 
-          {/* ── GOLDEN LEGACY + GALA DINNER as one block ── */}
-          <div className="opacity-0 animate-fade-in mb-2" style={{ animationDelay: '0.8s' }}>
-            
+          {/* Main title */}
+          <motion.div
+            className="mb-2"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.9 }}
+          >
             <h1
-              className="leading-tight italic text-white text-4xl sm:text-6xl lg:text-7xl"
+              className="leading-tight text-white text-4xl sm:text-5xl lg:text-6xl"
               style={{
                 fontFamily: 'var(--font-serif)',
-                filter: 'drop-shadow(1px 2px 8px rgba(0,0,0,0.8))',
+                fontWeight: 600,
+                fontStyle: 'italic',
+                filter: 'drop-shadow(0 2px 12px rgba(0,0,0,0.85))',
+                letterSpacing: '0.01em',
               }}
             >
-              Golden Legacy: Carried Through Generations
+              Golden Legacy: A Journey That Brings Us Closer
             </h1>
 
-            {/* SUBTITLE */}
-            <p className="text-7xl sm:text-7xl drop-shadow-lg static-gold font-display text-white font-light tracking-widest italic mt-5 mb-10">
+            {/* Script display word */}
+            <p
+              className="drop-shadow-lg static-gold font-light italic mt-4 mb-8"
+              style={{
+                fontFamily: 'var(--font-display)',
+                fontSize: 'clamp(3.5rem, 12vw, 7rem)',
+                lineHeight: 1.1,
+              }}
+            >
               Gala Dinner
             </p>
+          </motion.div>
 
-          </div>
-
-          {/* ── LOGO under Gala Dinner ── */}
-          <div className="opacity-0 animate-fade-in flex flex-col items-center mb-7" style={{ animationDelay: '1.1s' }}>
-            <p className="text-xs sm:text-sm hero-text tracking-widest text-white white-glow-text mt-1 uppercase">
-              Presented by 
+          {/* Logo */}
+          <motion.div
+            className="flex flex-col items-center mb-6"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 1.2 }}
+          >
+            <p className="text-xs sm:text-sm hero-text tracking-[0.25em] text-white/80 uppercase mb-2">
+              Presented by
             </p>
-            <img
-              src="/bg-gold-logo-refined.png"
-              alt="BG Gold Logo"
-              className="h-35 drop-shadow-lg"
-            />
-          </div>
+            <img src="/bg-gold-logo-refined.png" alt="BG Gold Logo" className="h-28 sm:h-32 drop-shadow-lg" />
+          </motion.div>
 
-          {/* SAVE THE DATE */}
-          <div className="opacity-0 animate-fade-in" style={{ animationDelay: '1.4s' }}>
-            <p className="text-lg sm:text-lg text-white white-glow-text hero-text mb-4 tracking-wider">
-              SAVE THE DATE
-            </p>
-          </div>
+          {/* Save the date */}
+          <motion.p
+            className="text-sm sm:text-base text-white/80 hero-text mb-5 tracking-[0.3em] uppercase"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.9, delay: 1.5 }}
+          >
+            Save the Date
+          </motion.p>
 
-          {/* Date + Time */}
-          <div
-            className="opacity-0 animate-fade-in flex flex-row items-center justify-center gap-4 sm:gap-4"
-            style={{ animationDelay: '1.8s' }}
+          {/* Date / time pill */}
+          <motion.div
+            className="flex flex-row items-center justify-center gap-5"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 1.9 }}
           >
             <div className="text-center">
-              <p className="text-xs sm:text-base tracking-widest text-white white-glow-text uppercase">Senin</p>
-              <p className="text-3xl sm:text-5xl font-bold static-gold" style={{ textShadow: '0 0 20px rgba(0,0,0,0.9)' }}>13</p>
-              <p className="text-xs sm:text-sm text-white white-glow-text uppercase">April</p>
+              <p className="text-xs sm:text-sm tracking-[0.2em] text-white/70 uppercase"
+                 style={{ fontFamily: 'var(--font-serif)' }}>Selasa</p>
+              <p className="text-4xl sm:text-5xl font-bold static-gold leading-none mb-4"
+                 style={{ fontFamily: 'var(--font-serif)' }}>19</p>
+              <p className="text-xs sm:text-sm text-white/70 uppercase tracking-widest mt-1">May 2026</p>
             </div>
-            <div className="w-px h-12 sm:h-16 bg-white/30"></div>
+            <div className="w-px h-14 sm:h-18 bg-white/25" />
             <div className="text-center">
-              <p className="text-xl sm:text-3xl font-semibold static-gold" style={{ textShadow: '0 0 20px rgba(0,0,0,0.9)' }}>18:00 WITA</p>
+              <p className="text-2xl sm:text-4xl font-semibold static-gold"
+                 style={{ fontFamily: 'var(--font-serif)', fontWeight: 600 }}>18:00</p>
+              <p className="text-xs sm:text-sm text-white/70 tracking-widest mt-1">WITA</p>
             </div>
-          </div>
+          </motion.div>
         </div>
 
-      <div
-        className="relative z-10 h-32 pointer-events-none -mt-32"
-        style={{ background: 'linear-gradient(to bottom, transparent, var(--background))' }}
-      />
+        <div
+          className="absolute inset-x-0 bottom-0 h-32 pointer-events-none z-20"
+          style={{ background: 'linear-gradient(to bottom, transparent, var(--background))' }}
+        />
       </section>
 
-      {/* ─── DETAILS SECTION ─── */}
-      <section className="py-20 sm:py-28 px-4 sm:px-6 bg-background relative z-10">
-        
-        {/* Gold wave pattern — top left */}
-        <img
-          src="/golden-wave.png"
-          alt=""
-          className="absolute inset-0 w-full h-full opacity-20 pointer-events-none z-0"
-        />
+      {/* ─── DETAILS ─── */}
+      <section className="py-20 sm:py-28 px-4 sm:px-6 bg-background relative z-10 overflow-hidden">
 
-        <div className="max-w-2xl mx-auto">
-          {/* Intro quote */}
-          <div
-            id="details-intro"
-            data-scroll-animate
-            className="text-center mb-10 sm:mb-14 transition-all duration-1000"
-            style={{
-              opacity: visibleElements.has('details-intro') ? 1 : 0,
-              transform: visibleElements.has('details-intro') ? 'translateY(0)' : 'translateY(24px)',
-            }}
+        <img
+          src="/golden-wave.png" alt="" aria-hidden="true"
+          className="absolute inset-0 w-full h-full opacity-15 pointer-events-none z-0 object-cover"
+        />
+        <div className="max-w-2xl mx-auto relative z-10">
+
+          {/* Quote */}
+          <motion.div
+            className="text-center mb-12 sm:mb-16"
+            variants={inView}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: false, margin: '-15%' }}
           >
-            <p className="font-serif text-3xl static-gold sm:text-4xl text-foreground italic leading-relaxed max-w-xl mx-auto">
+            <p
+              className="text-2xl sm:text-3xl lg:text-4xl static-gold italic leading-relaxed max-w-xl mx-auto"
+              style={{ fontFamily: 'var(--font-serif)', fontWeight: 400 }}
+            >
               Sebuah perayaan elegan yang mempertemukan rasa syukur, keindahan, dan momen berharga dalam satu malam istimewa.
             </p>
-            <div className="flex items-center justify-center gap-2 mt-8 mb-12">
-              <div className="h-px w-8 bg-primary"></div>
-              <div className="w-2 h-2 rounded-full bg-primary"></div>
-              <div className="h-px w-8 bg-primary"></div>
+            <div className="flex items-center justify-center gap-2 mt-8 mb-4">
+              <div className="h-px w-8 bg-primary/60" />
+              <div className="w-2 h-2 rounded-full bg-primary" />
+              <div className="h-px w-8 bg-primary/60" />
             </div>
-          </div>
+          </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 justify-items-center md:justify-items-start">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 sm:gap-14 justify-items-center md:justify-items-start">
+
             {/* Venue */}
-            <div
-              id="details-0"
-              data-scroll-animate
-              className="transition-all duration-1000 text-center md:text-left"
-              style={{
-                opacity: visibleElements.has('details-0') ? 1 : 0,
-                transform: visibleElements.has('details-0') ? 'translateX(0) translateY(0)' : 'translateX(-40px) translateY(20px)',
-              }}
+            <motion.div
+              className="text-center md:text-left"
+              initial={{ opacity: 0, x: -40, y: 20 }}
+              whileInView={{ opacity: 1, x: 0, y: 0 }}
+              viewport={{ once: false, margin: '-10%' }}
+              transition={{ duration: 0.85 }}
             >
-              <div className="mb-4">
-                <h3 className="font-serif text-2xl sm:text-3xl text-foreground mb-2">Venue</h3>
-                <div className="h-0.5 w-12 bg-primary mb-4 mx-auto md:mx-0"></div>
-              </div>
-              <p className="text-sm sm:text-base  mb-2 leading-relaxed">
-                <span className="font-semibold text-foreground">Crystal Ballroom, Mercure Hotel Samarinda Lt.3</span>
+              <h3
+                className="text-2xl sm:text-3xl text-foreground mb-2"
+                style={{ fontFamily: 'var(--font-serif)', fontWeight: 600 }}
+              >
+                Venue
+              </h3>
+              <div className="h-0.5 w-12 bg-primary mb-4 mx-auto md:mx-0" />
+              <p className="text-sm sm:text-base mb-2 leading-relaxed font-semibold text-foreground">
+                Neptunus Ballroom, Galaxy Hotel, Banjarmasin
               </p>
-              <p className="text-xs sm:text-sm  leading-relaxed">
-                Jl. Mulawarman No.171, Pelabuhan, Kec. Samarinda Kota,<br />
-                Kota Samarinda, Kalimantan Timur 75112
+              <p className="text-xs sFm:text-sm leading-relaxed text-muted-foreground">
+                Jalan A. Yani KM 2,5 No. 138, Sungai Baru, Banjarmasin,<br />
+                Kota Banjarmasin, Kalimantan Selatan 70233
               </p>
-            </div>
+            </motion.div>
 
             {/* Dress Code */}
-            <div
-              id="details-1"
-              data-scroll-animate
-              className="transition-all duration-1000 text-center md:text-left"
-              style={{
-                opacity: visibleElements.has('details-1') ? 1 : 0,
-                transform: visibleElements.has('details-1') ? 'translateX(0) translateY(0)' : 'translateX(40px) translateY(20px)',
-              }}
+            <motion.div
+              className="text-center md:text-left"
+              initial={{ opacity: 0, x: 40, y: 20 }}
+              whileInView={{ opacity: 1, x: 0, y: 0 }}
+              viewport={{ once: false, margin: '-10%' }}
+              transition={{ duration: 0.85 }}
             >
-              <div className="mb-4">
-                <h3 className="font-serif text-2xl sm:text-3xl text-foreground mb-2">Dress Code</h3>
-                <div className="h-0.5 w-12 bg-primary mb-4 mx-auto md:mx-0"></div>
-              </div>
-              <p className="text-sm sm:text-base  leading-relaxed">
-                <span className="font-semibold text-foreground">Formal & Elegan</span>
+              <h3
+                className="text-2xl sm:text-3xl text-foreground mb-2"
+                style={{ fontFamily: 'var(--font-serif)', fontWeight: 600 }}
+              >
+                Dress Code
+              </h3>
+              <div className="h-0.5 w-12 bg-primary mb-4 mx-auto md:mx-0" />
+              <p className="text-sm sm:text-base font-semibold text-foreground mb-2">
+                Formal & Elegan
               </p>
-              <p className="text-xs sm:text-sm break-words max-w-md  mt-3 leading-relaxed">
-                Kenakan busana formal terbaik Anda <br />
+              <p className="text-xs sm:text-sm max-w-md mt-1 leading-relaxed text-muted-foreground">
+                Kenakan busana formal terbaik Anda.<br />
                 Tampil memukau dan cerminkan keanggunan dalam malam penuh kenangan ini.
               </p>
-            </div>
+            </motion.div>
           </div>
         </div>
-
-        {/* Butterflies + gold wave decoration */}
-        <img
-          src="/butterfly-gold.png"
-          alt="Butterfly decoration"
-          className="absolute top-6 left-8 w-12 sm:w-20 opacity-45 drop-shadow-xl"
-        />
-        <img
-          src="/butterfly-gold.png"
-          alt="Butterfly decoration"
-          className="absolute bottom-3 right-8 w-16 sm:w-28 opacity-45 drop-shadow-xl"
-        />
       </section>
-
-      {/* Fade into timeline */}
-      <div
-        className="relative z-10 h-32 pointer-events-none -mt-32"
-        style={{ background: 'linear-gradient(to bottom, transparent, var(--background))' }}
-      />
 
       {/* ─── PERSEMBAHAN ISTIMEWA ─── */}
-      <section className="py-12 sm:py-16 px-4 sm:px-6 relative z-10">
-        <div className="max-w-lg mx-auto bg-secondary/90 backdrop-blur-md rounded-xl shadow-2xl p-8 sm:p-12 gold-glow-card relative overflow-hidden">
-          <div className="text-center mb-6">
-            <h2 className="font-serif text-4xl sm:text-5xl text-foreground mb-3">
+      <section className="py-16 sm:py-24 px-4 sm:px-6 relative z-10 overflow-hidden">
+
+        {/* Corner decorations */}
+        <img src="/corner-decoration.png" alt="" aria-hidden="true"
+          className="absolute bottom-0 left-0 w-24 sm:w-36 pointer-events-none z-10 opacity-40"
+          style={{ mixBlendMode: 'screen' }}
+        />
+        <img src="/corner-decoration.png" alt="" aria-hidden="true"
+          className="absolute bottom-0 right-0 w-24 sm:w-36 pointer-events-none z-10 opacity-40"
+          style={{ mixBlendMode: 'screen', transform: 'scaleX(-1)' }}
+        />
+        <img src="/corner-decoration.png" alt="" aria-hidden="true"
+          className="absolute top-0 left-0 w-24 sm:w-36 pointer-events-none z-10 opacity-40"
+          style={{ mixBlendMode: 'screen', transform: 'scaleY(-1)' }}
+        />
+        <img src="/corner-decoration.png" alt="" aria-hidden="true"
+          className="absolute top-0 right-0 w-24 sm:w-36 pointer-events-none z-10 opacity-40"
+          style={{ mixBlendMode: 'screen', transform: 'scale(-1)' }}
+        />
+
+        {/* Gold glitter particles */}
+        <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+          {PARTICLES.map(p => (
+            <motion.div
+              key={p.id}
+              className="absolute rounded-full"
+              style={{ left: p.left, top: p.top, width: p.size, height: p.size, background: '#f5c842' }}
+              animate={{ opacity: [0.05, 0.6, 0.05], scale: [1, 1.8, 1] }}
+              transition={{ duration: p.dur * 1.3, repeat: Infinity, ease: 'easeInOut', delay: p.delay + 0.5 }}
+            />
+          ))}
+        </div>
+
+        <div className="max-w-3xl mx-auto">
+
+          <motion.div
+            className="text-center mb-16 sm:mb-20"
+            variants={inView}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: false, margin: '-10%' }}
+          >
+            <p className="text-xs tracking-[0.3em] text-primary uppercase mb-4">Agenda Malam</p>
+            <h2
+              className="text-4xl sm:text-5xl lg:text-6xl text-foreground italic"
+              style={{ fontFamily: 'var(--font-serif)', fontWeight: 400 }}
+            >
               Persembahan Istimewa
             </h2>
-            <div className="flex flex-col items-center mb-8">
-              <p className="text-xs tracking-widest text-primary uppercase ">
-                by
-              </p>
-              <img
-                src="/bg-gold-logo-refined.png"
-                alt="BG Gold Logo"
-                className="h-22 sm:h-22 object-contain"
-              />
+            <div className="flex flex-col items-center mt-5">
+              <p className="text-xs tracking-widest text-muted-foreground uppercase">by</p>
+              <img src="/bg-gold-logo-refined.png" alt="BG Gold Logo" className="h-14 object-contain mt-2 opacity-80" />
             </div>
-          </div>
+          </motion.div>
 
-          <div className="space-y-2 flex flex-col items-center relative">
-            {[
-              { title: 'Gala Dinner Experience', description: 'Sajian makan malam istimewa dalam suasana elegan' },
-              { title: 'Special Performance by Hatim Rahmat', description: 'Penampilan spesial yang akan menyempurnakan malam Anda' },
-              { title: 'Pengundian Door Prize', description: 'Pengundian hadiah eksklusif bagi tamu undangan' },
-              { title: 'Appreciation Token Ceremony', description: 'Momen penghargaan sebagai bentuk apresiasi' },
-            ].map((item, index) => (
-              <div
-                key={index}
-                id={`timeline-${index}`}
-                data-scroll-animate
-                className="flex flex-col items-center transition-all duration-1000 w-full max-w-sm"
-                style={{
-                  opacity: visibleElements.has(`timeline-${index}`) ? 1 : 0,
-                  transform: visibleElements.has(`timeline-${index}`) ? 'translateX(0) translateY(0)' : 'translateX(-40px) translateY(20px)',
-                }}
-              >
-                <div className="flex flex-col items-center relative">
-                  <div className="w-4 h-4 rounded-full bg-primary mb-2 relative z-10 shadow-[0_0_8px_rgba(212,160,23,0.8)]"></div>
-                  {index < 4 && <div className="w-0.5 h-8 bg-primary/30"></div>}
-                </div>
-                <div className="pb-2 text-center">
-                  <p className="font-serif text-lg sm:text-2xl white-glow-text max-w-[300px] font-semibold">{item.title}</p>
-                  <p className="text-sm sm:text-base white-glow-text mt-1 max-w-[250px] mx-auto text-center">{item.description}</p>
-                </div>
-              </div>
-            ))}
+          {/* Timeline */}
+          <div className="relative">
+            <div
+              className="absolute left-1/2 top-0 bottom-0 w-px -translate-x-1/2 hidden md:block"
+              style={{ background: 'linear-gradient(to bottom, transparent, rgba(212,160,23,0.35) 8%, rgba(212,160,23,0.35) 92%, transparent)' }}
+            />
 
-            {/* Decorative side lines */}
-            <div className="absolute right-0 top-1/4 w-px h-64 bg-gradient-to-b from-primary/0 via-primary/30 to-primary/0"></div>
-            <div className="absolute left-0 top-1/4 w-px h-64 bg-gradient-to-b from-primary/0 via-primary/30 to-primary/0"></div>
+            <div className="space-y-14 sm:space-y-16">
+              {TIMELINE_ITEMS.map((item, index) => {
+                const isRight = index % 2 === 0
+                return (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, x: isRight ? 36 : -36 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: false, margin: '-5%' }}
+                    transition={{ duration: 0.7, delay: index * 0.07 }}
+                  >
+                    {/* Mobile */}
+                    <div className="md:hidden text-center px-4">
+                      <div className="flex items-center justify-center gap-3 mb-3">
+                        <div className="h-px w-10 bg-primary/40" />
+                        <div className="w-2.5 h-2.5 rounded-full bg-primary shadow-[0_0_10px_rgba(212,160,23,0.9)]" />
+                        <div className="h-px w-10 bg-primary/40" />
+                      </div>
+                      <p className="text-xl text-foreground leading-snug mb-1"
+                         style={{ fontFamily: 'var(--font-serif)', fontWeight: 500 }}>{item.title}</p>
+                      <p className="text-sm text-muted-foreground leading-relaxed">{item.description}</p>
+                    </div>
+
+                    {/* Desktop alternating */}
+                    <div className="hidden md:grid grid-cols-[1fr_32px_1fr] items-center">
+                      <div className="pr-8 text-right">
+                        {!isRight && (
+                          <>
+                            <p className="text-xl lg:text-2xl text-foreground leading-snug"
+                               style={{ fontFamily: 'var(--font-serif)', fontWeight: 500 }}>{item.title}</p>
+                            <p className="text-sm text-muted-foreground mt-1.5">{item.description}</p>
+                          </>
+                        )}
+                      </div>
+                      <div className="flex justify-center">
+                        <div className="w-3 h-3 rounded-full bg-primary relative z-10 shadow-[0_0_10px_rgba(212,160,23,0.8)]" />
+                      </div>
+                      <div className="pl-8">
+                        {isRight && (
+                          <>
+                            <p className="text-xl lg:text-2xl text-foreground leading-snug"
+                               style={{ fontFamily: 'var(--font-serif)', fontWeight: 500 }}>{item.title}</p>
+                            <p className="text-sm text-muted-foreground mt-1.5">{item.description}</p>
+                          </>
+                        )}
+                      </div>
+                    </div>
+                  </motion.div>
+                )
+              })}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Fade into RSVP */}
-      <div
-        className="relative z-10 h-64 sm:h-80 pointer-events-none -mb-64 sm:-mb-80"
-        style={{
-          background: 'linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 40%, rgba(0,0,0,0.9) 70%, black 100%)'
-        }}
-      />
+      {/* ─── RSVP ─── */}
+      <section className="py-28 sm:py-36 px-4 sm:px-6 relative z-10 overflow-hidden">
 
-      {/* ─── RSVP SECTION ─── */}
-      <section className="py-12 sm:py-16 px-4 sm:px-6 relative z-10 overflow-hidden">
-        <div className="absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-black via-black/60 to-transparent z-10 pointer-events-none" />
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="absolute inset-0 w-full h-full object-cover pointer-events-none"
-          >
-            <source src="/rsvpvid.mp4" type="video/mp4" />
-          </video>
-
-          {/* Overlay for readability */}
-          <div className="absolute inset-0 bg-black/60"></div>
-
-        <div className="max-w-2xl mx-auto text-center pt-20 sm:pt-20">
-          <div
-            id="rsvp-section"
-            data-scroll-animate
-            className="transition-all duration-1000"
-            style={{
-              opacity: visibleElements.has('rsvp-section') ? 1 : 0,
-              transform: visibleElements.has('rsvp-section') ? 'translateY(0)' : 'translateY(40px)',
-            }}
-          >
-            <p className="text-xs tracking-widest font-bold gold-label-glow uppercase mt-1 mb-2">✦ Konfirmasi Kehadiran Anda ✦</p>
-            <h2 className="font-serif text-4xl sm:text-5xl lg:text-6xl text-foreground mb-4">
-              RSVP
-            </h2>
-
-            <div className="flex items-center justify-center gap-2 mb-8">
-              <div className="h-px w-12 bg-primary"></div>
-              <div className="w-2 h-2 rounded-full bg-primary"></div>
-              <div className="h-px w-12 bg-primary"></div>
+        {/* 4-panel B&W photo mosaic background */}
+        <div className="absolute inset-0 grid grid-cols-2 pointer-events-none">
+          {(['/rsvppic1.png', '/rsvppic2.png', '/rsvppic3.png', '/rsvppic4.jpg'] as const).map((src, i) => (
+            <div key={i} className="overflow-hidden">
+              <img
+                src={src} alt="" aria-hidden="true"
+                className="w-full h-full object-cover"
+                style={{ filter: 'grayscale(100%) brightness(0.75) contrast(1.1)' }}
+              />
             </div>
+          ))}
+        </div>
 
-            {/* Deadline box */}
-            <div className="inline-block border border-primary/50 rounded-lg px-6 py-4 mb-8 bg-primary/10 gold-glow-card">
-              <p className="text-xs tracking-widest text-primary uppercase mb-1">Konfirmasi Sebelum</p>
-              <p className="font-serif text-2xl sm:text-3xl text-foreground">Selasa, 7 April 2025</p>
-              <p className="text-sm  mt-1">pukul 20.00 WITA</p>
-            </div>
+        {/* Dark overlay to keep text readable */}
+        <div className="absolute inset-0 bg-black/70" />
 
-            <p className="font-serif text-lg sm:text-xl text-foreground italic mb-10 max-w-md mx-auto leading-relaxed">
-              Sampai jumpa dalam malam yang hangat dan berkesan.
+        {/* Glowing gold orbs */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <motion.div
+            className="absolute rounded-full"
+            style={{ width: 700, height: 700, left: '50%', top: '50%', marginLeft: -350, marginTop: -350, background: 'radial-gradient(circle, rgba(212,160,23,0.2) 0%, transparent 65%)', filter: 'blur(70px)' }}
+            animate={{ scale: [1, 1.25, 1], opacity: [0.6, 1, 0.6] }}
+            transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
+          />
+          <motion.div
+            className="absolute rounded-full"
+            style={{ width: 450, height: 450, left: '-6%', top: '5%', background: 'radial-gradient(circle, rgba(212,160,23,0.15) 0%, transparent 65%)', filter: 'blur(80px)' }}
+            animate={{ x: [0, 50, 0], y: [0, -30, 0], opacity: [0.4, 0.8, 0.4] }}
+            transition={{ duration: 11, repeat: Infinity, ease: 'easeInOut' }}
+          />
+          <motion.div
+            className="absolute rounded-full"
+            style={{ width: 500, height: 500, right: '-8%', bottom: '-5%', background: 'radial-gradient(circle, rgba(245,200,66,0.15) 0%, transparent 65%)', filter: 'blur(80px)' }}
+            animate={{ x: [0, -40, 0], y: [0, 28, 0], opacity: [0.35, 0.7, 0.35] }}
+            transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
+          />
+
+          {/* Twinkling gold particles */}
+          {PARTICLES.map(p => (
+            <motion.div
+              key={p.id}
+              className="absolute rounded-full"
+              style={{ left: p.left, top: p.top, width: p.size, height: p.size, background: '#f5c842' }}
+              animate={{ opacity: [0.15, 0.9, 0.15], scale: [1, 1.8, 1] }}
+              transition={{ duration: p.dur, repeat: Infinity, ease: 'easeInOut', delay: p.delay }}
+            />
+          ))}
+        </div>
+
+        {/* Gold border lines */}
+        <div className="absolute inset-x-0 top-0 h-px"
+          style={{ background: 'linear-gradient(to right, transparent, rgba(212,160,23,0.5) 20%, rgba(245,200,66,0.8) 50%, rgba(212,160,23,0.5) 80%, transparent)' }} />
+        <div className="absolute inset-x-0 bottom-0 h-px"
+          style={{ background: 'linear-gradient(to right, transparent, rgba(212,160,23,0.5) 20%, rgba(245,200,66,0.8) 50%, rgba(212,160,23,0.5) 80%, transparent)' }} />
+
+        {/* Content */}
+        <motion.div
+          className="relative z-20 max-w-2xl mx-auto text-center"
+          initial={{ opacity: 0, y: 44 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, margin: '-10%' }}
+          transition={{ duration: 1.0 }}
+        >
+          <p className="text-xs tracking-[0.3em] font-semibold gold-label-glow uppercase mb-3">
+            ✦ Konfirmasi Kehadiran Anda ✦
+          </p>
+
+          <h2
+            className="text-6xl sm:text-7xl lg:text-8xl static-gold mb-3"
+            style={{ fontFamily: 'var(--font-serif)', fontWeight: 700, letterSpacing: '0.06em' }}
+          >
+            RSVP
+          </h2>
+
+          {/* Elaborate divider */}
+          <div className="flex items-center justify-center gap-2 mb-10">
+            <div className="h-px w-16 bg-primary/60" />
+            <div className="w-2 h-2 rounded-full bg-primary" />
+            <div className="h-px w-4 bg-primary/40" />
+            <div className="w-1 h-1 rounded-full bg-primary/60" />
+            <div className="h-px w-4 bg-primary/40" />
+            <div className="w-2 h-2 rounded-full bg-primary" />
+            <div className="h-px w-16 bg-primary/60" />
+          </div>
+
+          <motion.div
+            className="inline-block rounded-xl px-8 py-5 mb-8 gold-glow-card"
+            style={{ background: 'rgba(212,160,23,0.07)', backdropFilter: 'blur(8px)' }}
+            initial={{ opacity: 0, scale: 0.94 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: false }}
+            transition={{ duration: 0.75, delay: 0.25 }}
+          >
+            <p className="text-xs tracking-[0.25em] text-primary uppercase mb-2">Konfirmasi Sebelum</p>
+            <p
+              className="text-2xl sm:text-3xl text-foreground"
+              style={{ fontFamily: 'var(--font-serif)', fontWeight: 600 }}
+            >
+              Selasa, 7 April 2026
             </p>
+            <p className="text-sm mt-1 text-muted-foreground tracking-wide">pukul 20.00 WITA</p>
+          </motion.div>
 
+          <p
+            className="text-xl sm:text-2xl text-foreground italic mb-10 max-w-md mx-auto leading-relaxed"
+            style={{ fontFamily: 'var(--font-serif)', fontWeight: 300 }}
+          >
+            Sampai jumpa dalam malam yang hangat dan berkesan.
+          </p>
+
+          <motion.div whileHover={{ scale: 1.06 }} whileTap={{ scale: 0.97 }}>
             <Button
               onClick={handleRsvp}
-              className="bg-primary hover:bg-primary/90 text-primary-foreground px-16 py-10 rounded-full text-lg sm:text-xl font-bold tracking-wide transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-primary/50 hover:shadow-2xl"
+              className="bg-primary hover:bg-primary/90 text-primary-foreground px-16 py-7 rounded-full text-base sm:text-lg font-bold tracking-[0.15em] uppercase transition-colors duration-300 shadow-xl hover:shadow-primary/40 hover:shadow-2xl"
+              style={{ letterSpacing: '0.15em' }}
             >
-              RSVP SEKARANG
+              RSVP Sekarang
             </Button>
+          </motion.div>
 
-            <p className="text-xs  mt-6 tracking-widest uppercase">
-              ✦ Tempat terbatas · Konfirmasi diperlukan ✦
-            </p>
-          </div>
-        </div>
+          <p className="text-xs mt-7 tracking-[0.25em] uppercase text-muted-foreground">
+            ✦ Tempat terbatas · Konfirmasi diperlukan ✦
+          </p>
+        </motion.div>
       </section>
 
       {/* ─── FOOTER ─── */}
       <footer className="py-4 px-4 sm:px-6 bg-secondary border-t border-primary/30 relative z-10">
         <div className="max-w-3xl mx-auto text-center">
-          <p className="text-xs sm:text-sm  opacity-75">
+          <p className="text-xs sm:text-sm text-muted-foreground">
             © PT Bagong Sejahtera Abadi. All Rights Reserved.
           </p>
         </div>
