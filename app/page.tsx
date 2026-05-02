@@ -155,7 +155,7 @@ export default function GalaDinner() {
                 <img src="/bg-gold-logo-refined.png" alt="BG Gold" className="h-32 sm:h-40 mx-auto opacity-90 drop-shadow-lg" />
                 <p className="text-white/60 italic text-lg sm:text-xl tracking-wide"
                    style={{ fontFamily: 'var(--font-serif)' }}>
-                  An invitation awaits
+                  Sebuah undangan spesial untuk Anda...
                 </p>
               </motion.div>
             )}
@@ -171,7 +171,7 @@ export default function GalaDinner() {
                 transition={{ duration: 0.9, delay: 0.5 }}
               >
                 <p className="gold-label-glow tracking-[0.35em] uppercase text-xs sm:text-sm">
-                  Tap to Continue
+                  Ketuk untuk melanjutkan
                 </p>
               </motion.div>
             )}
