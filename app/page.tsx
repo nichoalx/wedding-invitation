@@ -1,32 +1,53 @@
 'use client'
 
-import React, { useRef } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import React, { useRef, useState } from 'react'
+import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 
 // Pre-defined particles — avoids hydration mismatch from Math.random()
 const PARTICLES = [
-  { id: 1,  left: '8%',  top: '18%', size: 2.0, dur: 3.2, delay: 0.0 },
-  { id: 2,  left: '92%', top: '10%', size: 1.5, dur: 4.1, delay: 0.8 },
-  { id: 3,  left: '23%', top: '72%', size: 2.5, dur: 2.8, delay: 1.2 },
-  { id: 4,  left: '67%', top: '82%', size: 1.8, dur: 5.0, delay: 0.3 },
-  { id: 5,  left: '45%', top: '12%', size: 1.2, dur: 3.7, delay: 1.8 },
-  { id: 6,  left: '78%', top: '55%', size: 2.2, dur: 4.5, delay: 0.6 },
-  { id: 7,  left: '12%', top: '88%', size: 1.6, dur: 3.1, delay: 2.1 },
-  { id: 8,  left: '55%', top: '38%', size: 2.8, dur: 6.0, delay: 0.9 },
-  { id: 9,  left: '88%', top: '68%', size: 1.4, dur: 3.8, delay: 1.5 },
-  { id: 10, left: '33%', top: '93%', size: 2.0, dur: 4.2, delay: 0.2 },
-  { id: 11, left: '62%', top: '25%', size: 1.7, dur: 5.5, delay: 1.1 },
-  { id: 12, left: '18%', top: '50%', size: 2.3, dur: 3.9, delay: 2.5 },
-  { id: 13, left: '75%', top: '42%', size: 1.3, dur: 4.8, delay: 0.7 },
-  { id: 14, left: '42%', top: '65%', size: 2.6, dur: 2.9, delay: 1.9 },
-  { id: 15, left: '5%',  top: '35%', size: 1.9, dur: 5.2, delay: 0.4 },
-  { id: 16, left: '95%', top: '30%', size: 2.1, dur: 3.4, delay: 2.3 },
-  { id: 17, left: '50%', top: '78%', size: 1.5, dur: 4.6, delay: 1.3 },
-  { id: 18, left: '30%', top: '22%', size: 2.4, dur: 3.6, delay: 0.5 },
-  { id: 19, left: '85%', top: '88%', size: 1.8, dur: 4.9, delay: 1.7 },
-  { id: 20, left: '15%', top: '5%',  size: 1.3, dur: 3.3, delay: 2.8 },
+  { id: 1,  left: '8%',  top: '18%', size: 2.4, dur: 3.2, delay: 0.0 },
+  { id: 2,  left: '92%', top: '10%', size: 1.8, dur: 4.1, delay: 0.8 },
+  { id: 3,  left: '23%', top: '72%', size: 3.0, dur: 2.8, delay: 1.2 },
+  { id: 4,  left: '67%', top: '82%', size: 2.2, dur: 5.0, delay: 0.3 },
+  { id: 5,  left: '45%', top: '12%', size: 1.5, dur: 3.7, delay: 1.8 },
+  { id: 6,  left: '78%', top: '55%', size: 2.6, dur: 4.5, delay: 0.6 },
+  { id: 7,  left: '12%', top: '88%', size: 1.9, dur: 3.1, delay: 2.1 },
+  { id: 8,  left: '55%', top: '38%', size: 3.2, dur: 6.0, delay: 0.9 },
+  { id: 9,  left: '88%', top: '68%', size: 1.7, dur: 3.8, delay: 1.5 },
+  { id: 10, left: '33%', top: '93%', size: 2.4, dur: 4.2, delay: 0.2 },
+  { id: 11, left: '62%', top: '25%', size: 2.0, dur: 5.5, delay: 1.1 },
+  { id: 12, left: '18%', top: '50%', size: 2.7, dur: 3.9, delay: 2.5 },
+  { id: 13, left: '75%', top: '42%', size: 1.6, dur: 4.8, delay: 0.7 },
+  { id: 14, left: '42%', top: '65%', size: 3.0, dur: 2.9, delay: 1.9 },
+  { id: 15, left: '5%',  top: '35%', size: 2.2, dur: 5.2, delay: 0.4 },
+  { id: 16, left: '95%', top: '30%', size: 2.5, dur: 3.4, delay: 2.3 },
+  { id: 17, left: '50%', top: '78%', size: 1.8, dur: 4.6, delay: 1.3 },
+  { id: 18, left: '30%', top: '22%', size: 2.8, dur: 3.6, delay: 0.5 },
+  { id: 19, left: '85%', top: '88%', size: 2.1, dur: 4.9, delay: 1.7 },
+  { id: 20, left: '15%', top: '5%',  size: 1.6, dur: 3.3, delay: 2.8 },
+  { id: 21, left: '38%', top: '8%',  size: 2.0, dur: 4.0, delay: 1.6 },
+  { id: 22, left: '70%', top: '18%', size: 2.3, dur: 5.3, delay: 2.4 },
+  { id: 23, left: '3%',  top: '60%', size: 1.7, dur: 3.6, delay: 0.1 },
+  { id: 24, left: '98%', top: '48%', size: 2.1, dur: 4.4, delay: 1.0 },
+  { id: 25, left: '52%', top: '88%', size: 2.5, dur: 5.8, delay: 2.6 },
+  { id: 26, left: '37%', top: '45%', size: 1.9, dur: 3.5, delay: 0.6 },
+  { id: 27, left: '63%', top: '72%', size: 2.7, dur: 4.7, delay: 1.4 },
+  { id: 28, left: '8%',  top: '78%', size: 1.8, dur: 5.1, delay: 2.0 },
+  { id: 29, left: '90%', top: '78%', size: 2.2, dur: 3.7, delay: 0.4 },
+  { id: 30, left: '48%', top: '52%', size: 3.1, dur: 6.2, delay: 1.7 },
+  { id: 31, left: '20%', top: '38%', size: 1.9, dur: 4.3, delay: 2.7 },
+  { id: 32, left: '80%', top: '12%', size: 2.4, dur: 5.0, delay: 0.5 },
+  { id: 33, left: '57%', top: '5%',  size: 1.7, dur: 3.9, delay: 1.2 },
+  { id: 34, left: '27%', top: '58%', size: 2.6, dur: 4.6, delay: 2.2 },
+  { id: 35, left: '72%', top: '95%', size: 2.0, dur: 5.7, delay: 0.8 },
+  { id: 36, left: '40%', top: '28%', size: 2.8, dur: 3.3, delay: 1.5 },
+  { id: 37, left: '11%', top: '15%', size: 2.1, dur: 4.4, delay: 2.4 },
+  { id: 38, left: '83%', top: '60%', size: 2.3, dur: 5.5, delay: 0.7 },
+  { id: 39, left: '60%', top: '50%', size: 1.8, dur: 3.7, delay: 1.9 },
+  { id: 40, left: '25%', top: '85%', size: 2.9, dur: 4.8, delay: 2.6 },
 ]
+
 
 const TIMELINE_ITEMS = [
   { title: 'Gala Dinner Experience',          description: 'Sajian makan malam istimewa dalam suasana elegan' },
@@ -42,10 +63,12 @@ const inView = {
   show:   { opacity: 1, y: 0,  transition: { duration: 0.85, ease: EASE } },
 }
 
+
 export default function GalaDinner() {
   const heroRef = useRef<HTMLDivElement>(null)
   const { scrollY } = useScroll()
   const videoY = useTransform(scrollY, [0, 700], [0, 180])
+  const [introDismissed, setIntroDismissed] = useState(false)
 
   const handleRsvp = () => {
     window.open(
@@ -55,6 +78,86 @@ export default function GalaDinner() {
   }
 
   return (
+    <>
+    {/* ─── INTRO ─── */}
+    <AnimatePresence>
+      {!introDismissed && (
+        <motion.div
+          key="intro"
+          className="fixed inset-0 z-50 bg-black flex flex-col items-center justify-center cursor-pointer overflow-hidden"
+          onClick={() => setIntroDismissed(true)}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 1, ease: 'easeInOut' }}
+        >
+          {/* Falling feather */}
+          <motion.img
+            src="/gold-feather.webp"
+            alt="" aria-hidden="true"
+            className="absolute pointer-events-none left-1/2 -translate-x-1/2"
+            style={{
+              width: 'clamp(120px, 28vw, 220px)',
+              filter: 'drop-shadow(0 0 30px rgba(245,200,66,0.7)) drop-shadow(0 0 60px rgba(212,160,23,0.4))',
+              mixBlendMode: 'screen',
+            }}
+            initial={{ y: '-30vh', x: '0%', rotate: 100, opacity: 0 }}
+            animate={{
+              y: ['-30vh', '0vh',],
+              rotate: [180],
+              opacity: [0, 1, 0],
+            }}
+            transition={{
+              duration: 5.5,
+              ease: 'linear', 
+              repeat: Infinity,
+              times: [0, 0.15, 0.55, 0.85, 1],
+            }}
+          />
+
+          {/* Subtle glitter */}
+          <div className="absolute inset-0 pointer-events-none">
+            {PARTICLES.slice(0, 15).map(p => (
+              <motion.div
+                key={p.id}
+                className="absolute rounded-full"
+                style={{
+                  left: p.left, top: p.top, width: p.size, height: p.size, background: '#f5c842',
+                  boxShadow: `0 0 ${p.size * 4}px rgba(245,200,66,0.8)`,
+                }}
+                animate={{ opacity: [0.1, 0.9, 0.1], scale: [1, 2, 1] }}
+                transition={{ duration: p.dur, repeat: Infinity, ease: 'easeInOut', delay: p.delay }}
+              />
+            ))}
+          </div>
+
+          {/* Center content */}
+          <motion.div
+            className="relative z-10 text-center px-6"
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.2, delay: 0.4 }}
+          >
+            <img src="/bg-gold-logo-refined.png" alt="BG Gold" className="h-24 sm:h-32 mx-auto mb-6 opacity-90 drop-shadow-lg" />
+            <p className="text-white/70 italic text-base sm:text-lg tracking-wide"
+               style={{ fontFamily: 'var(--font-serif)' }}>
+              An invitation awaits
+            </p>
+          </motion.div>
+
+          {/* Tap to continue */}
+          <motion.div
+            className="absolute bottom-12 sm:bottom-16 left-1/2 -translate-x-1/2 text-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: [0.4, 1, 0.4] }}
+            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut', delay: 1.5 }}
+          >
+            <p className="static-gold tracking-[0.35em] uppercase text-xs sm:text-sm">
+              Tap to Continue
+            </p>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+
     <main className="min-h-screen bg-background overflow-x-hidden relative">
 
       {/* ─── HERO ─── */}
@@ -77,21 +180,17 @@ export default function GalaDinner() {
           style={{ background: 'radial-gradient(ellipse 70% 60% at 50% 50%, rgba(0,0,0,0.5) 0%, transparent 100%)' }}
         />
 
-        {/* Feather — bottom-right */}
-        <img
-          src="/gold-feather.webp" alt="" aria-hidden="true"
-          className="absolute bottom-0 right-0 w-52 sm:w-80 pointer-events-none"
-          style={{ zIndex: 5, mixBlendMode: 'screen', opacity: 0.25, transform: 'rotate(-20deg) translate(15%, 15%)' }}
-        />
-
         {/* Gold glitter particles */}
         <div className="absolute inset-0 pointer-events-none z-10 overflow-hidden">
           {PARTICLES.map(p => (
             <motion.div
               key={p.id}
               className="absolute rounded-full"
-              style={{ left: p.left, top: p.top, width: p.size + 1, height: p.size + 1, background: '#f5c842' }}
-              animate={{ opacity: [0.1, 0.85, 0.1], scale: [1, 2, 1] }}
+              style={{
+                left: p.left, top: p.top, width: p.size + 1, height: p.size + 1, background: '#f5c842',
+                boxShadow: `0 0 ${p.size * 3.5}px rgba(245,200,66,0.9), 0 0 ${p.size * 7}px rgba(245,200,66,0.45)`,
+              }}
+              animate={{ opacity: [0.1, 1, 0.1], scale: [1, 2.2, 1] }}
               transition={{ duration: p.dur, repeat: Infinity, ease: 'easeInOut', delay: p.delay }}
             />
           ))}
@@ -226,6 +325,30 @@ export default function GalaDinner() {
           src="/golden-wave.png" alt="" aria-hidden="true"
           className="absolute inset-0 w-full h-full opacity-15 pointer-events-none z-0 object-cover"
         />
+
+        {/* Feather animation video background */}
+        <video
+          autoPlay loop muted playsInline preload="auto"
+          className="absolute inset-0 w-full h-full object-cover pointer-events-none opacity-30 z-0"
+        >
+          <source src="/gold-feather2.mp4" type="video/mp4" />
+        </video>
+
+        {/* Gold glitter particles */}
+        <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+          {PARTICLES.map(p => (
+            <motion.div
+              key={p.id}
+              className="absolute rounded-full"
+              style={{
+                left: p.left, top: p.top, width: p.size, height: p.size, background: '#f5c842',
+                boxShadow: `0 0 ${p.size * 3}px rgba(245,200,66,0.85), 0 0 ${p.size * 6}px rgba(245,200,66,0.4)`,
+              }}
+              animate={{ opacity: [0.1, 0.85, 0.1], scale: [1, 2, 1] }}
+              transition={{ duration: p.dur, repeat: Infinity, ease: 'easeInOut', delay: p.delay }}
+            />
+          ))}
+        </div>
         <div className="max-w-2xl mx-auto relative z-10">
 
           {/* Quote */}
@@ -323,14 +446,25 @@ export default function GalaDinner() {
           style={{ mixBlendMode: 'screen', transform: 'scale(-1)' }}
         />
 
+        {/* Feather animation video background */}
+        <video
+          autoPlay loop muted playsInline preload="auto"
+          className="absolute inset-0 w-full h-full object-cover pointer-events-none opacity-30 z-0"
+        >
+          <source src="/gold-feather2.mp4" type="video/mp4" />
+        </video>
+
         {/* Gold glitter particles */}
         <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
           {PARTICLES.map(p => (
             <motion.div
               key={p.id}
               className="absolute rounded-full"
-              style={{ left: p.left, top: p.top, width: p.size, height: p.size, background: '#f5c842' }}
-              animate={{ opacity: [0.05, 0.6, 0.05], scale: [1, 1.8, 1] }}
+              style={{
+                left: p.left, top: p.top, width: p.size, height: p.size, background: '#f5c842',
+                boxShadow: `0 0 ${p.size * 3}px rgba(245,200,66,0.7), 0 0 ${p.size * 6}px rgba(245,200,66,0.35)`,
+              }}
+              animate={{ opacity: [0.1, 0.85, 0.1], scale: [1, 2, 1] }}
               transition={{ duration: p.dur * 1.3, repeat: Infinity, ease: 'easeInOut', delay: p.delay + 0.5 }}
             />
           ))}
@@ -465,8 +599,11 @@ export default function GalaDinner() {
             <motion.div
               key={p.id}
               className="absolute rounded-full"
-              style={{ left: p.left, top: p.top, width: p.size, height: p.size, background: '#f5c842' }}
-              animate={{ opacity: [0.15, 0.9, 0.15], scale: [1, 1.8, 1] }}
+              style={{
+                left: p.left, top: p.top, width: p.size, height: p.size, background: '#f5c842',
+                boxShadow: `0 0 ${p.size * 3.5}px rgba(245,200,66,0.9), 0 0 ${p.size * 7}px rgba(245,200,66,0.45)`,
+              }}
+              animate={{ opacity: [0.15, 1, 0.15], scale: [1, 2.2, 1] }}
               transition={{ duration: p.dur, repeat: Infinity, ease: 'easeInOut', delay: p.delay }}
             />
           ))}
@@ -558,5 +695,6 @@ export default function GalaDinner() {
         </div>
       </footer>
     </main>
+    </>
   )
 }
