@@ -234,7 +234,7 @@ export default function GalaDinner() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.1 }}
           >
-            <p className="text-base sm:text-3xl text-white white-glow-text leading-relaxed italic tracking-wide"
+            <p className="text-3xl text-white white-glow-text leading-relaxed italic tracking-wide"
                style={{ fontFamily: 'var(--font-serif)', fontWeight: 300 }}>
               Dengan penuh kehormatan,
             </p>
