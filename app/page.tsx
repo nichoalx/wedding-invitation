@@ -71,16 +71,21 @@ export default function GalaDinner() {
   const { scrollY } = useScroll()
   const videoY = useTransform(scrollY, [0, 700], [0, 180])
   const [introDismissed, setIntroDismissed] = useState(false)
+  const [featherReady, setFeatherReady] = useState(false)
   const [featherLanded, setFeatherLanded] = useState(false)
+
   // Force-play all muted videos as soon as they're mounted (bypasses mobile autoplay gate)
   React.useEffect(() => {
     heroVideoRef.current?.play().catch(() => {})
     bgVideoRef.current?.play().catch(() => {})
   }, [])
 
-  // Fallback: if feather image is slow/broken, force-show UI after 4 s
+  // Fallback: if feather image never loads/completes, force-show UI after 3.5 s
   React.useEffect(() => {
-    const t = setTimeout(() => setFeatherLanded(true), 2500)
+    const t = setTimeout(() => {
+      setFeatherReady(true)
+      setFeatherLanded(true)
+    }, 3500)
     return () => clearTimeout(t)
   }, [])
 
@@ -126,7 +131,7 @@ export default function GalaDinner() {
             ))}
           </div>
 
-          {/* Feather falls from top-right, stops dead center */}
+          {/* Feather: waits for image to load before animating — no blank frames on first visit */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
             <motion.img
               src="/gold-feather.webp"
@@ -137,9 +142,10 @@ export default function GalaDinner() {
                 mixBlendMode: 'screen',
               }}
               initial={{ y: '-60vh', x: 100, rotate: -18, opacity: 0 }}
-              animate={{ y: 0, x: 0, rotate: 10, opacity: 0.9 }}
+              animate={featherReady ? { y: 0, x: 0, rotate: 10, opacity: 0.9 } : { y: '-60vh', x: 100, rotate: -18, opacity: 0 }}
               transition={{ duration: 2.6, ease: [0.15, 0.8, 0.2, 1] }}
-              onAnimationComplete={() => setFeatherLanded(true)}
+              onLoad={() => setFeatherReady(true)}
+              onAnimationComplete={() => { if (featherReady) setFeatherLanded(true) }}
             />
           </div>
 
