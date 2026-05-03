@@ -51,7 +51,7 @@ const PARTICLES = [
 
 const TIMELINE_ITEMS = [
   { title: 'Gala Dinner Experience',          description: 'Sajian makan malam istimewa dalam suasana elegan' },
-  { title: 'Special Performance by Hatim Rahmat', description: 'Penampilan spesial yang akan menyempurnakan malam Anda' },
+  { title: 'Special Performance', description: 'Penampilan spesial yang akan menyempurnakan malam Anda' },
   { title: 'Pengundian Door Prize',            description: 'Pengundian hadiah eksklusif bagi tamu undangan' },
   { title: 'Appreciation Token Ceremony',      description: 'Momen penghargaan sebagai bentuk apresiasi' },
 ]
@@ -93,7 +93,7 @@ export default function GalaDinner() {
 
   const handleRsvp = () => {
     window.open(
-      'https://docs.google.com/forms/d/e/1FAIpQLSfc_ZVXIt5orp3hUdJiMqadgRAy8vDufigUBa_b7XM5M9zP7g/viewform?usp=publish-editor',
+      'https://docs.google.com/forms/d/e/1FAIpQLSegXPyQMz-74owi1-dhmCKGEh7MMBnfuGLUjU1s4ALgMBgT7A/viewform?usp=publish-editor',
       '_blank',
     )
   }
@@ -153,7 +153,7 @@ export default function GalaDinner() {
                 transition={{ duration: 1.0, ease: 'easeOut' }}
               >
                 <img src="/bg-gold-logo-refined.png" alt="BG Gold" className="h-32 sm:h-40 mx-auto opacity-90 drop-shadow-lg" />
-                <p className="text-white/60 italic text-lg sm:text-xl tracking-wide"
+                <p className="text-white white-glow-text italic text-lg sm:text-xl tracking-wide"
                    style={{ fontFamily: 'var(--font-serif)' }}>
                   Sebuah undangan spesial untuk Anda...
                 </p>
@@ -234,11 +234,11 @@ export default function GalaDinner() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.1 }}
           >
-            <p className="text-base sm:text-lg text-white hero-text leading-relaxed italic tracking-wide"
+            <p className="text-base sm:text-3xl text-white white-glow-text leading-relaxed italic tracking-wide"
                style={{ fontFamily: 'var(--font-serif)', fontWeight: 300 }}>
               Dengan penuh kehormatan,
             </p>
-            <p className="text-lg sm:text-xl text-white hero-text leading-relaxed italic tracking-wide"
+            <p className="text-lg sm:text-4xl text-white white-glow-text leading-relaxed italic tracking-wide"
                style={{ fontFamily: 'var(--font-serif)', fontWeight: 300 }}>
               kami mengundang Anda untuk hadir dalam
             </p>
@@ -296,7 +296,7 @@ export default function GalaDinner() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 1.2 }}
           >
-            <p className="text-xs sm:text-sm hero-text tracking-[0.25em] text-white/80 uppercase mb-2">
+            <p className="text-xs sm:text-sm hero-text tracking-[0.25em] text-white white-glow-text uppercase mb-2">
               Presented by
             </p>
             <img src="/bg-gold-logo-refined.png" alt="BG Gold Logo" className="h-28 sm:h-32 drop-shadow-lg" />
@@ -304,7 +304,7 @@ export default function GalaDinner() {
 
           {/* Save the date */}
           <motion.p
-            className="text-sm sm:text-base text-white/80 hero-text mb-5 tracking-[0.3em] uppercase"
+            className="text-sm sm:text-base text-white white-glow-text hero-text mb-5 tracking-[0.3em] uppercase"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.9, delay: 1.5 }}
@@ -320,17 +320,17 @@ export default function GalaDinner() {
             transition={{ duration: 0.9, delay: 1.9 }}
           >
             <div className="text-center">
-              <p className="text-xs sm:text-sm tracking-[0.2em] text-white/70 uppercase"
+              <p className="text-xs sm:text-sm tracking-[0.2em] text-white white-glow-text font-bold uppercase"
                  style={{ fontFamily: 'var(--font-serif)' }}>Selasa</p>
               <p className="text-4xl sm:text-5xl font-bold static-gold leading-none mb-4"
                  style={{ fontFamily: 'var(--font-serif)' }}>19</p>
-              <p className="text-xs sm:text-sm text-white/70 uppercase tracking-widest mt-1">May 2026</p>
+              <p className="text-xs sm:text-sm text-white white-glow-text uppercase font-bold tracking-widest mt-1">May 2026</p>
             </div>
             <div className="w-px h-14 sm:h-18 bg-white/25" />
             <div className="text-center">
               <p className="text-2xl sm:text-4xl font-semibold static-gold"
                  style={{ fontFamily: 'var(--font-serif)', fontWeight: 600 }}>18:00</p>
-              <p className="text-xs sm:text-sm text-white/70 tracking-widest mt-1">WITA</p>
+              <p className="text-xs sm:text-sm text-white white-glow-text font-bold tracking-widest mt-1">WITA</p>
             </div>
           </motion.div>
         </div>
@@ -679,13 +679,13 @@ export default function GalaDinner() {
               className="text-2xl sm:text-3xl text-foreground"
               style={{ fontFamily: 'var(--font-serif)', fontWeight: 600 }}
             >
-              Selasa, 7 April 2026
+              Minggu, 10 Mei 2026
             </p>
             <p className="text-sm mt-1 text-muted-foreground tracking-wide">pukul 20.00 WITA</p>
           </motion.div>
 
           <p
-            className="text-xl sm:text-2xl text-foreground italic mb-10 max-w-md mx-auto leading-relaxed"
+            className="text-xl sm:text-2xl text-white white-glow-text italic mb-10 max-w-md mx-auto leading-relaxed"
             style={{ fontFamily: 'var(--font-serif)', fontWeight: 300 }}
           >
             Sampai jumpa dalam malam yang hangat dan berkesan.
@@ -701,7 +701,7 @@ export default function GalaDinner() {
             </Button>
           </motion.div>
 
-          <p className="text-xs mt-7 tracking-[0.25em] uppercase text-muted-foreground">
+          <p className="text-xs mt-7 tracking-[0.25em] uppercase text-white white-glow-text">
             ✦ Tempat terbatas · Konfirmasi diperlukan ✦
           </p>
         </motion.div>
