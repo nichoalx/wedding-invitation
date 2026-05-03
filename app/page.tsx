@@ -238,7 +238,7 @@ export default function GalaDinner() {
                style={{ fontFamily: 'var(--font-serif)', fontWeight: 300 }}>
               Dengan penuh kehormatan,
             </p>
-            <p className="text-lg sm:text-4xl text-white white-glow-text leading-relaxed italic tracking-wide"
+            <p className="text-4xl text-white white-glow-text leading-relaxed italic tracking-wide"
                style={{ fontFamily: 'var(--font-serif)', fontWeight: 300 }}>
               kami mengundang Anda untuk hadir dalam
             </p>
