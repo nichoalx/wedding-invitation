@@ -35,6 +35,11 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${_cormorant.variable} ${_greatVibes.variable}`}>
+      <head>
+        {/* Preload intro assets so they're ready before JS hydrates */}
+        <link rel="preload" href="/gold-feather.webp" as="image" />
+        <link rel="preload" href="/bg-gold-logo-refined.png" as="image" />
+      </head>
       <body className="font-sans antialiased">
         {children}
         <Analytics />

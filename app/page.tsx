@@ -80,7 +80,7 @@ export default function GalaDinner() {
 
   // Fallback: if feather image is slow/broken, force-show UI after 4 s
   React.useEffect(() => {
-    const t = setTimeout(() => setFeatherLanded(true), 4000)
+    const t = setTimeout(() => setFeatherLanded(true), 2500)
     return () => clearTimeout(t)
   }, [])
 
@@ -234,11 +234,11 @@ export default function GalaDinner() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.1 }}
           >
-            <p className="text-3xl text-white white-glow-text leading-relaxed italic tracking-wide"
+            <p className="text-2xl text-white white-glow-text leading-relaxed italic tracking-wide"
                style={{ fontFamily: 'var(--font-serif)', fontWeight: 300 }}>
               Dengan penuh kehormatan,
             </p>
-            <p className="text-4xl text-white white-glow-text leading-relaxed italic tracking-wide"
+            <p className="text-3xl text-white white-glow-text leading-relaxed italic tracking-wide"
                style={{ fontFamily: 'var(--font-serif)', fontWeight: 300 }}>
               kami mengundang Anda untuk hadir dalam
             </p>
