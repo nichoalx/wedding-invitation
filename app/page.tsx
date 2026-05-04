@@ -51,7 +51,7 @@ const PARTICLES = [
 
 const TIMELINE_ITEMS = [
   { title: 'Gala Dinner Experience',          description: 'Sajian makan malam istimewa dalam suasana elegan' },
-  { title: 'Special Performance', description: 'Penampilan spesial yang akan menyempurnakan malam Anda' },
+  { title: 'Special Performance by Our Special Guest Star', description: 'Penampilan spesial yang akan menyempurnakan malam Anda' },
   { title: 'Pengundian Door Prize',            description: 'Pengundian hadiah eksklusif bagi tamu undangan' },
   { title: 'Appreciation Token Ceremony',      description: 'Momen penghargaan sebagai bentuk apresiasi' },
 ]
@@ -335,7 +335,7 @@ export default function GalaDinner() {
             <div className="w-px h-14 sm:h-18 bg-white/25" />
             <div className="text-center">
               <p className="text-2xl sm:text-4xl font-semibold static-gold"
-                 style={{ fontFamily: 'var(--font-serif)', fontWeight: 600 }}>18:00</p>
+                 style={{ fontFamily: 'var(--font-serif)', fontWeight: 600 }}>19:00</p>
               <p className="text-xs sm:text-sm text-white white-glow-text font-bold tracking-widest mt-1">WITA</p>
             </div>
           </motion.div>
